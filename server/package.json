@@ -6,8 +6,8 @@
    "author": "Brian Love",
    "scripts": {
       "dev": "NODE_ENV=development nodemon ./bin/www",
-      "grunt": "grunt",
-      "start": "ts-node src/start.ts"
+      "grunt": "grunt" ,
+      "start": "npm run grunt && ts-node src/start.ts"
    },
    "dependencies": {
       "@types/node": "^10.5.2",

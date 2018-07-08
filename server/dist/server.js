@@ -13,7 +13,7 @@ class Server {
         return new Server();
     }
     constructor() {
-        console.log("constructor");
+        console.log("constructorss");
         this.app = express();
         this.config();
         this.routes();

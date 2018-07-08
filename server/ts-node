@@ -1,0 +1,7 @@
+
+> heros@1.0.0 grunt /home/law/开发/richmap/server
+> grunt "=" "src/start.ts"
+
+Warning: Task "=" not found. Use --force to continue.
+
+Aborted due to warnings.
