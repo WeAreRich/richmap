@@ -1,11 +1,41 @@
-import * as express from 'express';
+import { NextFunction, Request, Response, Router } from "express";
 
-const app = express();
 
-app.get('/', (req, res) => {
-  res.render('index', {title: 'Express'});
-});
+/**
+ * / route
+ *
+ * @class IndexRoute
+ */
+export class IndexRoute{
 
-app.listen(3000, 'localhost', () => {
-  console.log(`express服务已经启动:localhost:3000`);
-});
+  /**
+   * Create the routes.
+   *
+   * @class IndexRoute
+   * @method create
+   * @static
+   */
+  public static create(router: Router) {
+    //log
+    console.log("[IndexRoute::create] Creating index route.");
+
+    //add home page route
+    router.get("/", (req: Request, res: Response, next: NextFunction) => {
+      new IndexRoute().index(req, res, next);
+    });
+  }
+
+  
+  /**
+   * The home page route.
+   *
+   * @class IndexRoute
+   * @method index
+   * @param req {Request} The express Request object.
+   * @param res {Response} The express Response object.
+   * @next {NextFunction} Execute the next method.
+   */
+  public index(req: Request, res: Response, next: NextFunction) {
+    res.send("this is index route")
+  }
+}

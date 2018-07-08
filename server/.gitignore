@@ -1,4 +1,4 @@
+.tscache
+.baseDir.ts
+dist
 node_modules
-**/.idea/**/workspace.xml
-**/.idea/**/tasks.xml
-**/.idea/dictionaries
