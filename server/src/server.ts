@@ -36,7 +36,7 @@ export class Server {
    * @constructor
    */
   constructor() {
-    console.log("constructor")
+    console.log("constructorss")
     //create expressjs application
     this.app = express();
 

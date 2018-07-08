@@ -1,18 +1,33 @@
-#!/usr/bin/env node
-"use strict";
+import "reflect-metadata";
+import {createConnection} from "typeorm";
+import {User} from "./entity/User";
 
-//module dependencies
-var server = require("../dist/server");
-var debug = require("debug")("express:server");
-var http = require("http");
 
-//create http server
-var httpPort = normalizePort(process.env.PORT || 8080);
-var app = server.Server.bootstrap().app;
-app.set("port", httpPort);
-var httpServer = http.createServer(app);
+createConnection().then(async connection => {
 
-//listen on provided ports
+    console.log("dataBase init successfully");
+    const user = new User();
+    user.firstName = "Timber";
+    user.lastName = "Saw";
+    user.age = 25;
+    await connection.manager.save(user);
+    console.log("Saved a new user with id: " + user.id);
+    
+    console.log("Loading users from the database...");
+    const users = await connection.manager.find(User);
+    console.log("Loaded users: ", users);
+     
+    var server = require("../dist/server");
+    var debug = require("debug")("express:server");
+    var http = require("http");
+
+    //create http server
+    var httpPort = normalizePort(process.env.PORT || 8080);
+    var app = server.Server.bootstrap().app;
+    app.set("port", httpPort);
+    var httpServer = http.createServer(app);
+
+    //listen on provided ports
 httpServer.listen(httpPort);
 
 //add error handler
@@ -20,7 +35,6 @@ httpServer.on("error", onError);
 
 //start listening on port
 httpServer.on("listening", onListening);
-
 
 /**
  * Normalize a port into a number, string, or false.
@@ -79,3 +93,5 @@ function onListening() {
   console.log("The program start at http://127.0.0.1:"+addr.port)
   debug("Listening on " + bind);
 }
+}).catch(error => console.log(error));
+
