@@ -1,1 +1,4 @@
 **/node_modules
+server/.idea/modules.xml
+server/.idea/server.iml
+server/.idea/codeStyles/codeStyleConfig.xml
