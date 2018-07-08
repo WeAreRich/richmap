@@ -5,7 +5,7 @@ import * as logger from "morgan";
 import * as path from "path";
 import * as errorHandler from "errorhandler";
 
-import { IndexRoute } from "./routes/index";
+import { IndexRoute } from "./routes";
 
 /**
  * The server.
@@ -89,9 +89,9 @@ export class Server {
     this.app.use(cookieParser("SECRET_GOES_HERE"));
 
     // catch 404 and forward to error handler
-    this.app.use(function(err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
-        err.status = 404;
-        next(err);
+    this.app.use(function (err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
+      err.status = 404;
+      next(err);
     });
 
     //error handling

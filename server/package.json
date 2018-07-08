@@ -6,7 +6,7 @@
    "author": "Brian Love",
    "scripts": {
       "dev": "NODE_ENV=development nodemon ./bin/www",
-      "grunt": "grunt" ,
+      "grunt": "grunt",
       "start": "npm run grunt && ts-node src/start.ts"
    },
    "dependencies": {
