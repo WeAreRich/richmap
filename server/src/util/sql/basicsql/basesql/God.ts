@@ -1,8 +1,8 @@
-class God {
+export  class God {
     userName:string;
     databaseName:string;
     password:string;
-    static connection:any
+    static connection:any;
 
     constructor(){
         this.userName="root";
@@ -21,17 +21,21 @@ class God {
             password:this.password,
             database:this.databaseName
         });
-        God.connection.connect();
+
     }
     public godbasic(content:string){
 
 
         God.connection.query(content,function (error,results,fields) {
             if(error)throw error;
+
             return results
         })
 
+    }
 
+    public  closeConnection(){
+        God.connection.end();
     }
 
 }
