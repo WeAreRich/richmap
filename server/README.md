@@ -9,3 +9,9 @@ Install the node packages via:
 To start the server run:
 
 `$ npm start`
+
+
+## Test
+
+To start test
+`$ npm test`
