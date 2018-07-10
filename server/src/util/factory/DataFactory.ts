@@ -1,3 +1,5 @@
+import {OrmService} from "../orm/OrmService";
+import {OrmServiceImpl} from "../orm/OrmServiceImpl";
 
 class DataFactory{
     private _sqlService:SqlService;

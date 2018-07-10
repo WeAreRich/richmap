@@ -1,4 +1,6 @@
-interface OrmService{
+import {BaseOrmClass} from "./BaseOrmClass";
+
+export interface OrmService{
     insert (obj:BaseOrmClass):boolean;
     delete (key:string):boolean;
     update (obj:BaseOrmClass):boolean;
