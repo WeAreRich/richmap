@@ -1,7 +1,7 @@
 import 'mocha';
 import {User} from "../../src/entity/User";
 import {OrmServiceImpl} from "../../src/util/orm/OrmServiceImpl";
-//import {User} from "../../src/entity/User";
+
 var assert = require('assert');
 let service = new OrmServiceImpl(new User());
 describe('fffTest', function() {
@@ -12,11 +12,15 @@ describe('fffTest', function() {
             u.firstName='law';
             u.id=143;
             u.lastName='ww';
-            let data  = service.insert(u);
-            //assert.Equal(data, true);
-            assert.equal(data,true);
-            console.log("fff 的测试结果为:"+data);
 
-        });"User"
+            var data = <User>(service.findByKey("143"));
+            console.log(data.constructor.name+"...")
+
+            //assert.Equal(data, true);
+            assert.notEqual(data,true);
+            console.log("fff 的测试结果为:"+data.age);
+
+
+        });
     });
 });

@@ -4,6 +4,7 @@ import { createConnection } from "typeorm";
 import {User} from "../../entity/User";
 import {getType} from "mime";
 import construct = Reflect.construct;
+import {promises} from "fs";
 
 
 export class OrmServiceImpl implements  OrmService{
@@ -36,9 +37,18 @@ export class OrmServiceImpl implements  OrmService{
         return res;
     }
 
-    findByKey(key: string): BaseOrmClass {
-        return null;
-    }
+       async findByKey(key: string): Promise<User> {
+               var res
+               const connection  = await createConnection();
+               let en = connection.createEntityManager();
+               res = await en.findOneOrFail(this.template.constructor.name, 143);
+              console.log(res.constructor.name+"??");
+
+              return res;
+
+
+
+           }
 
     insert(obj: BaseOrmClass): boolean {
 
