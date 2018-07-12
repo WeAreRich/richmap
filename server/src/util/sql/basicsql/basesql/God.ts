@@ -1,3 +1,5 @@
+import { BaseOrmClass } from "../../../orm/BaseOrmClass";
+
 export class God {
   userName: string;
   databaseName: string;
@@ -24,9 +26,9 @@ export class God {
 
   }
 
-  public static godBasic(content: string) {
+  public static godBasic(content: string): any {
 
-    God.connection.query(content, function (error, results, fields) {
+    God.connection.query(content, function (error, results: BaseOrmClass[] | BaseOrmClass, fields) {
       if (error) throw error;
 
       return results
