@@ -2,10 +2,12 @@ import "reflect-metadata";
 import { createConnection } from "typeorm";
 import { User } from "./entity/User";
 import { Server } from "./server"
+import { God } from "./util/sql/basicsql/basesql/God";
 
 
 createConnection().then(async connection => {
 
+  God.connection();
   console.log("dataBase init successfully");
   const user = new User();
   user.firstName = "Timber";

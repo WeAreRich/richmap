@@ -1,92 +1,90 @@
-import {OrmService} from "./OrmService";
-import {BaseOrmClass} from "./BaseOrmClass";
+import { OrmService } from "./OrmService";
+import { BaseOrmClass } from "./BaseOrmClass";
 import { createConnection } from "typeorm";
-import {User} from "../../entity/User";
-import {getType} from "mime";
+import { User } from "../../entity/User";
+import { getType } from "mime";
 import construct = Reflect.construct;
-import {promises} from "fs";
+import { promises } from "fs";
 
 
-export class OrmServiceImpl implements  OrmService{
+export class OrmServiceImpl implements OrmService {
 
-    template:BaseOrmClass
-    constructor(template:BaseOrmClass){
-        this.template=template;
-    }
+  template: BaseOrmClass;
 
-    checkKeyExists(key: string): boolean {
+  constructor(template: BaseOrmClass) {
+    this.template = template;
+  }
 
-        return true
-    }
+  checkKeyExists(key: string): boolean {
 
-    delete(key: string): boolean {
+    return true
+  }
 
-        let res=true;
-        createConnection(
+  delete(key: string): boolean {
 
-        ).then(async connection => {
-            let en=connection.createEntityManager();
-           // console.log(this.template.constructor.name)
+    let res = true;
+    createConnection(
 
-            await en.delete(this.template.constructor.name,key);
+    ).then(async connection => {
+      let en = connection.createEntityManager();
+      // console.log(this.template.constructor.name)
 
-
-        }).catch(error => console.log(error));
-
-        console.log("方法已经结束");
-        return res;
-    }
-
-       async findByKey(key: string): Promise<User> {
-               var res
-               const connection  = await createConnection();
-               let en = connection.createEntityManager();
-               res = await en.findOneOrFail(this.template.constructor.name, 143);
-              console.log(res.constructor.name+"??");
-
-              return res;
+      await en.delete(this.template.constructor.name, key);
 
 
+    }).catch(error => console.log(error));
 
-           }
+    console.log("方法已经结束");
+    return res;
+  }
 
-    insert(obj: BaseOrmClass): boolean {
+  async findByKey(key: string): Promise<User> {
+    let res;
+    const connection = await createConnection();
+    let en = connection.createEntityManager();
+    res = await en.findOneOrFail(this.template.constructor.name, 143);
+    console.log(res.constructor.name + "??");
 
-        let res=true;
-        createConnection(
+    return res;
+  }
 
-        ).then(async connection => {
-            let en=connection.createEntityManager();
+  insert(obj: BaseOrmClass): boolean {
 
+    let res = true;
+    createConnection(
 
-                await en.save(obj);
-
-
-        }).catch(error => console.log(error));
-
-        console.log("方法已经结束");
-        return res;
-    }
-
-    update(obj: BaseOrmClass): boolean {
-        let res=true;
-
-        createConnection(
-
-        ).then(async connection => {
-            let en=connection.createEntityManager();
+    ).then(async connection => {
+      let en = connection.createEntityManager();
 
 
-            await en.delete(this.template.constructor.name,en.getId(obj));
-            await en.save(obj);
+      await en.save(obj);
 
 
-        }).catch(error => console.log(error));
+    }).catch(error => console.log(error));
 
-        console.log("方法已经结束");
+    console.log("方法已经结束");
+    return res;
+  }
 
-        return res;
-    }
+  update(obj: BaseOrmClass): boolean {
+    let res = true;
+
+    createConnection(
+
+    ).then(async connection => {
+      let en = connection.createEntityManager();
+
+
+      await en.delete(this.template.constructor.name, en.getId(obj));
+      await en.save(obj);
+
+
+    }).catch(error => console.log(error));
+
+    console.log("方法已经结束");
+
+    return res;
+  }
 
 
 }

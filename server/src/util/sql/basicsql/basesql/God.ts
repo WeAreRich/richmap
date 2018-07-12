@@ -1,41 +1,41 @@
-export  class God {
-    userName:string;
-    databaseName:string;
-    password:string;
-    static connection:any;
+export class God {
+  userName: string;
+  databaseName: string;
+  password: string;
+  static connection: any;
 
-    constructor(){
-        this.userName="root";
-        this.databaseName="richdb";
-        this.password="root";
-        this.connect()
+  constructor() {
+    this.userName = "root";
+    this.databaseName = "richdb";
+    this.password = "zhanglingzhe0820";
+    this.connect()
 
-        //请自己改成自己本地数据库的用户名、数据库名、密码
-    }
+    //请自己改成自己本地数据库的用户名、数据库名、密码
+  }
 
-    private connect(){
-        var mysql=require('mysql');
-        God.connection=mysql.createConnection({
-            host:'localhost',
-            user:this.userName,
-            password:this.password,
-            database:this.databaseName
-        });
+  private connect() {
+    const mysql = require('mysql');
+    God.connection = mysql.createConnection({
+      host: 'localhost',
+      user: this.userName,
+      password: this.password,
+      database: this.databaseName
+    });
 
-    }
-    public godbasic(content:string){
+  }
 
+  public static godBasic(content: string) {
 
-        God.connection.query(content,function (error,results,fields) {
-            if(error)throw error;
+    God.connection.query(content, function (error, results, fields) {
+      if (error) throw error;
 
-            return results
-        })
+      return results
+    })
 
-    }
+  }
 
-    public  closeConnection(){
-        God.connection.end();
-    }
+  public static closeConnection() {
+    God.connection.end();
+  }
 
 }
