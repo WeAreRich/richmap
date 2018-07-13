@@ -1,98 +1,119 @@
-import "reflect-metadata";
-import { createConnection } from "typeorm";
-import { User } from "./entity/User";
-import { Server } from "./server"
+import 'reflect-metadata';
+import { InversifyExpressServer } from 'inversify-express-utils';
+import * as bodyParser from 'body-parser';
+import * as helmet from 'helmet';
+import { container } from './ioc/ioc';
 
+// load all injectable entities.
+// the @provide() annotation will then automatically register them.
+import './ioc/loader';
 
-createConnection().then(async connection => {
+// start the server
+let server = new InversifyExpressServer(container);
 
-  console.log("dataBase init successfully");
-  const user = new User();
-  user.firstName = "Timber";
-  user.lastName = "Saw";
-  user.age = 25;
-  await connection.manager.save(user);
-  console.log("Saved a new user with id: " + user.id);
+server.setConfig((app) => {
+  app.use(bodyParser.urlencoded({
+    extended: true
+  }));
+  app.use(bodyParser.json());
+  app.use(helmet());
+});
 
-  console.log("Loading users from the database...");
-  const users = await connection.manager.find(User);
-  console.log("Loaded users: ", users);
+let app = server.build();
+app.listen(3000);
+console.log('Server started on port 3000 :)');
 
-  const server = Server;
-  const debug = require("debug")("express:server");
-  const http = require("http");
+exports = module.exports = app;
 
-  //create http server
-  let httpPort = normalizePort(process.env.PORT || 8080);
-  const app = server.bootstrap().app;
-  app.set("port", httpPort);
-  const httpServer = http.createServer(app);
+// createConnection().then(async connection => {
 
-  //listen on provided ports
-  httpServer.listen(httpPort);
+//   console.log("dataBase init successfully");
+//   const user = new User();
+//   user.firstName = "Timber";
+//   user.lastName = "Saw";
+//   user.age = 25;
+//   await connection.manager.save(user);
+//   console.log("Saved a new user with id: " + user.id);
 
-//add error handler
-  httpServer.on("error", onError);
+//   console.log("Loading users from the database...");
+//   const users = await connection.manager.find(User);
+//   console.log("Loaded users: ", users);
 
-//start listening on port
-  httpServer.on("listening", onListening);
+//   const server = Server;
+//   const debug = require("debug")("express:server");
+//   const http = require("http");
 
-  /**
-   * Normalize a port into a number, string, or false.
-   */
-  function normalizePort(val) {
-    const port = parseInt(val, 10);
+//   //create http server
+//   let httpPort = normalizePort(process.env.PORT || 8080);
+//   const app = server.bootstrap().app;
+//   app.set("port", httpPort);
+//   const httpServer = http.createServer(app);
 
-    if (isNaN(port)) {
-      // named pipe
-      return val;
-    }
+//   //listen on provided ports
+//   httpServer.listen(httpPort);
 
-    if (port >= 0) {
-      // port number
-      return port;
-    }
+// //add error handler
+//   httpServer.on("error", onError);
 
-    return false;
-  }
+// //start listening on port
+//   httpServer.on("listening", onListening);
 
-  /**
-   * Event listener for HTTP server "error" event.
-   */
-  function onError(error) {
-    if (error.syscall !== "listen") {
-      throw error;
-    }
+//   /**
+//    * Normalize a port into a number, string, or false.
+//    */
+//   function normalizePort(val) {
+//     const port = parseInt(val, 10);
 
-    const bind = typeof httpPort === "string"
-      ? "Pipe " + httpPort
-      : "Port " + httpPort;
+//     if (isNaN(port)) {
+//       // named pipe
+//       return val;
+//     }
 
-    // handle specific listen errors with friendly messages
-    switch (error.code) {
-      case "EACCES":
-        console.error(bind + " requires elevated privileges");
-        process.exit(1);
-        break;
-      case "EADDRINUSE":
-        console.error(bind + " is already in use");
-        process.exit(1);
-        break;
-      default:
-        throw error;
-    }
-  }
+//     if (port >= 0) {
+//       // port number
+//       return port;
+//     }
 
-  /**
-   * Event listener for HTTP server "listening" event.
-   */
-  function onListening() {
-    let addr = httpServer.address();
-    const bind = typeof addr === "string"
-      ? "pipe " + addr
-      : "port " + addr.port;
-    console.log("The program start at http://127.0.0.1:" + addr.port)
-    debug("Listening on " + bind);
-  }
-}).catch(error => console.log(error));
+//     return false;
+//   }
+
+//   /**
+//    * Event listener for HTTP server "error" event.
+//    */
+//   function onError(error) {
+//     if (error.syscall !== "listen") {
+//       throw error;
+//     }
+
+//     const bind = typeof httpPort === "string"
+//       ? "Pipe " + httpPort
+//       : "Port " + httpPort;
+
+//     // handle specific listen errors with friendly messages
+//     switch (error.code) {
+//       case "EACCES":
+//         console.error(bind + " requires elevated privileges");
+//         process.exit(1);
+//         break;
+//       case "EADDRINUSE":
+//         console.error(bind + " is already in use");
+//         process.exit(1);
+//         break;
+//       default:
+//         throw error;
+//     }
+//   }
+
+//   /**
+//    * Event listener for HTTP server "listening" event.
+//    */
+//   function onListening() {
+//     let addr = httpServer.address();
+//     const bind = typeof addr === "string"
+//       ? "pipe " + addr
+//       : "port " + addr.port;
+//     console.log("The program start at http://127.0.0.1:" + addr.port)
+//     debug("Listening on " + bind);
+//   }
+// }).catch(error => console.log(error));
 

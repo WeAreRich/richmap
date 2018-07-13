@@ -18,5 +18,5 @@ class OrmServiceImpl implements  OrmService{
     update(obj: BaseOrmClass): boolean {
         return false;
     }
-
+    
 }

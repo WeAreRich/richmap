@@ -1,9 +1,9 @@
 import 'mocha';
-import { myContainer } from '../src/ioc_config/inversify.config';
-import { TYPES } from '../src/ioc_config/types';
-import UserService from '../src/service/UserService';
-
-
+// import { myContainer } from '../src/ioc_config/inversify.config';
+// import { TYPES } from '../src/ioc_config/types';
+// import UserService from '../src/service/UserService';
+// import { assert,expect,should} from "chai";
+// import { IndexRoute } from '../src/routes';
 
 // import { myContainer } from "../src/ioc/inversify.config";
 // // import { UserService } from "../src/service/UserService";
@@ -12,7 +12,7 @@ import UserService from '../src/service/UserService';
 // import { print } from 'util';
 // import { UserService } from '../src/service/UserService';
 
-var assert = require('assert');
+// var assert = require('assert');
 // let service = new UserService();
 
 // import('../src/service/UserService')
@@ -35,7 +35,7 @@ var assert = require('assert');
 //                 console.log(__dirname + '/' + dir+"/"+cName)
 //                 import(__dirname + '/' + dir+"/"+cName)
 //                 .then((c) => {  
-//                    myContainer.bind<cName>(TYPES[cName]).to(c);
+//                    myContainer.bind<c>(TYPES[cName]).to(c);
 //                 }) 
 //             } else {
 //               var stat = fs.lstatSync(__dirname + '/' + path);
@@ -44,7 +44,7 @@ var assert = require('assert');
 //             }
 //         }
 //     )
-//   }
+  // }
 
 // scanControllers("","../entity")
 // scanControllers("","../src/service")
@@ -58,14 +58,19 @@ var assert = require('assert');
 //   });
 // });
 
-let service:UserService  = myContainer.get<UserService>(TYPES.UserService);
-describe('UserServiceTest', function() {
-  describe('#login()', function() {
-    it('userName is law and password is 123456 should be right', function() {
-      assert.equal(service.logIn("law","123456"), true);
-    });
-  });
-});
+// let service:UserService  = myContainer.get<UserService>(TYPES.UserService);
+// console.log(service.constructor.name); // MyClass
+// describe('UserServiceTest', function() {
+//   describe('#login()', function() {
+//     it('userName is law and password is 123456 should be right', function() {
+//       expect(service.logIn("law","123456")).eql(true)
+//     });
+//   });
+// });
+
+// let indexRoute:IndexRoute = myContainer.get(TYPES.IndexRoute);
+// console.log(indexRoute)
+
 
 
 

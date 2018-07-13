@@ -7,6 +7,5 @@ interface OrmService{
     checkKeyExists (key:string):boolean;
     //getAllObjects
 
-
-
+    
 }
