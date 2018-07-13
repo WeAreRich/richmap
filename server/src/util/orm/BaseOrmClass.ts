@@ -1,3 +1,3 @@
-class BaseOrmClass{
+export class BaseOrmClass{
 
 }
