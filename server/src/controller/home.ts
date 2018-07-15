@@ -4,6 +4,6 @@ import { controller, httpGet } from 'inversify-express-utils';
 export class HomeController {
   @httpGet('/')
   public get(): string {
-    return 'Home sweet home';
+    return 'this is rich map';
   }
 }
