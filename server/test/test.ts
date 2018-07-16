@@ -1,71 +1,106 @@
 import 'mocha';
-import { myContainer } from '../src/ioc_config/inversify.config';
-import { TYPES } from '../src/ioc_config/types';
-import UserService from '../src/service/UserService';
+// import {Promise} from 'es6-promise'
+// let a = ():void=>{
+//   console.log("aaa")
+// }
 
-
-
-// import { myContainer } from "../src/ioc/inversify.config";
-// // import { UserService } from "../src/service/UserService";
-// import { TYPES } from "../src/ioc/types";
-// // import { User } from '../src/entity/User';
-// import { print } from 'util';
-// import { UserService } from '../src/service/UserService';
-
-var assert = require('assert');
-// let service = new UserService();
-
-// import('../src/service/UserService')
-//   .then(({UserService}) => {
-//      let a= new  UserService();
-//      console.log(a.logIn("law","123456"))
-//   })
-
-// const fs = require('fs')
-// function scanControllers (router, dir) {
-//     let files = fs.readdirSync(__dirname + '/' + dir)
-//     files.forEach(
-//         file => {
-//             let path = dir + '/' + file
-//             // console.log(path)
-//             if(file.endsWith('.ts')) {
-//                 console.log(`process controller: ${file}...`);
-//                 let cName = file.split('.')[0]
-//                 TYPES[cName] = Symbol.for(cName)
-//                 console.log(__dirname + '/' + dir+"/"+cName)
-//                 import(__dirname + '/' + dir+"/"+cName)
-//                 .then((c) => {  
-//                    myContainer.bind<cName>(TYPES[cName]).to(c);
-//                 }) 
-//             } else {
-//               var stat = fs.lstatSync(__dirname + '/' + path);
-//               if(stat.isDirectory())
-//                 scanControllers(router, path)
-//             }
-//         }
-//     )
-//   }
-
-// scanControllers("","../entity")
-// scanControllers("","../src/service")
-
-// let service = myContainer.get<UserService>(TYPES['UserService']);
-// describe('UserServiceTest', function() {
-//   describe('#login()', function() {
-//     it('userName is law and password is 123456 should be right', function() {
-//       assert.equal(service.logIn("law","123456"), true);
-//     });
-//   });
+// function b(p:()=>void){
+//   p()
+// }
+// //  一个promise中只会去调用其中的一个
+// const promise = new Promise((resolve, reject) => {
+//   reject("hhhh")
+//   resolve(123);
+// });
+// promise.then((res) => {
+//   console.log('I get called:', res === 123); // I get called: true
+// });
+// promise.catch((err) => {
+//   // 不被调用
+//   console.log(err)
 // });
 
-let service:UserService  = myContainer.get<UserService>(TYPES.UserService);
-describe('UserServiceTest', function() {
-  describe('#login()', function() {
-    it('userName is law and password is 123456 should be right', function() {
-      assert.equal(service.logIn("law","123456"), true);
-    });
-  });
+// b(a);
+
+// console.log("i am ts")
+
+
+// async function testAsync() {
+//   return "hello async";
+// }
+// async function hhha(){
+//   const result = testAsync();
+//   await result.then(v=>{
+//     console.log(v)  
+//   });
+//   console.log(result);
+// }
+// hhha()
+
+import {TypeOrmConnection} from "../src/util/orm/connection"
+import { User } from '../src/entity/User';
+import { BaseOrmClass } from '../src/util/orm/BaseOrmClass';
+import {OrmServiceImpl} from "../src/util/orm/OrmServiceImpl";
+
+
+// function getSomething() {
+//   return "something";
+// }
+
+// async function testAsync() {
+//   return Promise.resolve("hello async");
+// }
+
+// async function test() {
+//   const v1 = await getSomething();
+//   const v2 = await testAsync();
+//   console.log(v1, v2);
+// }
+
+// test();
+
+// async function test(){
+//   let connection =await TypeOrmConnection.getConnection();
+// }
+let user:User = new User();
+user.id = 1; user.age = 12;
+user.firstName = "aa"; user.lastName = "bbb";
+// let base:BaseOrmClass = user;
+// let user1:User =new User();
+// let properties = Object.getOwnPropertyNames(base)
+// properties.forEach(function (value) {
+//   user1[value] = base[value]
+// }); 
+// console.log(user1)
+// console.log(base.constructor.name)
+// test();
+// // connection.then((connection1)=>{
+//    console.log("this begin")
+//    connection1.close()
+// })
+let service:OrmServiceImpl = new OrmServiceImpl(new User());
+service.checkKeyExists("2").then(v=>{
+  console.log(v)
+})
+service.insert(user).then(v=>{
+  service.checkKeyExists("3").then(v=>{
+    console.log(v)
+  })
 });
+// service.findByKey("1").then(v=>{
+//   let user = User.convertToUser(v);
+//   console.log(user);
+// }).catch(err=>{
+//   // console.log(err)
+// })
 
+// service.delete("1").then(v=>{
+//   service.findByKey("1").then(v=>{
+//     let user = User.convertToUser(v);
+//     console.log(user);
+//   }).catch(err=>{
+//     // console.log(err)
+//   })
+// });
 
-
+// })
