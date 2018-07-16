@@ -2,6 +2,10 @@
 
 > A Vue.js project
 
+## 库说明
+* UI库：iview
+* 地图：mapboxGL
+
 ## Build Setup
 
 ``` bash
