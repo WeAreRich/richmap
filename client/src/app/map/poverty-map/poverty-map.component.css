@@ -1,0 +1,8 @@
+.container {
+  padding: 20px;
+}
+
+#map-container {
+  margin: 10px;
+  height: 500px;
+}
