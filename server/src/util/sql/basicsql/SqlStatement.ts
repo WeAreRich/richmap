@@ -9,7 +9,7 @@ export class SqlStatement {
   }
 
   public static WHERE_POSITION(positions: string[]) {
-    let positionStatements: string[];
+    let positionStatements: string[] = [];
     for (let i = 0; i < positions.length; i++) {
       positionStatements.push("position=" + positions[i]);
     }

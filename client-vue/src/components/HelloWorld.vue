@@ -1,21 +1,22 @@
 <template>
-  <div>
-     <Another propMessage="1323">
+    <div>
+        <Another propMessage="1323">
 
-     </Another>
-  </div>
+        </Another>
+    </div>
 </template>
 
 <script lang="ts">
-import {Emit, Inject, Model, Prop, Provide, Vue, Watch } from 'vue-property-decorator'
-import Component from 'vue-class-component'
-import Another from '@/components/Another.vue'
-@Component({
-  components: {
-    Another
+  import { Emit, Inject, Model, Prop, Provide, Vue, Watch } from 'vue-property-decorator'
+  import Component from 'vue-class-component'
+  import Another from '@/components/Another.vue'
+
+  @Component({
+    components: {
+      Another
+    }
+  })
+  export default class App extends Vue {
+
   }
-})
-export default class App extends Vue {
-  
-}
 </script>
