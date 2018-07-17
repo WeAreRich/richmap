@@ -7,6 +7,23 @@ const SENTENCES = {
     TYPICAL_COMPARISONS: '典型比较',
     LOGO_NAME: '中国贫困在线'
   },
+  SIDE_MENU: {
+    MAP_YEAR: '地图年份',
+    MAP_LEVEL: {
+      TITLE: '地图级别',
+      PROVINCE: '省',
+      CITY: '市',
+      COUNTY: '县/区'
+    },
+    MAP_SEARCH: '区域名称',
+    MAP_TYPE: {
+      TITLE: '地图类型选择',
+      ADMINISTRATION_MAP: '行政地图',
+      POOR_STATE: '贫困情况',
+      POOR_DETECT: '贫困监测',
+      POOR_SERVICE: '助贫服务'
+    }
+  },
   ONLINE_CONSULT: {
     TITLE: '在线咨询',
     CONTENT: '微信号:zhanglingzheHUGH'
