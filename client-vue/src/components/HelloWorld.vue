@@ -11,12 +11,7 @@
   import Component from 'vue-class-component'
   import Another from '@/components/Another.vue'
 
-  @Component({
-    components: {
-      Another
-    }
-  })
-  export default class App extends Vue {
+  export class App extends Vue {
 
   }
 </script>

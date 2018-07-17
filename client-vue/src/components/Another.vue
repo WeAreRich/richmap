@@ -13,7 +13,7 @@
   import { Component, Emit, Inject, Model, Prop, Provide, Vue, Watch } from 'vue-property-decorator'
 
   @Component
-  export default class App extends Vue {
+  export class App extends Vue {
     // initial data
     @Prop()
     propMessage: string;

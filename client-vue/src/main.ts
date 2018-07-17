@@ -5,8 +5,8 @@ import store from './store'
 import iview from 'iview'
 import 'iview/dist/styles/iview.css'
 
-Vue.config.productionTip = false
-Vue.use(iview)
+Vue.config.productionTip = false;
+Vue.use(iview);
 export default new Vue({
   el: '#app',
   store,
