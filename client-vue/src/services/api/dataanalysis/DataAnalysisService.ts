@@ -1,7 +1,11 @@
 import {MapTypeOption} from "src/models/MapTypeOption";
-import http from "src/services/HttpService/index";
+import http from "@/services/api/HttpService";
 
-export class DataAnalysisService {
+export interface DataAnalysisService {
+    getPoorState(): Promise<MapTypeOption[]>;
+}
+
+export class DataAnalysisServiceImpl implements DataAnalysisService {
     async getPoorState(): Promise<MapTypeOption[]> {
         const res = await http.fetch({
             path: `analysis/state`,

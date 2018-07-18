@@ -6,16 +6,14 @@
     </div>
 </template>
 <script lang="ts">
-  import { Component, Emit, Inject, Model, Prop, Provide, Vue, Watch } from 'vue-property-decorator'
-  import SENTENCES from "../assets/sentences/index";
+    import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
+    import SENTENCES from "../assets/sentences/index";
 
-  @Component
-  export class Consulting extends Vue {
-    @Prop()
-    onlineConsultTitle: string = SENTENCES.ONLINE_CONSULT.TITLE;
-    @Prop()
-    onlineConsultContent: string = SENTENCES.ONLINE_CONSULT.CONTENT;
-  }
+    @Component
+    export default class Consulting extends Vue {
+        onlineConsultTitle: string = SENTENCES.ONLINE_CONSULT.TITLE;
+        onlineConsultContent: string = SENTENCES.ONLINE_CONSULT.CONTENT;
+    }
 </script>
 
 <style scoped>
@@ -23,6 +21,6 @@
         position: fixed;
         z-index: 9999;
         right: 10px;
-        bottom: 0px;
+        bottom: 0;
     }
 </style>

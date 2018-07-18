@@ -12,15 +12,14 @@
 
 <script lang="ts">
     import {Prop, Vue, Component} from 'vue-property-decorator';
-    import {FixedMenu} from '../FixedMenu';
-    import {FixedFooter} from '../FixedFooter';
+    import FixedMenu from '../FixedMenu.vue';
+    import FixedFooter from '../FixedFooter.vue';
 
     @Component({
         components: {FixedMenu, FixedFooter}
     })
 
     export default class BaseLayout extends Vue {
-        @Prop()
         pageHeight: string = '100';
 
         mounted() {

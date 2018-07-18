@@ -33,32 +33,22 @@
     </Footer>
 </template>
 <script lang="ts">
-  import { Component, Emit, Inject, Model, Prop, Provide, Vue, Watch } from 'vue-property-decorator'
-  import SENTENCES from "../assets/sentences/index";
+    import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
+    import SENTENCES from "../assets/sentences/index";
 
-  @Component
-  export class FixedFooter extends Vue {
-    @Prop()
-    footer1Title: string = SENTENCES.FOOTER.UNIQUE_SERVICE.TITLE;
-    @Prop()
-    footer1Content1: string = SENTENCES.FOOTER.UNIQUE_SERVICE.LEVEL_EVALUATE;
-    @Prop()
-    footer1Content2: string = SENTENCES.FOOTER.UNIQUE_SERVICE.DATA_SUPPLY;
-    @Prop()
-    footer1Content3: string = SENTENCES.FOOTER.UNIQUE_SERVICE.HELP_RECOMMEND;
-    @Prop()
-    footer1Content4: string = SENTENCES.FOOTER.UNIQUE_SERVICE.PLAN_ESTABLISH;
-    @Prop()
-    footer2Title: string = SENTENCES.FOOTER.CONTACT.TITLE;
-    @Prop()
-    footer2Content1: string = SENTENCES.FOOTER.CONTACT.PHONE_CHENGDU;
-    @Prop()
-    footer2Content2: string = SENTENCES.FOOTER.CONTACT.NAME_CHENGDU;
-    @Prop()
-    footer2Content3: string = SENTENCES.FOOTER.CONTACT.PHONE_NANJING;
-    @Prop()
-    footer2Content4: string = SENTENCES.FOOTER.CONTACT.NAME_NANJING;
-  }
+    @Component
+    export default class FixedFooter extends Vue {
+        footer1Title: string = SENTENCES.FOOTER.UNIQUE_SERVICE.TITLE;
+        footer1Content1: string = SENTENCES.FOOTER.UNIQUE_SERVICE.LEVEL_EVALUATE;
+        footer1Content2: string = SENTENCES.FOOTER.UNIQUE_SERVICE.DATA_SUPPLY;
+        footer1Content3: string = SENTENCES.FOOTER.UNIQUE_SERVICE.HELP_RECOMMEND;
+        footer1Content4: string = SENTENCES.FOOTER.UNIQUE_SERVICE.PLAN_ESTABLISH;
+        footer2Title: string = SENTENCES.FOOTER.CONTACT.TITLE;
+        footer2Content1: string = SENTENCES.FOOTER.CONTACT.PHONE_CHENGDU;
+        footer2Content2: string = SENTENCES.FOOTER.CONTACT.NAME_CHENGDU;
+        footer2Content3: string = SENTENCES.FOOTER.CONTACT.PHONE_NANJING;
+        footer2Content4: string = SENTENCES.FOOTER.CONTACT.NAME_NANJING;
+    }
 </script>
 
 <style scoped>

@@ -7,30 +7,20 @@
             <Affix :offset-right="0">
                 <consulting></consulting>
             </Affix>
-        </Layout>s
+        </Layout>
     </base-layout>
 </template>
 
 <script lang="ts">
     import {Prop, Vue, Component} from 'vue-property-decorator';
-    import {Consulting} from '../Consulting';
-    import {FixedSideMenu} from '../FixedSideMenu';
+    import Consulting from '../Consulting.vue';
+    import FixedSideMenu from '../FixedSideMenu.vue';
 
     @Component({
         components: {Consulting, FixedSideMenu}
     })
 
     export default class Home extends Vue {
-        @Prop()
-        pageHeight: string = '100';
-
-        mounted() {
-            const that = this;
-            this.pageHeight = `${document.documentElement.clientHeight}px`;
-            window.onresize = function getSize() {
-                that.pageHeight = `${document.documentElement.clientHeight}px`;
-            };
-        }
     }
 </script>
 

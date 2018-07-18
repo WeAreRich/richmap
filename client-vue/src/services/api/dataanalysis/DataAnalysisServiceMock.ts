@@ -1,6 +1,7 @@
 import {MapTypeOption} from "@/models/MapTypeOption";
+import {DataAnalysisService} from "@/services/api/dataanalysis/DataAnalysisService";
 
-export class DataAnalysisServiceMock {
+export class DataAnalysisServiceMock implements DataAnalysisService {
     async getPoorState(): Promise<MapTypeOption[]> {
         const mapTypeOptionList: MapTypeOption[] = [
             {

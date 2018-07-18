@@ -1,7 +1,7 @@
 <template>
-    <Menu mode="horizontal" :theme="primary" active-name="1">
+    <Menu mode="horizontal" theme="light" active-name="1">
         <div class="layout-logo-text">
-            <MenuItem>
+            <MenuItem name="0">
                 <img class="layout-logo" src="../assets/logo.jpg"/>
                 <h3 class="layout-text">{{logoName}}</h3>
             </MenuItem>
@@ -43,38 +43,26 @@
     </Menu>
 </template>
 <script lang="ts">
-  import { Component, Prop, Vue } from 'vue-property-decorator'
-  import SENTENCES from "../assets/sentences/index";
+    import {Component, Prop, Vue} from 'vue-property-decorator';
+    import SENTENCES from "../assets/sentences/index";
 
-  @Component
-  export class FixedMenu extends Vue {
-    @Prop()
-    menuBar1: string = SENTENCES.MENU.MAP;
-    @Prop()
-    menuBar2: string = SENTENCES.MENU.RANK;
-    @Prop()
-    menuBar3: string = SENTENCES.MENU.DETECT;
-    @Prop()
-    menuBar4: string = SENTENCES.MENU.HELP_SERVICE;
-    @Prop()
-    menuBar5: string = SENTENCES.MENU.TYPICAL_COMPARISONS;
-    @Prop()
-    logoName: string = SENTENCES.MENU.LOGO_NAME;
-    @Prop()
-    accountLogin: string = SENTENCES.ACCOUNT.LOGIN.TITLE;
-    @Prop()
-    accountLoginUsername: string = SENTENCES.ACCOUNT.LOGIN.USERNAME;
-    @Prop()
-    accountLoginPassword: string = SENTENCES.ACCOUNT.LOGIN.PASSWORD;
+    @Component
+    export default class FixedMenu extends Vue {
+        menuBar1: string = SENTENCES.MENU.MAP;
+        menuBar2: string = SENTENCES.MENU.RANK;
+        menuBar3: string = SENTENCES.MENU.DETECT;
+        menuBar4: string = SENTENCES.MENU.HELP_SERVICE;
+        menuBar5: string = SENTENCES.MENU.TYPICAL_COMPARISONS;
+        logoName: string = SENTENCES.MENU.LOGO_NAME;
+        accountLogin: string = SENTENCES.ACCOUNT.LOGIN.TITLE;
+        accountLoginUsername: string = SENTENCES.ACCOUNT.LOGIN.USERNAME;
+        accountLoginPassword: string = SENTENCES.ACCOUNT.LOGIN.PASSWORD;
 
-    @Prop()
-    isShow: boolean = false;
-    @Prop()
-    username: string = "";
-    @Prop()
-    password: string = "";
+        isShow: boolean = false;
+        username: string = "";
+        password: string = "";
 
-  }
+    }
 </script>
 
 <style scoped>
