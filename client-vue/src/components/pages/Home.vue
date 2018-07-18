@@ -4,7 +4,7 @@
             <fixed-side-menu></fixed-side-menu>
         </Sider>
         <Layout>
-            <Affix :offset-right="0">
+             <Affix :offset-right="0">
                 <consulting></consulting>
             </Affix>
         </Layout>

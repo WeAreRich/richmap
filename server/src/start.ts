@@ -1,100 +1,135 @@
-import "reflect-metadata";
-import { createConnection } from "typeorm";
-import { User } from "./entity/User";
-import { Server } from "./server"
-import { God } from "./util/sql/basicsql/basesql/God";
+import 'reflect-metadata';
+import { InversifyExpressServer } from 'inversify-express-utils';
+import * as bodyParser from 'body-parser';
+import * as helmet from 'helmet';
+import { container } from './ioc/ioc';
 
+// load all injectable entities.
+// the @provide() annotation will then automatically register them.
+import './ioc/loader';
+import * as multer from 'multer';
+// start the server
+let server = new InversifyExpressServer(container);
 
-createConnection().then(async connection => {
+server.setConfig((app) => {
+  app.use(bodyParser.urlencoded({
+    extended: true
+  }));
+  app.use(bodyParser.json());
+  app.use(helmet());
 
-  God.connection();
-  console.log("dataBase init successfully");
-  const user = new User();
-  user.firstName = "Timber";
-  user.lastName = "Saw";
-  user.age = 25;
-  await connection.manager.save(user);
-  console.log("Saved a new user with id: " + user.id);
+  const upload = multer({ dest: 'upload/'});
+  app.post('/profile', upload.single('avatar'), async (req, res) => {
+    console.log(req.file);    
+  });
 
-  console.log("Loading users from the database...");
-  const users = await connection.manager.find(User);
-  console.log("Loaded users: ", users);
+  app.all('*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
+});
 
-  const server = Server;
-  const debug = require("debug")("express:server");
-  const http = require("http");
+let app = server.build();
 
-  //create http server
-  let httpPort = normalizePort(process.env.PORT || 8080);
-  const app = server.bootstrap().app;
-  app.set("port", httpPort);
-  const httpServer = http.createServer(app);
+app.listen(3000);
 
-  //listen on provided ports
-  httpServer.listen(httpPort);
+console.log('Server started on port 3000 :)');
+console.log("click http://127.0.0.1:3000");
 
-//add error handler
-  httpServer.on("error", onError);
+exports = module.exports = app;
 
-//start listening on port
-  httpServer.on("listening", onListening);
+// createConnection().then(async connection => {
 
-  /**
-   * Normalize a port into a number, string, or false.
-   */
-  function normalizePort(val) {
-    const port = parseInt(val, 10);
+//   console.log("dataBase init successfully");
+//   const user = new User();
+//   user.firstName = "Timber";
+//   user.lastName = "Saw";
+//   user.age = 25;
+//   await connection.manager.save(user);
+//   console.log("Saved a new user with id: " + user.id);
 
-    if (isNaN(port)) {
-      // named pipe
-      return val;
-    }
+//   console.log("Loading users from the database...");
+//   const users = await connection.manager.find(User);
+//   console.log("Loaded users: ", users);
 
-    if (port >= 0) {
-      // port number
-      return port;
-    }
+//   const server = Server;
+//   const debug = require("debug")("express:server");
+//   const http = require("http");
 
-    return false;
-  }
+//   //create http server
+//   let httpPort = normalizePort(process.env.PORT || 8080);
+//   const app = server.bootstrap().app;
+//   app.set("port", httpPort);
+//   const httpServer = http.createServer(app);
 
-  /**
-   * Event listener for HTTP server "error" event.
-   */
-  function onError(error) {
-    if (error.syscall !== "listen") {
-      throw error;
-    }
+//   //listen on provided ports
+//   httpServer.listen(httpPort);
 
-    const bind = typeof httpPort === "string"
-      ? "Pipe " + httpPort
-      : "Port " + httpPort;
+// //add error handler
+//   httpServer.on("error", onError);
 
-    // handle specific listen errors with friendly messages
-    switch (error.code) {
-      case "EACCES":
-        console.error(bind + " requires elevated privileges");
-        process.exit(1);
-        break;
-      case "EADDRINUSE":
-        console.error(bind + " is already in use");
-        process.exit(1);
-        break;
-      default:
-        throw error;
-    }
-  }
+// //start listening on port
+//   httpServer.on("listening", onListening);
 
-  /**
-   * Event listener for HTTP server "listening" event.
-   */
-  function onListening() {
-    let addr = httpServer.address();
-    const bind = typeof addr === "string"
-      ? "pipe " + addr
-      : "port " + addr.port;
-    console.log("The program start at http://127.0.0.1:" + addr.port)
-    debug("Listening on " + bind);
-  }
-}).catch(error => console.log(error));
+//   /**
+//    * Normalize a port into a number, string, or false.
+//    */
+//   function normalizePort(val) {
+//     const port = parseInt(val, 10);
+
+//     if (isNaN(port)) {
+//       // named pipe
+//       return val;
+//     }
+
+//     if (port >= 0) {
+//       // port number
+//       return port;
+//     }
+
+//     return false;
+//   }
+
+//   /**
+//    * Event listener for HTTP server "error" event.
+//    */
+//   function onError(error) {
+//     if (error.syscall !== "listen") {
+//       throw error;
+//     }
+
+//     const bind = typeof httpPort === "string"
+//       ? "Pipe " + httpPort
+//       : "Port " + httpPort;
+
+//     // handle specific listen errors with friendly messages
+//     switch (error.code) {
+//       case "EACCES":
+//         console.error(bind + " requires elevated privileges");
+//         process.exit(1);
+//         break;
+//       case "EADDRINUSE":
+//         console.error(bind + " is already in use");
+//         process.exit(1);
+//         break;
+//       default:
+//         throw error;
+//     }
+//   }
+
+//   /**
+//    * Event listener for HTTP server "listening" event.
+//    */
+//   function onListening() {
+//     let addr = httpServer.address();
+//     const bind = typeof addr === "string"
+//       ? "pipe " + addr
+//       : "port " + addr.port;
+//     console.log("The program start at http://127.0.0.1:" + addr.port)
+//     debug("Listening on " + bind);
+//   }
+// }).catch(error => console.log(error));
 
