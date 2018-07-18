@@ -37,7 +37,7 @@
   import SENTENCES from "../assets/sentences/index";
 
   @Component
-  export default class FixedFooter extends Vue {
+  export class FixedFooter extends Vue {
     @Prop()
     footer1Title: string = SENTENCES.FOOTER.UNIQUE_SERVICE.TITLE;
     @Prop()

@@ -1,8 +1,9 @@
 /*
 日志类
  */
-export default class Logger {
+export class Logger {
   private instance: Logger;
+
   static info(tag, ...contents): void {
     let time = new Date().toLocaleTimeString();
     if (console.info) {
@@ -14,6 +15,7 @@ export default class Logger {
       Logger.log(tag, ...contents);
     }
   }
+
   static error(tag, ...contents): void {
     let time = new Date().toLocaleTimeString();
     if (console.error) {
@@ -25,7 +27,8 @@ export default class Logger {
       Logger.log(tag, ...contents);
     }
   }
-  static log (tag, ...contents): void {
+
+  static log(tag, ...contents): void {
     let time = new Date().toLocaleTimeString();
     console.log(`At ${time} in ${tag}`);
     for (let item of contents) {

@@ -47,7 +47,7 @@
   import SENTENCES from "../assets/sentences/index";
 
   @Component
-  export default class FixedMenu extends Vue {
+  export class FixedMenu extends Vue {
     @Prop()
     menuBar1: string = SENTENCES.MENU.MAP;
     @Prop()

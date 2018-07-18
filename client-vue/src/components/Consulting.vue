@@ -10,7 +10,7 @@
   import SENTENCES from "../assets/sentences/index";
 
   @Component
-  export default class Consulting extends Vue {
+  export class Consulting extends Vue {
     @Prop()
     onlineConsultTitle: string = SENTENCES.ONLINE_CONSULT.TITLE;
     @Prop()

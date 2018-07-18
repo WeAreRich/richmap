@@ -1,4 +1,5 @@
-import Logger from './logger';
+import { Logger } from '@/services/Logger';
+
 export default class Nomination {
   async search(keyword: string): Promise<any> {
     const url = `http://nominatim.openstreetmap.org/search?format=json&q=${decodeURIComponent(keyword)}`;
