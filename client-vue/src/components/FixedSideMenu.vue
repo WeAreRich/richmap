@@ -21,8 +21,8 @@
 </template>
 <script lang="ts">
   import { Component, Emit, Inject, Model, Prop, Provide, Vue, Watch } from 'vue-property-decorator'
-  import SENTENCES from "../../assets/sentences/index";
-  import { MapLevel } from "../../models/MapLevel";
+  import SENTENCES from "../assets/sentences/index";
+  import { MapLevel } from "../models/MapLevel";
 
   interface MapLevelOption {
     value: MapLevel;

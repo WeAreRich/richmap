@@ -2,7 +2,7 @@
     <Menu mode="horizontal" :theme="primary" active-name="1">
         <div class="layout-logo-text">
             <MenuItem>
-                <img class="layout-logo" src="../../assets/logo.jpg"/>
+                <img class="layout-logo" src="../assets/logo.jpg"/>
                 <h3 class="layout-text">{{logoName}}</h3>
             </MenuItem>
         </div>
@@ -44,7 +44,7 @@
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator'
-  import SENTENCES from "../../assets/sentences/index";
+  import SENTENCES from "../assets/sentences/index";
 
   @Component
   export default class FixedMenu extends Vue {

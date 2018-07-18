@@ -12,8 +12,8 @@
 
 <script lang="ts">
   import { Prop, Vue } from 'vue-property-decorator'
-  import FixedMenu from '../components/common/FixedMenu.vue'
-  import FixedFooter from '../components/common/FixedFooter.vue'
+  import FixedMenu from '../components/FixedMenu.vue'
+  import FixedFooter from '../components/FixedFooter.vue'
 
   export default {
     components: {FixedMenu, FixedFooter}
