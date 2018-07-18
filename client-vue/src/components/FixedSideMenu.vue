@@ -24,11 +24,7 @@
     import SENTENCES from "../assets/sentences/index";
     import {MapLevel} from "../models/MapLevel";
     import {MapTypeOption} from "../models/MapTypeOption";
-
-    // let dataAnalysisService;
-    // export default {
-    //     inject: ['dataAnalysisService'],
-    // };
+    import {api} from "../services/api/ApiProvider";
 
     interface MapLevelOption {
         value: MapLevel;
@@ -36,35 +32,21 @@
     }
 
     @Component
-    export class FixedSideMenu extends Vue {
-        @Prop()
+    export default class FixedSideMenu extends Vue {
         onlineConsultTitle: string = SENTENCES.ONLINE_CONSULT.TITLE;
-        @Prop()
         onlineConsultContent: string = SENTENCES.ONLINE_CONSULT.CONTENT;
-        @Prop()
         mapYear: string = SENTENCES.SIDE_MENU.MAP_YEAR;
-        @Prop()
         mapLevel: string = SENTENCES.SIDE_MENU.MAP_LEVEL.TITLE;
-        @Prop()
         mapLevelProvince: string = SENTENCES.SIDE_MENU.MAP_LEVEL.PROVINCE;
-        @Prop()
         mapLevelCity: string = SENTENCES.SIDE_MENU.MAP_LEVEL.CITY;
-        @Prop()
         mapLevelCounty: string = SENTENCES.SIDE_MENU.MAP_LEVEL.COUNTY;
-        @Prop()
         mapSearch: string = SENTENCES.SIDE_MENU.MAP_SEARCH;
-        @Prop()
         mapType: string = SENTENCES.SIDE_MENU.MAP_TYPE.TITLE;
-        @Prop()
         mapTypeAdministration: string = SENTENCES.SIDE_MENU.MAP_TYPE.ADMINISTRATION_MAP;
-        @Prop()
         mapPoorState: string = SENTENCES.SIDE_MENU.MAP_TYPE.POOR_STATE;
-        @Prop()
         mapPoorDetect: string = SENTENCES.SIDE_MENU.MAP_TYPE.POOR_DETECT;
-        @Prop()
         mapPoorService: string = SENTENCES.SIDE_MENU.MAP_TYPE.POOR_SERVICE;
 
-        @Prop()
         mapLevelList: MapLevelOption[] = [
             {
                 value: MapLevel.PROVINCE,
@@ -80,50 +62,48 @@
             }
         ];
 
-        @Prop()
         mapAreaList: string[] = [
             "中国",
             "江苏",
             "南京"
         ];
 
-        @Prop()
-        mapTypeList: MapTypeOption[] = [
-            {
-                value: this.mapTypeAdministration,
-                label: this.mapTypeAdministration,
-                children: []
-            },
-            {
-                value: this.mapPoorState,
-                label: this.mapPoorState,
-                children: []
-            }
-            ,
-            {
-                value: this.mapPoorDetect,
-                label: this.mapPoorDetect,
-                children: []
-            }
-            ,
-            {
-                value: this.mapPoorService,
-                label:
-                this.mapPoorService,
-                children: []
-            }
-        ];
+        mapTypeList: MapTypeOption[] = [];
 
-        @Prop()
+
         mapLevelValue: MapLevel = MapLevel.PROVINCE;
-        @Prop()
         mapSearchValue: string = "";
-        @Prop()
         mapTypeValue: string[] = [];
 
-        mapSearchMethod() {
+        mapSearchMethod = () => {
+        };
 
-        }
+        async mounted() {
+            this.mapTypeList = [
+                {
+                    value: this.mapTypeAdministration,
+                    label: this.mapTypeAdministration,
+                    children: []
+                },
+                {
+                    value: this.mapPoorState,
+                    label: this.mapPoorState,
+                    children: await api.dataAnalysisService.getPoorState()
+                }
+                ,
+                {
+                    value: this.mapPoorDetect,
+                    label: this.mapPoorDetect,
+                    children: []
+                }
+                ,
+                {
+                    value: this.mapPoorService,
+                    label: this.mapPoorService,
+                    children: []
+                }
+            ];
+        };
     }
 </script>
 
