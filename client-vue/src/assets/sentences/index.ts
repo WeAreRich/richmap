@@ -15,7 +15,7 @@ const SENTENCES = {
       CITY: '市',
       COUNTY: '县/区'
     },
-    MAP_SEARCH: '区域名称',
+    MAP_SEARCH: '区域名称(输入以搜索)',
     MAP_TYPE: {
       TITLE: '地图类型选择',
       ADMINISTRATION_MAP: '行政地图',
@@ -42,6 +42,13 @@ const SENTENCES = {
       NAME_CHENGDU: '成都',
       PHONE_NANJING: '025-89680960 428',
       NAME_NANJING: '南京'
+    }
+  },
+  ACCOUNT: {
+    LOGIN: {
+      TITLE: '登录',
+      USERNAME: '用户名',
+      PASSWORD: '密码'
     }
   }
 };
