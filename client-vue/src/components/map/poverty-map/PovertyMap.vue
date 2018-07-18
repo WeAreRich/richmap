@@ -38,10 +38,11 @@
   import Vue from 'vue';
   import { Component } from 'vue-property-decorator';
   import NominatimService from '../../../services/nominatim.service';
-  import Logger from '../../../services/logger';
+  import {Logger} from '../../../services/Logger';
   import mapboxgl from 'mapbox-gl';
   import { ACCESS_TOKEN, CHINA_BOUNDS, CHINA_CENTER } from '../../../constants/mapbox';
   import { Nominatim } from '../../../types/nominatim';
+  import MapDrawingRectangleService from "../../../services/map-drawing-rectangle.service";
 
   @Component
   export default class PovertyMap extends Vue {
