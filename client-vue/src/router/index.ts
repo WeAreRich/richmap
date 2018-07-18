@@ -6,7 +6,9 @@ import { BaseLayout } from '@/pages/BaseLayout.vue'
 Vue.use(Router);
 
 const routes = [
-  {path: '/', component: Home}
+  {
+    path: '/', component: Home
+  }
 ];
 
 Vue.component('base-layout', BaseLayout);
