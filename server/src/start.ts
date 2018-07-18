@@ -7,7 +7,7 @@ import { container } from './ioc/ioc';
 // load all injectable entities.
 // the @provide() annotation will then automatically register them.
 import './ioc/loader';
-
+import * as multer from 'multer';
 // start the server
 let server = new InversifyExpressServer(container);
 
@@ -17,10 +17,25 @@ server.setConfig((app) => {
   }));
   app.use(bodyParser.json());
   app.use(helmet());
+
+  const upload = multer({ dest: 'upload/'});
+  app.post('/profile', upload.single('avatar'), async (req, res) => {
+    console.log(req.file);    
+  });
+
+  app.all('*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
 });
 
 let app = server.build();
+
 app.listen(3000);
+
 console.log('Server started on port 3000 :)');
 console.log("click http://127.0.0.1:3000");
 
