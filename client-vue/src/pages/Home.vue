@@ -66,8 +66,8 @@
 
 <script lang="ts">
   import { Prop, Vue } from 'vue-property-decorator'
-  import Consulting from '../components/common/Consulting.vue'
-  import FixedSideMenu from '../components/common/FixedSideMenu'
+  import Consulting from '../components/Consulting.vue'
+  import FixedSideMenu from '../components/FixedSideMenu'
   import BaseLayout from './BaseLayout'
 
   export default {
