@@ -4,17 +4,17 @@
             <fixed-side-menu></fixed-side-menu>
         </Sider>
         <Layout>
-            <Affix :offset-right="0">
+            <!-- <Affix :offset-right="0">
                 <consulting></consulting>
-            </Affix>
+            </Affix> -->
         </Layout>s
     </base-layout>
 </template>
 
 <script lang="ts">
     import {Prop, Vue, Component} from 'vue-property-decorator';
-    import {Consulting} from '../Consulting';
-    import {FixedSideMenu} from '../FixedSideMenu';
+    import {Consulting} from '../Consulting.vue';
+    import {FixedSideMenu} from '../FixedSideMenu.vue';
 
     @Component({
         components: {Consulting, FixedSideMenu}

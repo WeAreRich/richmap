@@ -13,7 +13,7 @@ const routes = [
         path: '/', component: Home
     },
     {
-        path: '/',
+        path: '/file',
         name: 'file',
         component: FileUpload
       }, {
@@ -23,7 +23,7 @@ const routes = [
       },
 ];
 
-Vue.component('base-layout', BaseLayout);
+// Vue.component('base-layout', BaseLayout);
 
 export default new Router({
     routes
