@@ -3,13 +3,13 @@ let state = {
     data: 'store data from user'
   },
   auth: {}
-}
+};
 
-const mutations = {}
+const mutations = {};
 
 const getters = {
   info: state => state.info
-}
+};
 
 export default {
   state,

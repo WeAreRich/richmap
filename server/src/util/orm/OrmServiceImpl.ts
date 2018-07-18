@@ -9,7 +9,7 @@ import {TypeOrmConnection} from '../orm/connection'
 import { resolve } from "dns";
 
 
-export class OrmServiceImpl implements  OrmService{
+export class OrmServiceImpl implements OrmService {
 
     template:BaseOrmClass
     constructor(template:BaseOrmClass){
