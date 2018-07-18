@@ -1,41 +1,43 @@
-export  class God {
-    userName:string;
-    databaseName:string;
-    password:string;
-    static connection:any;
+import { BaseOrmClass } from "../../../orm/BaseOrmClass";
 
-    constructor(){
-        this.userName="root";
-        this.databaseName="richdb";
-        this.password="root";
-        this.connect()
+export class God {
+  userName: string;
+  databaseName: string;
+  password: string;
+  static connection: any;
 
-        //请自己改成自己本地数据库的用户名、数据库名、密码
-    }
+  constructor() {
+    this.userName = "root";
+    this.databaseName = "richdb";
+    this.password = "zhanglingzhe0820";
+    this.connect()
 
-    private connect(){
-        var mysql=require('mysql');
-        God.connection=mysql.createConnection({
-            host:'localhost',
-            user:this.userName,
-            password:this.password,
-            database:this.databaseName
-        });
+    //请自己改成自己本地数据库的用户名、数据库名、密码
+  }
 
-    }
-    public godbasic(content:string){
+  private connect() {
+    const mysql = require('mysql');
+    God.connection = mysql.createConnection({
+      host: 'localhost',
+      user: this.userName,
+      password: this.password,
+      database: this.databaseName
+    });
 
+  }
 
-        God.connection.query(content,function (error,results,fields) {
-            if(error)throw error;
+  public static godBasic(content: string): any {
 
-            return results
-        })
+    God.connection.query(content, function (error, results: BaseOrmClass[] | BaseOrmClass, fields) {
+      if (error) throw error;
 
-    }
+      return results
+    })
 
-    public  closeConnection(){
-        God.connection.end();
-    }
+  }
+
+  public static closeConnection() {
+    God.connection.end();
+  }
 
 }
