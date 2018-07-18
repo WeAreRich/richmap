@@ -11,14 +11,9 @@
 </template>
 
 <script lang="ts">
-    import {Prop, Vue, Component} from 'vue-property-decorator';
-<<<<<<< HEAD
-    import {FixedMenu} from '../FixedMenu.vue';
-    import {FixedFooter} from '../FixedFooter.vue';
-=======
+    import {Vue, Component} from 'vue-property-decorator';
     import FixedMenu from '../FixedMenu.vue';
     import FixedFooter from '../FixedFooter.vue';
->>>>>>> c450d10d8a66ca589a4a1a2b67f60260f8dd4e6b
 
     @Component({
         components: {FixedMenu, FixedFooter}

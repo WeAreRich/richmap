@@ -1,6 +1,6 @@
 <template>
     <div class="outer">
-        <div style="display: flex; flex-direction: row; justify-content: flex-end; width: 500px; margin-bottom: 20px;float: right;">
+        <div style="display: flex; flex-direction: row; justify-content: flex-end; width: 500px; margin-bottom: 20px;float: right;z-index:9999;position:relative">
             <div style="display: inline-block;">
                 <Dropdown>
                     <a>展示选项</a>
@@ -35,42 +35,42 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component } from 'vue-property-decorator';
-  import NominatimService from '../../../services/nominatim.service';
-  import {Logger} from '../../../services/Logger';
-  import mapboxgl from 'mapbox-gl';
-  import { ACCESS_TOKEN, CHINA_BOUNDS, CHINA_CENTER } from '../../../constants/mapbox';
-  import { Nominatim } from '../../../types/nominatim';
-  import MapDrawingRectangleService from "../../../services/map-drawing-rectangle.service";
+    import Vue from 'vue';
+    import {Component} from 'vue-property-decorator';
+    import NominatimService from '../../../services/nominatim.service';
+    import {Logger} from '../../../services/Logger';
+    import mapboxgl from 'mapbox-gl';
+    import {ACCESS_TOKEN, CHINA_BOUNDS, CHINA_CENTER} from '../../../constants/mapbox';
+    import {Nominatim} from '../../../types/nominatim';
+    import MapDrawingRectangleService from "../../../services/map-drawing-rectangle.service";
 
-  @Component
-  export default class PovertyMap extends Vue {
-    private TAG = 'PovertyMap';
-    private FIRST_LEVEL_LAYER_ID = 'first-level';
-    private SECOND_LEVEL_LAYER_ID = 'second-level';
-    private THIRD_LEVEL_LAYER_ID = 'third-level';
+    @Component
+    export default class PovertyMap extends Vue {
+        private TAG = 'PovertyMap';
+        private FIRST_LEVEL_LAYER_ID = 'first-level';
+        private SECOND_LEVEL_LAYER_ID = 'second-level';
+        private THIRD_LEVEL_LAYER_ID = 'third-level';
 
-    // 行政区域划分图层
-    private firstLevelLayer: mapboxgl.Layer;
-    private secondLevelLayer: mapboxgl.Layer;
-    private thirdLevelLayer: mapboxgl.Layer;
-    private map: mapboxgl.Map;
+        // 行政区域划分图层
+        private firstLevelLayer: mapboxgl.Layer;
+        private secondLevelLayer: mapboxgl.Layer;
+        private thirdLevelLayer: mapboxgl.Layer;
+        private map: mapboxgl.Map;
 
-    // data
-    public query: string;
-    public searchItems: Nominatim[];
+        // data
+        public query: string;
+        public searchItems: Nominatim[];
 
-    // services
-    private nominatimService: NominatimService;
+        // services
+        private nominatimService: NominatimService;
 
-    constructor() {
-      super();
-      Logger.info(this.TAG, 'constructor');
-      this.query = '';
-      this.searchItems = [];
-      this.nominatimService = new NominatimService();
-    }
+        constructor() {
+            super();
+            Logger.info(this.TAG, 'constructor');
+            this.query = '';
+            this.searchItems = [];
+            this.nominatimService = new NominatimService();
+        }
 
         mounted() {
             Logger.info(this.TAG, 'mounted');
@@ -212,7 +212,6 @@
         position: relative;
         /*background-image: linear-gradient( 135deg, #92FFC0 30%, #00266150 100%);*/
         background: inherit;
-        padding: 20px;
         width: 100%;
         box-shadow: rgba(0, 0, 0, 0.5) 0 0 10px;
     }

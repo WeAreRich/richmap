@@ -4,7 +4,8 @@
             <fixed-side-menu></fixed-side-menu>
         </Sider>
         <Layout>
-             <Affix :offset-right="0">
+            <PovertyMap/>
+            <Affix :offset-right="0">
                 <consulting></consulting>
             </Affix>
         </Layout>
@@ -12,12 +13,13 @@
 </template>
 
 <script lang="ts">
-    import {Prop, Vue, Component} from 'vue-property-decorator';
+    import {Vue, Component} from 'vue-property-decorator';
     import Consulting from '../Consulting.vue';
     import FixedSideMenu from '../FixedSideMenu.vue';
+    import PovertyMap from '../map/poverty-map/PovertyMap.vue';
 
     @Component({
-        components: {Consulting, FixedSideMenu}
+        components: {Consulting, FixedSideMenu, PovertyMap}
     })
 
     export default class Home extends Vue {
