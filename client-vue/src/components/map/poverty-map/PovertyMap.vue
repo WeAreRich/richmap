@@ -72,138 +72,139 @@
       this.nominatimService = new NominatimService();
     }
 
-    mounted() {
-      Logger.info(this.TAG, 'mounted');
-      this.initMap();
-    }
-
-    private initMap() {
-      Logger.info(this.TAG, 'start init map');
-      mapboxgl.accessToken = ACCESS_TOKEN;
-      this.map = new mapboxgl.Map({
-        container: 'map-container',
-        // style: 'mapbox://styles/mapbox/streets-v10',
-        style: 'mapbox://styles/mapbox/satellite-v9',
-        // style: 'mapbox://styles/mapbox/satellite-streets-v10',
-        center: CHINA_CENTER,
-        maxBounds: CHINA_BOUNDS
-      });
-      // 增加控件
-      this.map.addControl(new mapboxgl.NavigationControl());
-      this.map.addControl(new mapboxgl.ScaleControl());
-    }
-
-
-    /* 下面是事件处理 */
-
-    // 搜索输入的名称 是否在地理上有对应的 项目
-    public async handleSearch(query) {
-      // 检空
-      if (!query) {
-        return;
-      }
-      this.searchItems = await this.nominatimService.search(query);
-    }
-
-    // 选择搜索出的某一地名
-    public handleSelectPlace(value) {
-      let map = this.map;
-      Logger.info(this.TAG, `select ${value}`);
-      let index = this.searchItems.findIndex(
-        item => item.display_name === value
-      );
-      if (index < 0) {
-        Logger.error(this.TAG, `not found ${value}`);
-        return;
-      }
-      let nominatimItem = this.searchItems[index];
-      // 定位
-      map.flyTo({
-        center: [nominatimItem.lon, nominatimItem.lat],
-        zoom: 9,
-        curve: 1,
-        easing(t) {
-          return t;
+        mounted() {
+            Logger.info(this.TAG, 'mounted');
+            this.initMap();
         }
-      });
-      // 显示一个标志
-      new mapboxgl.Marker()
-        .setLngLat([nominatimItem.lon, nominatimItem.lat])
-        .addTo(map);
-    }
 
-    public handleChangeFirstLevelCheckBox(value) {
-      if (value) {
-        this.showFirstLevelBorder();
-      } else {
-        this.map.removeLayer(this.FIRST_LEVEL_LAYER_ID);
-      }
-    }
+        private initMap() {
+            Logger.info(this.TAG, 'start init map');
+            mapboxgl.accessToken = ACCESS_TOKEN;
+            this.map = new mapboxgl.Map({
+                container: 'map-container',
+                // style: 'mapbox://styles/mapbox/streets-v10',
+                style: 'mapbox://styles/mapbox/satellite-v9',
+                // style: 'mapbox://styles/mapbox/satellite-streets-v10',
+                center: CHINA_CENTER,
+                maxBounds: CHINA_BOUNDS
+            });
+            // 增加控件
+            this.map.addControl(new mapboxgl.NavigationControl());
+            this.map.addControl(new mapboxgl.ScaleControl());
+        }
 
-    public handleChangeSecondLevelCheckBox(value) {
-      if (value) {
-        this.showSecondLevelBorder();
-      } else {
-        this.map.removeLayer(this.SECOND_LEVEL_LAYER_ID);
-      }
-    }
 
-    public handleChangeThirdLevelCheckBox(value) {
-      if (value) {
-        this.showThirdLevelBorder();
-      } else {
-        this.map.removeLayer(this.THIRD_LEVEL_LAYER_ID);
-        this.map.removeSource(this.FIRST_LEVEL_LAYER_ID);
-      }
-    }
-    public showFirstLevelBorder() {
-      Logger.info(this.TAG, 'show first level border');
-      // 未加载过
-      if (!this.firstLevelLayer) {
-        this.map.addSource(this.FIRST_LEVEL_LAYER_ID, {
-          type: 'geojson',
-          data: 'http://www.injusalon.com/count/pictures/region.json'
-        });
-        let layer: mapboxgl.Layer = {
-          id: this.FIRST_LEVEL_LAYER_ID,
-          type: 'line',
-          source: this.FIRST_LEVEL_LAYER_ID,
-          paint: {
-            'line-color': '#fff',
-            'line-width': 4
-          }
-        };
-        this.firstLevelLayer = layer;
-      }
-      this.map.addLayer(this.firstLevelLayer);
-    }
+        /* 下面是事件处理 */
 
-    public showSecondLevelBorder() {
-      Logger.info(this.TAG, 'showSecondLevelBorder');
-      // 未加载过
-      if (!this.secondLevelLayer) {
-        this.map.addSource(this.SECOND_LEVEL_LAYER_ID, {
-          type: 'geojson',
-          data: 'http://www.injusalon.com/count/pictures/county.json'
-        });
-        let layer: mapboxgl.Layer = {
-          id: this.SECOND_LEVEL_LAYER_ID,
-          type: 'line',
-          source: this.SECOND_LEVEL_LAYER_ID,
-          paint: {
-            'line-color': '#fff',
-            'line-width': 4
-          }
-        };
-        this.secondLevelLayer = layer;
-      }
-      this.map.addLayer(this.secondLevelLayer);
-    }
+        // 搜索输入的名称 是否在地理上有对应的 项目
+        public async handleSearch(query) {
+            // 检空
+            if (!query) {
+                return;
+            }
+            this.searchItems = await this.nominatimService.search(query);
+        }
 
-    public showThirdLevelBorder() {
-      Logger.info(this.TAG, 'showThirdLevelBorder');
+        // 选择搜索出的某一地名
+        public handleSelectPlace(value) {
+            let map = this.map;
+            Logger.info(this.TAG, `select ${value}`);
+            let index = this.searchItems.findIndex(
+                item => item.display_name === value
+            );
+            if (index < 0) {
+                Logger.error(this.TAG, `not found ${value}`);
+                return;
+            }
+            let nominatimItem = this.searchItems[index];
+            // 定位
+            map.flyTo({
+                center: [nominatimItem.lon, nominatimItem.lat],
+                zoom: 9,
+                curve: 1,
+                easing(t) {
+                    return t;
+                }
+            });
+            // 显示一个标志
+            new mapboxgl.Marker()
+                .setLngLat([nominatimItem.lon, nominatimItem.lat])
+                .addTo(map);
+        }
+
+        public handleChangeFirstLevelCheckBox(value) {
+            if (value) {
+                this.showFirstLevelBorder();
+            } else {
+                this.map.removeLayer(this.FIRST_LEVEL_LAYER_ID);
+            }
+        }
+
+        public handleChangeSecondLevelCheckBox(value) {
+            if (value) {
+                this.showSecondLevelBorder();
+            } else {
+                this.map.removeLayer(this.SECOND_LEVEL_LAYER_ID);
+            }
+        }
+
+        public handleChangeThirdLevelCheckBox(value) {
+            if (value) {
+                this.showThirdLevelBorder();
+            } else {
+                this.map.removeLayer(this.THIRD_LEVEL_LAYER_ID);
+                this.map.removeSource(this.FIRST_LEVEL_LAYER_ID);
+            }
+        }
+
+        public showFirstLevelBorder() {
+            Logger.info(this.TAG, 'show first level border');
+            // 未加载过
+            if (!this.firstLevelLayer) {
+                this.map.addSource(this.FIRST_LEVEL_LAYER_ID, {
+                    type: 'geojson',
+                    data: 'http://www.injusalon.com/count/pictures/region.json'
+                });
+                let layer: mapboxgl.Layer = {
+                    id: this.FIRST_LEVEL_LAYER_ID,
+                    type: 'line',
+                    source: this.FIRST_LEVEL_LAYER_ID,
+                    paint: {
+                        'line-color': '#fff',
+                        'line-width': 4
+                    }
+                };
+                this.firstLevelLayer = layer;
+            }
+            this.map.addLayer(this.firstLevelLayer);
+        }
+
+        public showSecondLevelBorder() {
+            Logger.info(this.TAG, 'showSecondLevelBorder');
+            // 未加载过
+            if (!this.secondLevelLayer) {
+                this.map.addSource(this.SECOND_LEVEL_LAYER_ID, {
+                    type: 'geojson',
+                    data: 'http://www.injusalon.com/count/pictures/county.json'
+                });
+                let layer: mapboxgl.Layer = {
+                    id: this.SECOND_LEVEL_LAYER_ID,
+                    type: 'line',
+                    source: this.SECOND_LEVEL_LAYER_ID,
+                    paint: {
+                        'line-color': '#fff',
+                        'line-width': 4
+                    }
+                };
+                this.secondLevelLayer = layer;
+            }
+            this.map.addLayer(this.secondLevelLayer);
+        }
+
+        public showThirdLevelBorder() {
+            Logger.info(this.TAG, 'showThirdLevelBorder');
+        }
     }
-  }
 </script>
 
 <style>
