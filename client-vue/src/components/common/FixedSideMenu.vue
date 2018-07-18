@@ -1,19 +1,22 @@
 <template>
     <div class="layout-side">
-        <DatePicker type="year" :placeholder="mapYear" style="margin:20px"></DatePicker>
-        <Select v-model="mapLevelValue" :placeholder="mapLevel" style="padding-left:20px;padding-right:20px;">
+        <DatePicker type="year" size="large" :placeholder="mapYear" style="margin:20px"></DatePicker>
+        <Select v-model="mapLevelValue" size="large" :placeholder="mapLevel"
+                style="padding-left:20px;padding-right:20px;">
             <Option v-for="item in mapLevelList" :value="item.value" :key="item.value">{{ item.label }}</Option>
         </Select>
         <Select
                 v-model="mapSearchValue"
+                :placeholder="mapSearch"
                 filterable
                 remote
-                :remote-method="mapSearchMethod">
-            <Option v-for="(option, index) in mapValue" :value="option.value" :key="index">{{option.label}}</Option>
+                :remote-method="mapSearchMethod"
+                style="padding:20px"
+                size="large">
+            <Option v-for="item in mapAreaList" :value="item" :key="item">{{item}}</Option>
         </Select>
-        <Input v-model="mapSearchValue" :placeholder="mapSearch" style="padding:20px">
-        <Button slot="append" icon="ios-search"></Button>
-        </Input>
+        <Cascader :placeholder="mapType" size="large" :data="mapTypeList" v-model="mapTypeValue"
+                  style="padding:20px"></Cascader>
     </div>
 </template>
 <script lang="ts">
@@ -24,6 +27,12 @@
   interface MapLevelOption {
     value: MapLevel;
     label: string;
+  }
+
+  interface MapTypeOption {
+    value: string;
+    label: string;
+    children: MapTypeOption[];
   }
 
   @Component
@@ -72,9 +81,83 @@
     ];
 
     @Prop()
+    mapAreaList: string[] = [
+      "中国",
+      "江苏",
+      "南京"
+    ];
+
+    @Prop()
+    mapTypeList: MapTypeOption[] = [
+      {
+        value: this.mapTypeAdministration,
+        label: this.mapTypeAdministration,
+        children: []
+      },
+      {
+        value: this.mapPoorState,
+        label: this.mapPoorState,
+        children: [
+          {
+            value: "综合贫困排名",
+            label: "综合贫困排名",
+            children: [
+              {
+                value: "VSR指标排名",
+                label: "VSR指标排名",
+                children: [
+                  {
+                    value: "夜间灯光指标",
+                    label: "夜间灯光指标",
+                    children: []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            value: "分类贫困排名",
+            label: "分类贫困排名",
+            children: [
+              {
+                value: "经济指标排名",
+                label: "经济指标排名",
+                children: [
+                  {
+                    value: "未来收入",
+                    label: "未来收入",
+                    children: []
+                  }
+                ]
+              }
+            ]
+          },
+        ]
+      }
+      ,
+      {
+        value: this.mapPoorDetect,
+        label:
+        this.mapPoorDetect,
+        children:
+          []
+      }
+      ,
+      {
+        value: this.mapPoorService,
+        label:
+        this.mapPoorService,
+        children:
+          []
+      }
+    ]
+
+    @Prop()
     mapLevelValue: MapLevel = MapLevel.PROVINCE;
     @Prop()
     mapSearchValue: string = "";
+    @Prop()
+    mapTypeValue: string[] = [];
 
     mapSearchMethod() {
 

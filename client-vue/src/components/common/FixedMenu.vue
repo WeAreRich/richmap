@@ -29,12 +29,21 @@
             </MenuItem>
         </div>
         <div class="layout-user">
-            <Button type="ghost" icon="person" size="large"></Button>
+            <Button type="ghost" icon="person" size="large" @click="isShow = true"></Button>
         </div>
+        <Modal
+                v-model="isShow"
+                :title="accountLogin"
+                @on-ok="ok"
+                @on-cancel="cancel">
+            <Input v-model="username" size="large" :placeholder="accountLoginUsername" style="padding:20px"/>
+            <Input v-model="password" size="large" type="password" :placeholder="accountLoginPassword"
+                   style="padding:20px"/>
+        </Modal>
     </Menu>
 </template>
 <script lang="ts">
-  import { Component, Emit, Inject, Model, Prop, Provide, Vue, Watch } from 'vue-property-decorator'
+  import { Component, Prop, Vue } from 'vue-property-decorator'
   import SENTENCES from "../../assets/sentences/index";
 
   @Component
@@ -51,6 +60,20 @@
     menuBar5: string = SENTENCES.MENU.TYPICAL_COMPARISONS;
     @Prop()
     logoName: string = SENTENCES.MENU.LOGO_NAME;
+    @Prop()
+    accountLogin: string = SENTENCES.ACCOUNT.LOGIN.TITLE;
+    @Prop()
+    accountLoginUsername: string = SENTENCES.ACCOUNT.LOGIN.USERNAME;
+    @Prop()
+    accountLoginPassword: string = SENTENCES.ACCOUNT.LOGIN.PASSWORD;
+
+    @Prop()
+    isShow: boolean = false;
+    @Prop()
+    username: string = "";
+    @Prop()
+    password: string = "";
+
   }
 </script>
 
