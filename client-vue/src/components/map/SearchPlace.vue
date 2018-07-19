@@ -18,7 +18,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import { Nominatim } from '../../types/nominatim';
+  import PlaceItem from '../../types/place-item';
   import NominatimService from '../../services/nominatim.service';
   import { Emit, Component } from 'vue-property-decorator';
   import {Logger} from '../../services/Logger';
@@ -31,7 +31,7 @@
     private  nominatimService: NominatimService;
     // data
     public query: string;
-    public searchItems: Nominatim[];
+    public searchItems: PlaceItem[];
 
     constructor() {
       super();
@@ -45,7 +45,7 @@
     /* 事件发射 */
 
     @Emit()
-    public onSelect(nominatimItem: Nominatim) {}
+    public onSelect(nominatimItem: PlaceItem) {}
 
     /* 事件处理 */
     // 搜索输入的名称 是否在地理上有对应的 项目

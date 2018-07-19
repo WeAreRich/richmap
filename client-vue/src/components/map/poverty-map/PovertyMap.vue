@@ -25,7 +25,7 @@
   import { Logger } from '../../../services/Logger';
   import mapboxgl from 'mapbox-gl';
   import { ACCESS_TOKEN, CHINA_BOUNDS, CHINA_CENTER } from '../../../constants/mapbox';
-  import { Nominatim } from '../../../types/nominatim';
+  import PlaceItem from '../../../types/place-item';
 
   @Component
   export default class PovertyMap extends Vue {
@@ -42,7 +42,7 @@
 
     // data
     public query: string;
-    public searchItems: Nominatim[];
+    public searchItems: PlaceItem[];
 
     // services
     private nominatimService: NominatimService;
@@ -177,7 +177,7 @@
         this.map.addSource(this.SECOND_LEVEL_LAYER_ID, {
           type: 'geojson',
           // data: 'http://www.injusalon.com/count/pictures/county.json'
-          // data: 'http://www.injusalon.com/count/pictures/s.json'
+          data: 'http://www.injusalon.com/count/pictures/s.json'
         });
         let layer: mapboxgl.Layer = {
           id: this.SECOND_LEVEL_LAYER_ID,
@@ -199,7 +199,7 @@
   }
 </script>
 
-<style>
+<style scoped>
     .outer {
         position: relative;
         /*background-image: linear-gradient( 135deg, #92FFC0 30%, #00266150 100%);*/
