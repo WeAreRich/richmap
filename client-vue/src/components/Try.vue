@@ -2,7 +2,9 @@
     <div style="width: 80%; margin: auto;">
         <poverty-map @on-map-load="handleOnMapLoad"></poverty-map>
         <div style="width: 400px; float: right; margin-top: 40px;">
-            <search-place @on-select="handleSelect"></search-place>
+        </div>
+        <div style="width: 400px;">
+            <map-query-component></map-query-component>
         </div>
     </div>
 </template>
@@ -11,12 +13,12 @@
   import Vue from 'vue';
   import PovertyMap from './map/poverty-map/PovertyMap.vue';
   import { Component } from 'vue-property-decorator';
-  import SearchPlace from './map/SearchPlace.vue';
   import { Logger } from '../services/Logger';
+  import MapQueryComponent from './map/MapQueryComponent.vue';
 
   @Component({
     components: {
-      SearchPlace,
+      MapQueryComponent,
       PovertyMap
     }
   })
