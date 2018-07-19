@@ -1,8 +1,8 @@
 <template>
     <div class="outer">
         <div class="border-control">
-            <Dropdown trigger="click">
-                <Tooltip content="边界" placement="top">
+            <Dropdown trigger="click" style="position: relative" placement="bottom-start">
+                <Tooltip content="边界" placement="right">
                     <Button icon="ios-browsers"></Button>
                 </Tooltip>
                 <DropdownMenu slot="list" style="text-align: left; width: 130px;">
@@ -19,20 +19,20 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Emit } from 'vue-property-decorator';
-  import NominatimService from '../../../services/nominatim.service';
-  import { Logger } from '../../../services/Logger';
-  import mapboxgl from 'mapbox-gl';
-  import { ACCESS_TOKEN, CHINA_BOUNDS, CHINA_CENTER } from '../../../constants/mapbox';
-  import PlaceItem from '../../../types/place-item';
+  import Vue from "vue";
+  import { Component, Emit } from "vue-property-decorator";
+  import NominatimService from "../../../../services/nominatim.service";
+  import { Logger } from "../../../../services/Logger/index";
+  import mapboxgl from "mapbox-gl";
+  import { ACCESS_TOKEN, CHINA_BOUNDS, CHINA_CENTER } from "../../../../constants/mapbox";
+  import PlaceItem from "../../../../types/place-item";
 
   @Component
   export default class PovertyMap extends Vue {
-    private TAG = 'PovertyMap';
-    private FIRST_LEVEL_LAYER_ID = 'first-level';
-    private SECOND_LEVEL_LAYER_ID = 'second-level';
-    private THIRD_LEVEL_LAYER_ID = 'third-level';
+    private TAG = "PovertyMap";
+    private FIRST_LEVEL_LAYER_ID = "first-level";
+    private SECOND_LEVEL_LAYER_ID = "second-level";
+    private THIRD_LEVEL_LAYER_ID = "third-level";
 
     // 行政区域划分图层
     private firstLevelLayer: mapboxgl.Layer;
@@ -49,24 +49,24 @@
 
     constructor() {
       super();
-      Logger.info(this.TAG, 'constructor');
-      this.query = '';
+      Logger.info(this.TAG, "constructor");
+      this.query = "";
       this.searchItems = [];
       this.nominatimService = new NominatimService();
     }
 
     mounted() {
-      Logger.info(this.TAG, 'mounted');
+      Logger.info(this.TAG, "mounted");
       this.initMap();
     }
 
     private initMap() {
-      Logger.info(this.TAG, 'start init map');
+      Logger.info(this.TAG, "start init map");
       mapboxgl.accessToken = ACCESS_TOKEN;
       this.map = new mapboxgl.Map({
-        container: 'map-container',
+        container: "map-container",
         // style: 'mapbox://styles/mapbox/streets-v10',
-        style: 'mapbox://styles/mapbox/satellite-v9',
+        style: "mapbox://styles/mapbox/satellite-v9",
         // style: 'mapbox://styles/mapbox/satellite-streets-v10',
         center: CHINA_CENTER,
         maxBounds: CHINA_BOUNDS
@@ -75,7 +75,7 @@
       this.map.addControl(new mapboxgl.NavigationControl());
       this.map.addControl(new mapboxgl.ScaleControl());
       // 初始化完成
-      this.map.on('load', () => {
+      this.map.on("load", () => {
         this.onMapLoad(this.map);
       });
     }
@@ -149,20 +149,20 @@
     }
 
     public showFirstLevelBorder() {
-      Logger.info(this.TAG, 'show first level border');
+      Logger.info(this.TAG, "show first level border");
       // 未加载过
       if (!this.firstLevelLayer) {
         this.map.addSource(this.FIRST_LEVEL_LAYER_ID, {
-          type: 'geojson',
-          data: 'http://www.injusalon.com/count/pictures/region.json'
+          type: "geojson",
+          data: "http://www.injusalon.com/count/pictures/region.json"
         });
         let layer: mapboxgl.Layer = {
           id: this.FIRST_LEVEL_LAYER_ID,
-          type: 'line',
+          type: "line",
           source: this.FIRST_LEVEL_LAYER_ID,
           paint: {
-            'line-color': '#fff',
-            'line-width': 4
+            "line-color": "#fff",
+            "line-width": 4
           }
         };
         this.firstLevelLayer = layer;
@@ -171,21 +171,21 @@
     }
 
     public showSecondLevelBorder() {
-      Logger.info(this.TAG, 'showSecondLevelBorder');
+      Logger.info(this.TAG, "showSecondLevelBorder");
       // 未加载过
       if (!this.secondLevelLayer) {
         this.map.addSource(this.SECOND_LEVEL_LAYER_ID, {
-          type: 'geojson',
+          type: "geojson",
           // data: 'http://www.injusalon.com/count/pictures/county.json'
-          data: 'http://www.injusalon.com/count/pictures/s.json'
+          data: "http://www.injusalon.com/count/pictures/s.json"
         });
         let layer: mapboxgl.Layer = {
           id: this.SECOND_LEVEL_LAYER_ID,
-          type: 'line',
+          type: "line",
           source: this.SECOND_LEVEL_LAYER_ID,
           paint: {
-            'line-color': '#fff',
-            'line-width': 4
+            "line-color": "#fff",
+            "line-width": 4
           }
         };
         this.secondLevelLayer = layer;
@@ -194,7 +194,7 @@
     }
 
     public showThirdLevelBorder() {
-      Logger.info(this.TAG, 'showThirdLevelBorder');
+      Logger.info(this.TAG, "showThirdLevelBorder");
     }
   }
 </script>
@@ -204,7 +204,6 @@
         position: relative;
         /*background-image: linear-gradient( 135deg, #92FFC0 30%, #00266150 100%);*/
         background: inherit;
-        padding: 20px;
         width: 100%;
         box-shadow: rgba(0, 0, 0, 0.5) 0 0 10px;
     }
@@ -212,14 +211,12 @@
     #map-container {
         height: 600px;
         width: 100%;
-        margin: auto;
     }
 
     .border-control {
-        padding: 10px;
         display: inline-block;
-        transform: translateY(100%);
-        position: relative;
+        position: absolute;
+        padding: 10px;
         z-index: 999;
     }
 </style>

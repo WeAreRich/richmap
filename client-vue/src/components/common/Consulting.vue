@@ -9,7 +9,7 @@
 </template>
 <script lang="ts">
   import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-  import SENTENCES from "../assets/sentences/index";
+  import SENTENCES from "../../assets/sentences/index";
 
   @Component
   export default class Consulting extends Vue {
@@ -23,6 +23,6 @@
         position: fixed;
         z-index: 9999;
         right: 10px;
-        bottom: 30%;
+        bottom: 6%;
     }
 </style>

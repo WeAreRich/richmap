@@ -1,7 +1,8 @@
 <template>
     <div>
         <AutoComplete
-                placeholder="根据名称搜索地区"
+                :placeholder="mapSearch"
+                size="large"
                 clearable
                 v-model.lazy="query"
                 @on-select="handleSelectPlace"
@@ -17,18 +18,20 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import PlaceItem from '../../types/place-item';
-  import NominatimService from '../../services/nominatim.service';
-  import { Emit, Component } from 'vue-property-decorator';
-  import {Logger} from '../../services/Logger';
+  import Vue from "vue";
+  import PlaceItem from "../../../types/place-item";
+  import NominatimService from "../../../services/nominatim.service";
+  import { Emit, Component } from "vue-property-decorator";
+  import { Logger } from "../../../services/Logger/index";
+  import SENTENCES from "../../../assets/sentences";
 
   @Component
   export default class SearchPlace extends Vue {
+    mapSearch: string = SENTENCES.SIDE_MENU.MAP_SEARCH;
     // 类数据
-    private TAG = 'SearchPlace';
+    private TAG = "SearchPlace";
     // services
-    private  nominatimService: NominatimService;
+    private nominatimService: NominatimService;
     // data
     public query: string;
     public searchItems: PlaceItem[];
@@ -38,19 +41,21 @@
       // services
       this.nominatimService = new NominatimService();
       // data
-      this.query = '';
+      this.query = "";
       this.searchItems = [];
     }
 
     /* 事件发射 */
 
     @Emit()
-    public onSelect(nominatimItem: PlaceItem) {}
+    public onSelect(nominatimItem: PlaceItem) {
+    }
 
     /* 事件处理 */
+
     // 搜索输入的名称 是否在地理上有对应的 项目
     public async handleSearch(query) {
-      Logger.info(this.TAG, 'search', query);
+      Logger.info(this.TAG, "search", query);
       // 检空
       if (!query) {
         return;

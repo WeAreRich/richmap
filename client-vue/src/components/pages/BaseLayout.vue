@@ -14,8 +14,8 @@
 
 <script lang="ts">
     import {Vue, Component} from 'vue-property-decorator';
-    import FixedMenu from '../FixedMenu.vue';
-    import FixedFooter from '../FixedFooter.vue';
+    import FixedMenu from '../common/FixedMenu.vue';
+    import FixedFooter from '../common/FixedFooter.vue';
 
     @Component({
         components: {FixedMenu, FixedFooter}

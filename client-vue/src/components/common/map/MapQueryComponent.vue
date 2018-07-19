@@ -1,13 +1,13 @@
 <template>
-    <Form ref="paramsForm" :ruls="rules">
-        <h2>搜索参数</h2>
+    <Form ref="paramsForm" :ruls="rules"
+          style="padding:20px;background-color:whitesmoke;margin: 5px;-webkit-border-radius: 5px">
         <FormItem prop="selectedYear">
             <DatePicker
                     v-model="selectedYear"
                     type="year"
                     size="large"
                     style="width: 100%;"
-                    placeholder="选择年份">
+                    :placeholder="mapYear">
             </DatePicker>
         </FormItem>
         <FormItem prop="selectedPlace">
@@ -15,8 +15,9 @@
         </FormItem>
         <FormItem>
             <Button
-                    type="ghost"
-                    style="width: 100%;"
+                    type="primary"
+                    style="width: 100%"
+                    size="large"
                     @click="handleClickSearch">确定
             </Button>
         </FormItem>
@@ -24,26 +25,29 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { Component, Emit } from 'vue-property-decorator';
-  import SearchPlace from './SearchPlace.vue';
-  import PlaceItem from '../../types/place-item';
-  import { Message } from '../../services/Message';
+  import Vue from "vue";
+  import { Component, Emit } from "vue-property-decorator";
+  import SearchPlace from "./SearchPlace.vue";
+  import PlaceItem from "../../../types/place-item";
+  import { Message } from "../../../services/Message/index";
+  import SENTENCES from "../../../assets/sentences";
 
   @Component({
     components: {
       SearchPlace
     }
   })
+
   export default class MapQueryComponent extends Vue {
+    mapYear: string = SENTENCES.SIDE_MENU.MAP_YEAR;
     public selectedPlace: PlaceItem;
     public selectedYear: number;
     public rules: {
       selectedPlace: [
-        { required: true, message: '地点不能为空', trigger: 'blur' }
+        { required: true, message: "地点不能为空", trigger: "blur" }
         ],
       selectedYear: [
-        { required: true, message: '年份不能为空', trigger: 'blur' }
+        { required: true, message: "年份不能为空", trigger: "blur" }
         ],
     };
 
@@ -59,7 +63,8 @@
      * 表格填写提交，参数完成
      */
     @Emit()
-    onSubmit() {}
+    onSubmit() {
+    }
 
     /* handler */
     handleSelectPlace(place: PlaceItem) {
@@ -69,12 +74,12 @@
     handleClickSearch() {
       if (!this.selectedYear) {
         // (this as any).$Message.error('请选择一个年份');
-        this.messageService.error('请选择一个年份');
+        this.messageService.error("请选择一个年份");
         return;
       }
       if (!this.selectedPlace) {
         // (this as any).$Message.error('请选择一个年份');
-        this.messageService.error('请选择一个地点');
+        this.messageService.error("请选择一个地点");
         return;
       }
       this.onSubmit();
@@ -83,12 +88,5 @@
 </script>
 
 <style scoped>
-    .outer {
-        width: 100%;
-        padding: 10px;
-    }
 
-    .item-wrapper {
-        margin: 10px 0;
-    }
 </style>

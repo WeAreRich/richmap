@@ -11,10 +11,10 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import PovertyMap from './map/poverty-map/PovertyMap.vue';
+  import PovertyMap from '../common/map/poverty-map/PovertyMap.vue';
   import { Component } from 'vue-property-decorator';
-  import { Logger } from '../services/Logger';
-  import MapQueryComponent from './map/MapQueryComponent.vue';
+  import { Logger } from '../../services/Logger';
+  import MapQueryComponent from "../common/map/MapQueryComponent.vue";
 
   @Component({
     components: {

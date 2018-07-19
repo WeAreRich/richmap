@@ -12,9 +12,9 @@
 
 <script lang="ts">
     import {Vue, Component} from 'vue-property-decorator';
-    import Consulting from '../Consulting.vue';
-    import DetectFixedSideMenu from '../DetectFixedSideMenu.vue';
-    import PovertyMap from '../map/poverty-map/PovertyMap.vue';
+    import Consulting from '../common/Consulting.vue';
+    import DetectFixedSideMenu from '../common/DetectFixedSideMenu.vue';
+    import PovertyMap from '../common/map/poverty-map/PovertyMap.vue';
 
     @Component({
         components: {Consulting, DetectFixedSideMenu, PovertyMap}
