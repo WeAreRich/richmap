@@ -59,7 +59,6 @@
       Logger.info(this.TAG, 'mounted');
       this.initMap();
     }
-
     private initMap() {
       Logger.info(this.TAG, 'start init map');
       mapboxgl.accessToken = ACCESS_TOKEN;
@@ -68,6 +67,31 @@
         // style: 'mapbox://styles/mapbox/streets-v10',
         style: 'mapbox://styles/mapbox/satellite-v9',
         // style: 'mapbox://styles/mapbox/satellite-streets-v10',
+        // style: {
+        //   'version': 8,
+        //   'name': 'Mapbox Streets',
+        //   'sprite': 'mapbox://sprites/mapbox/streets-v8',
+        //   'glyphs': 'mapbox://fonts/mapbox/{fontstack}/{range}.pbf',
+        //   "layers": [{
+        //     "id": "simple-tiles",
+        //     "type": "raster",
+        //     "source": "osm-tiles",
+        //     "minzoom": 0,
+        //     "maxzoom": 22
+        //   }],
+        //   'sources': {
+        //     'osm-tiles': {
+        //       'type': 'raster',
+        //       'tiles': [
+        //         // 'https://api.openstreetmap.org/api/0.6/map?bbox=11.54,48.14,11.543,48.145'
+        //         'http://c.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        //         // 'https://planet.openstreetmap.org/pbf/planet-latest.osm.pbf'
+        //         // 'http://download.geofabrik.de/asia/china-latest.osm.pbf'
+        //       ],
+        //       'tileSize': 256
+        //     }
+        //   }
+        // },
         center: CHINA_CENTER,
         maxBounds: CHINA_BOUNDS
       });
@@ -177,7 +201,7 @@
         this.map.addSource(this.SECOND_LEVEL_LAYER_ID, {
           type: 'geojson',
           // data: 'http://www.injusalon.com/count/pictures/county.json'
-          data: 'http://www.injusalon.com/count/pictures/s.json'
+          data: 'http://www.injusalon.com/count/pictures/result.json'
         });
         let layer: mapboxgl.Layer = {
           id: this.SECOND_LEVEL_LAYER_ID,
@@ -218,8 +242,7 @@
     .border-control {
         padding: 10px;
         display: inline-block;
-        transform: translateY(100%);
-        position: relative;
+        position: absolute;
         z-index: 999;
     }
 </style>

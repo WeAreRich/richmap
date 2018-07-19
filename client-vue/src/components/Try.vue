@@ -3,9 +3,6 @@
         <poverty-map @on-map-load="handleOnMapLoad"></poverty-map>
         <div style="width: 400px; float: right; margin-top: 40px;">
         </div>
-        <div style="width: 400px;">
-            <map-query-component></map-query-component>
-        </div>
     </div>
 </template>
 
