@@ -8,14 +8,14 @@
     </Affix>
 </template>
 <script lang="ts">
-    import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import SENTENCES from "../assets/sentences/index";
+  import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
+  import SENTENCES from "../assets/sentences/index";
 
-    @Component
-    export default class Consulting extends Vue {
-        onlineConsultTitle: string = SENTENCES.ONLINE_CONSULT.TITLE;
-        onlineConsultContent: string = SENTENCES.ONLINE_CONSULT.CONTENT;
-    }
+  @Component
+  export default class Consulting extends Vue {
+    onlineConsultTitle: string = SENTENCES.ONLINE_CONSULT.TITLE;
+    onlineConsultContent: string = SENTENCES.ONLINE_CONSULT.CONTENT;
+  }
 </script>
 
 <style scoped>
