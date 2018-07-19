@@ -29,7 +29,7 @@
             </MenuItem>
         </div>
         <div class="layout-user">
-            <Button type="ghost" icon="person" size="large" @click="isShow = true"></Button>
+            <Button type="ghost" icon="person" size="large" shape="circle" @click="isShow = true"></Button>
         </div>
         <Modal
                 v-model="isShow"

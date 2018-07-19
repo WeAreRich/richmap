@@ -7,16 +7,16 @@ import BaseLayout from '../components/pages/BaseLayout.vue';
 Vue.use(Router);
 
 const routes = [
-    {
-        path: '/', component: Home
-    },
-    {
-        path: '/try', component: Try
-    }
+  {
+    path: '/', component: Home
+  },
+  {
+    path: '/try', component: Try
+  }
 ];
 
 Vue.component('base-layout', BaseLayout);
 
 export default new Router({
-    routes
+  routes
 });
