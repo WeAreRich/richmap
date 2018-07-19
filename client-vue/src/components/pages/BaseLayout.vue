@@ -3,7 +3,9 @@
         <Layout>
             <fixed-menu/>
             <Layout>
-                <slot/>
+                <router-view>
+                    <slot/>
+                </router-view>
             </Layout>
             <fixed-footer/>
         </Layout>

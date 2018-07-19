@@ -1,9 +1,11 @@
 <template>
-    <div class="fixed-consult">
-        <Poptip trigger="hover" :title="onlineConsultTitle" :content="onlineConsultContent">
-            <Button icon="chatbox-working" size="large" type="primary">{{onlineConsultTitle}}</Button>
-        </Poptip>
-    </div>
+    <Affix :offset-right="0">
+        <div class="fixed-consult">
+            <Poptip trigger="hover" :title="onlineConsultTitle" :content="onlineConsultContent">
+                <Button icon="chatbox-working" size="large" type="primary">{{onlineConsultTitle}}</Button>
+            </Poptip>
+        </div>
+    </Affix>
 </template>
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
@@ -21,6 +23,6 @@
         position: fixed;
         z-index: 9999;
         right: 10px;
-        bottom: 0;
+        bottom: 30%;
     }
 </style>
