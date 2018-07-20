@@ -20,6 +20,12 @@ import { DistrictNumber } from '../entity/DistrictNumber';
         console.log("receive")
       return this.districtService.getByNumber(request.params.id);
     }
+
+    @httpGet('/get')
+    public getByName(request: Request): Promise<DistrictNumber> {
+        console.log("receive")
+      return this.districtService.getByName(request.params.name);
+    }
   
   }
   
