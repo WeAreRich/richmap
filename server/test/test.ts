@@ -1,3 +1,4 @@
+'use strict';
 import 'mocha';
 // import {Promise} from 'es6-promise'
 // let a = ():void=>{
@@ -41,6 +42,10 @@ import {TypeOrmConnection} from "../src/util/orm/connection"
 import { User } from '../src/entity/User';
 import { BaseOrmClass } from '../src/util/orm/BaseOrmClass';
 import {OrmServiceImpl} from "../src/util/orm/OrmServiceImpl";
+import { DistrictNumber } from '../src/entity/DistrictNumber';
+import { print } from 'util';
+import { Level } from '../src/interface/Level';
+import { DistrictService } from '../src/service/DistrictService';
 
 
 // function getSomething() {
@@ -78,15 +83,63 @@ user.firstName = "aa"; user.lastName = "bbb";
 //    console.log("this begin")
 //    connection1.close()
 // })
-let service:OrmServiceImpl = new OrmServiceImpl(new User());
-service.checkKeyExists("2").then(v=>{
-  console.log(v)
-})
-service.insert(user).then(v=>{
-  service.checkKeyExists("3").then(v=>{
-    console.log(v)
-  })
+let service:OrmServiceImpl = new OrmServiceImpl(new DistrictNumber());
+
+// service.find({father:371100}).then(v=>{
+//   console.log(v)
+// })
+var fs = require('fs');
+
+fs.readFile('./data.txt', 'utf-8', function (err, data) {
+    if (err) {
+        console.log(err);
+    } else {
+        let array = data.split('\n')
+        console.log(array[0])
+        let currentP = array[0].split('\t')[0];
+        let currentC = array[1].split('\t')[0];
+        array.forEach(element => {
+          // console.log(element)
+           let value = element.split('\t')
+           let item:DistrictNumber = new DistrictNumber();
+           item.id = value[0]
+           item.name = value[1]
+           item.level = 0
+           if(item.id%10000 == 0){
+              item.level = 3;
+              item.father = 86
+              currentP = item.id
+           }else if(item.id%100 == 0){
+              item.level = 2;
+              item.father = currentP
+              currentC = item.id; 
+           }else{
+              item.level = 1;
+              item.father = currentC
+           }
+          //  console.log(item)
+           service.insert(item).then(v=>{
+             console.log(v)
+           }).catch(v=>{
+             console.log(v)
+           })
+        });
+    }
 });
+// let dService:DistrictService = new DistrictService();
+// dService.getByNumber(371100).then(v=>{
+//   let districtNumber = DistrictNumber.convertToUser(v)
+//   console.log(districtNumber)
+// })
+
+// service.checkKeyExists("2").then(v=>{
+//   console.log(v)
+// })
+// service.insert(user).then(v=>{
+//   service.checkKeyExists("3").then(v=>{
+//     console.log(v)
+//   })
+// });
 // service.findByKey("1").then(v=>{
 //   let user = User.convertToUser(v);
 //   console.log(user);

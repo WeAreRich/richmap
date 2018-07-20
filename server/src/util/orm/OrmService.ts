@@ -6,6 +6,7 @@ export interface OrmService{
     update (obj:BaseOrmClass):Promise<boolean>;
     findByKey (key:string):Promise<any>;
     //search 条件查找
+    find(param:any):Promise<any>;
     checkKeyExists (key:string):Promise<boolean>;
     //getAllObjects
 }
