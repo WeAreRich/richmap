@@ -15,13 +15,13 @@ import { DistrictNumber } from '../entity/DistrictNumber';
      }
 
   
-    @httpGet('/get/:id')
+    @httpGet('/getName/:id')
     public getByID(request: Request): Promise<DistrictNumber> {
         console.log("receive")
       return this.districtService.getByNumber(request.params.id);
     }
 
-    @httpGet('/get')
+    @httpGet('/getID')
     public getByName(request: Request): Promise<DistrictNumber> {
         console.log("receive")
       return this.districtService.getByName(request.params.name);
