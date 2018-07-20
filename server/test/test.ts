@@ -85,9 +85,9 @@ user.firstName = "aa"; user.lastName = "bbb";
 // })
 let service:OrmServiceImpl = new OrmServiceImpl(new DistrictNumber());
 
-service.find({father:371100}).then(v=>{
-  console.log(v)
-})
+// service.find({father:371100}).then(v=>{
+//   console.log(v)
+// })
 var fs = require('fs');
 
 fs.readFile('./data.txt', 'utf-8', function (err, data) {
@@ -117,7 +117,7 @@ fs.readFile('./data.txt', 'utf-8', function (err, data) {
               item.level = 1;
               item.father = currentC
            }
-           console.log(item)
+          //  console.log(item)
            service.insert(item).then(v=>{
              console.log(v)
            }).catch(v=>{
@@ -126,20 +126,20 @@ fs.readFile('./data.txt', 'utf-8', function (err, data) {
         });
     }
 });
-let dService:DistrictService = new DistrictService();
-dService.getByNumber(371100).then(v=>{
-  let districtNumber = DistrictNumber.convertToUser(v)
-  console.log(districtNumber)
-})
+// let dService:DistrictService = new DistrictService();
+// dService.getByNumber(371100).then(v=>{
+//   let districtNumber = DistrictNumber.convertToUser(v)
+//   console.log(districtNumber)
+// })
 
-service.checkKeyExists("2").then(v=>{
-  console.log(v)
-})
-service.insert(user).then(v=>{
-  service.checkKeyExists("3").then(v=>{
-    console.log(v)
-  })
-});
+// service.checkKeyExists("2").then(v=>{
+//   console.log(v)
+// })
+// service.insert(user).then(v=>{
+//   service.checkKeyExists("3").then(v=>{
+//     console.log(v)
+//   })
+// });
 // service.findByKey("1").then(v=>{
 //   let user = User.convertToUser(v);
 //   console.log(user);
