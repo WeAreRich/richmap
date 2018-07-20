@@ -34,10 +34,10 @@ server.setConfig((app) => {
 
 let app = server.build();
 
-app.listen(80);
+app.listen(3000);
 
 console.log('Server started on port 80 :)');
-console.log("click http://127.0.0.1:80");
+console.log("click http://127.0.0.1:3000");
 
 exports = module.exports = app;
 

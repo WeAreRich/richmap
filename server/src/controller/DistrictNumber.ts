@@ -1,5 +1,5 @@
 import {
-    controller, httpGet, httpPost, httpPut, httpDelete,requestParam
+    controller, httpGet, httpPost, httpPut, httpDelete,requestParam,request,queryParam
   } from 'inversify-express-utils';
   import { Request } from 'express';
 import { DistrictService } from '../service/DistrictService';
@@ -15,20 +15,26 @@ import { DistrictNumber } from '../entity/DistrictNumber';
      }
 
   
-    @httpGet('/getName/:id')
-    public getByID(request: Request): Promise<DistrictNumber> {
-        console.log("receive")
-      return this.districtService.getByNumber(request.params.id);
+    @httpGet('/getName')
+    public getByID(@queryParam("id") id: number,request: Request): Promise<DistrictNumber> {
+      return this.districtService.getByNumber(id);
     }
 
     @httpGet('/getID')
-    public getByName(@requestParam("name") name: string,): Promise<DistrictNumber> {
-      console.log("receive")
-    //   console.log(request.params)
+    public getByName(@queryParam("name") name: string,@request() req: Request): Promise<DistrictNumber> {
       return this.districtService.getByName(name);
     }
 
+    @httpGet('/getChildren')
+    public getChildren(@queryParam("id") id: number,@request() req: Request): Promise<DistrictNumber[]> {
+      return this.districtService.getChildren(id);
+    }
 
+    @httpGet('/getFather')
+    public getFather(@queryParam("id") id: number,@request() req: Request): Promise<DistrictNumber> {
+        
+        return this.districtService.getFather(id);
+    }
   
   }
   

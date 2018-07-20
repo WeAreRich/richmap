@@ -24,6 +24,16 @@ export class DistrictService {
   public getChildren(id:number): Promise<DistrictNumber[]>{
     return this.ormService.find({father:id});
   }
+
+   public async getFather(id:number){
+    let result:DistrictNumber;
+    // try{
+    let number:DistrictNumber =  await this.ormService.findByKey(String(id));
+    console.log(number)
+    result = await this.ormService.findByKey(String(number.father));
+    console.log(result)
+    return result;
+  }
   
 
   
