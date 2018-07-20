@@ -117,12 +117,12 @@ fs.readFile('./data.txt', 'utf-8', function (err, data) {
               item.level = 1;
               item.father = currentC
            }
-          //  console.log(item)
-          //  service.insert(item).then(v=>{
-          //    console.log(v)
-          //  }).catch(v=>{
-          //    console.log(v)
-          //  })
+           console.log(item)
+           service.insert(item).then(v=>{
+             console.log(v)
+           }).catch(v=>{
+             console.log(v)
+           })
         });
     }
 });
