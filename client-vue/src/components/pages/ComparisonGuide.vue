@@ -13,7 +13,7 @@
                 </div>
             </div>
             <Card>
-                <word-loader></word-loader>
+                <pdf-loader></pdf-loader>
                 <consulting></consulting>
             </Card>
         </Layout>
@@ -23,11 +23,11 @@
 <script lang="ts">
   import { Vue, Component } from "vue-property-decorator";
   import Consulting from "../common/Consulting.vue";
-  import WordLoader from "../common/WordLoader.vue";
+  import PdfLoader from "../common/PdfLoader.vue";
   import { MapTypeOption } from "../../models/MapTypeOption";
 
   @Component({
-    components: {Consulting, WordLoader}
+    components: {Consulting, PdfLoader}
   })
 
   export default class ComparisonGuide extends Vue {
