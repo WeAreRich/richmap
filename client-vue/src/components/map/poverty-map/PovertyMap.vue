@@ -26,6 +26,7 @@
   import mapboxgl from 'mapbox-gl';
   import { ACCESS_TOKEN, CHINA_BOUNDS, CHINA_CENTER } from '../../../constants/mapbox';
   import PlaceItem from '../../../types/place-item';
+  import MapDrawingLineService from "../../../services/map-drawing-line.service";
 
   @Component
   export default class PovertyMap extends Vue {
@@ -101,6 +102,8 @@
       // 初始化完成
       this.map.on('load', () => {
         this.onMapLoad(this.map);
+        Logger.info(this.TAG, 'start drawing line');
+        // let drawLine = new MapDrawingLineService(this.map, (path: Position[]) => {Logger.info(this.TAG, '画线完成', path)});
       });
     }
 
@@ -110,42 +113,6 @@
     }
 
     /* 下面是事件处理 */
-
-    // // 搜索输入的名称 是否在地理上有对应的 项目
-    // public async handleSearch(query) {
-    //   // 检空
-    //   if (!query) {
-    //     return;
-    //   }
-    //   this.searchItems = await this.nominatimService.search(query);
-    // }
-    //
-    // // 选择搜索出的某一地名
-    // public handleSelectPlace(value) {
-    //   let map = this.map;
-    //   Logger.info(this.TAG, `select ${value}`);
-    //   let index = this.searchItems.findIndex(
-    //     item => item.display_name === value
-    //   );
-    //   if (index < 0) {
-    //     Logger.error(this.TAG, `not found ${value}`);
-    //     return;
-    //   }
-    //   let nominatimItem = this.searchItems[index];
-    //   // 定位
-    //   map.flyTo({
-    //     center: [nominatimItem.lon, nominatimItem.lat],
-    //     zoom: 9,
-    //     curve: 1,
-    //     easing(t) {
-    //       return t;
-    //     }
-    //   });
-    //   // 显示一个标志
-    //   new mapboxgl.Marker()
-    //     .setLngLat([nominatimItem.lon, nominatimItem.lat])
-    //     .addTo(map);
-    // }
 
     public handleChangeFirstLevelCheckBox(value) {
       if (value) {
