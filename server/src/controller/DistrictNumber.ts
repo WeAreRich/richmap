@@ -1,5 +1,5 @@
 import {
-    controller, httpGet, httpPost, httpPut, httpDelete
+    controller, httpGet, httpPost, httpPut, httpDelete,requestParam
   } from 'inversify-express-utils';
   import { Request } from 'express';
 import { DistrictService } from '../service/DistrictService';
@@ -22,10 +22,10 @@ import { DistrictNumber } from '../entity/DistrictNumber';
     }
 
     @httpGet('/getID')
-    public getByName(request: Request): Promise<DistrictNumber> {
+    public getByName(@requestParam("name") name: string,): Promise<DistrictNumber> {
       console.log("receive")
-      console.log(request.params)
-      return this.districtService.getByName(request.params.name);
+    //   console.log(request.params)
+      return this.districtService.getByName(name);
     }
 
 
