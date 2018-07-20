@@ -24,11 +24,7 @@ export class DistrictService {
   public getChildren(id:number): Promise<DistrictNumber[]>{
     return this.ormService.find({father:id});
   }
-
-  public getFather(id:number): Promise<DistrictNumber>{
-
-  }
-
+  
 
   
 }
