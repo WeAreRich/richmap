@@ -1,8 +1,6 @@
 import {
     controller, httpGet, httpPost, httpPut, httpDelete
   } from 'inversify-express-utils';
-  import { inject } from 'inversify';
-  import TYPES from '../constant/types';
   import { Request } from 'express';
 import { DistrictService } from '../service/DistrictService';
 import { DistrictNumber } from '../entity/DistrictNumber';
