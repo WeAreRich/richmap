@@ -1,6 +1,6 @@
 import mapboxgl from 'mapbox-gl';
 import { GeoJSON } from '@/node_modules/@types/geojson';
-import { Logger } from '@/services/logger';
+import { Logger } from '@/services/Logger';
 
 /**
  * 回调函数的返回值， 一个矩形区域
@@ -41,7 +41,7 @@ export default class MapDrawingRectangleService {
     this.map.dragPan.disable();
     this.startPoint = [e.lngLat.lng, e.lngLat.lat];
     this.isDrawing = true;
-  }
+  };
 
   public drawing = (e: mapboxgl.MapMouseEvent | mapboxgl.MapTouchEvent) => {
     if (!this.isDrawing) return;
@@ -86,7 +86,7 @@ export default class MapDrawingRectangleService {
     }
     this.map.repaint = true;
     Logger.info(this.TAG, 'after source modified', layer);
-  }
+  };
 
   public endDrawing = (e: mapboxgl.MapMouseEvent | mapboxgl.MapTouchEvent) => {
     Logger.info(this.TAG, 'end drawing');
@@ -119,7 +119,7 @@ export default class MapDrawingRectangleService {
     if (this.callback) this.callback(rec);
     // 还原地图拖动
     this.map.dragPan.enable();
-  }
+  };
 }
 
 

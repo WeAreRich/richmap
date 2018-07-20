@@ -22,7 +22,10 @@ const SENTENCES = {
       POOR_STATE: '贫困情况',
       POOR_DETECT: '贫困监测',
       POOR_SERVICE: '助贫服务'
-    }
+    },
+    DATA_TYPE: '数据类型',
+    START_DATE: '起始时间',
+    END_DATE: '结束时间'
   },
   ONLINE_CONSULT: {
     TITLE: '在线咨询',
@@ -50,6 +53,9 @@ const SENTENCES = {
       USERNAME: '用户名',
       PASSWORD: '密码'
     }
+  },
+  GUIDE: {
+    DATA_YEAR: '数据年份'
   }
 };
 

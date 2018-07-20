@@ -34,7 +34,7 @@
 </template>
 <script lang="ts">
     import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-    import SENTENCES from "../assets/sentences/index";
+    import SENTENCES from "../../assets/sentences/index";
 
     @Component
     export default class FixedFooter extends Vue {

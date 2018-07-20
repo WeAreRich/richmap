@@ -4,7 +4,7 @@ import {
   import { Request } from 'express';
 import { DistrictService } from '../service/DistrictService';
 import { DistrictNumber } from '../entity/DistrictNumber';
-
+  
   
   @controller('/district')
   export class DistrictController {
