@@ -7,4 +7,5 @@ export interface ArticleService {
 }
 
 export class ArticleServiceImpl {
+
 }

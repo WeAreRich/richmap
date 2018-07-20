@@ -1,6 +1,6 @@
 import mapboxgl from 'mapbox-gl';
 import { GeoJSON } from '@/node_modules/@types/geojson';
-import { Logger } from '@/services/logger';
+import { Logger } from '@/services/Logger';
 
 /**
  * 回调函数的返回值， 一个矩形区域
