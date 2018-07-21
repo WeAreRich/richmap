@@ -13,7 +13,7 @@
         <FileUploader route="profile" :params=params v-on:getFileName="getFileName">
 
         </FileUploader>
-        <PdfLoader :pdfUrl=url>
+        <PdfLoader :pdfUrl="pdfUrl">
 
         </PdfLoader>
     </div>
@@ -31,7 +31,7 @@
       }
     })
     export default class AdminHome extends Vue {
-        url:string;
+        pdfUrl:string ;
 
         params = {
           fileName: "jjj"
@@ -42,8 +42,11 @@
         }
 
         getFileName (fileName) {
-          this.url = APIROOTURL+"files/"+fileName;
-          console.log(this.url);
+          this.$nextTick(() => {
+            this.pdfUrl = APIROOTURL+"files/"+fileName;
+            console.log("click "+this.pdfUrl);
+          })
+
         }
     }
 </script>
