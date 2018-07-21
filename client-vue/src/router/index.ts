@@ -50,19 +50,15 @@ const routes = [
         ]
       },
       {
-        path: 'file',
-        component: FileUpload
-      },
-      {
-        path: 'admin',
-        component: AdminHome
-      },
-      {
         path: 'try',
         component: Try
       },
     ]
-  }
+  },
+  {
+    path: '/admin',
+    component: AdminHome
+  },
 ];
 
 Vue.component('base-layout', BaseLayout);

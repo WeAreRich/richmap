@@ -8,6 +8,7 @@
   import { Component, Prop, Vue } from "vue-property-decorator";
 
   export default class PdfLoader extends Vue {
+    @Prop()
     pdfUrl: string = "http://www.injusalon.com/count/pictures/map.pdf";
   }
 </script>

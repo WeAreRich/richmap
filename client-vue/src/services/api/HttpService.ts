@@ -97,7 +97,8 @@ export class HttpService {
 }
 
 
-export const APIROOTURL: string = "http://localhost:3000/";
+// export const APIROOTURL: string = "http://127.0.0.1:3000/";
+export const APIROOTURL: string = "http://112.74.49.28:3000/";
 
 const http: HttpService = new HttpService();
 export default http;
