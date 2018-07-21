@@ -16,7 +16,11 @@ server.setConfig((app) => {
     extended: true
   }));
   app.use(bodyParser.json());
-  app.use(helmet());
+    app.use(helmet({
+        frameguard: {
+            action: 'deny'
+        }
+    }));
 
 
   app.all('*', function(req, res, next) {
@@ -24,8 +28,6 @@ server.setConfig((app) => {
       res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
       res.header("Access-Control-Allow-Headers", "X-Requested-With");
       res.header('Access-Control-Allow-Headers', 'Content-Type');
-      res.header('X-Frame-Option', 'ALLOW-FROM www.injusalon.com');
-      res.header('X-Frame-Option', 'ALLOW-FROM 127.0.0.1:1024');
       next();
   });
 
