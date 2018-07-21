@@ -16,11 +16,12 @@ server.setConfig((app) => {
     extended: true
   }));
   app.use(bodyParser.json());
-    app.use(helmet({
-        frameguard: {
-            action: 'allow'
-        }
-    }));
+  //todo : 上传服务器时要加入安全配置
+    // app.use(helmet({
+    //     frameguard: {
+    //         action: 'allow'
+    //     }
+    // }));
 
 
   app.all('*', function(req, res, next) {
