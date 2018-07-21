@@ -1,16 +1,9 @@
 import mapboxgl from 'mapbox-gl';
 import { GeoJSON } from '@/node_modules/@types/geojson';
 import { Logger } from '@/services/logger';
+import { REC_LAYER_ID } from '@/constants/mapbox';
 
-/**
- * 回调函数的返回值， 一个矩形区域
- */
-export class RectangleBound {
-  startPoint: GeoJSON.Position; // sw
-  endPoint: GeoJSON.Position; // ne
-}
-
-export default class MapDrawingRectangleService {
+export class MapDrawingRectangleService {
   private TAG = 'MapDrawingRectangleService';
 
   private isDrawing: boolean;
@@ -20,13 +13,13 @@ export default class MapDrawingRectangleService {
   private map: mapboxgl.Map;
   private readonly callback: Function;
 
-  private REC_LAYER_ID = 'rec-layer-id';
+  // private REC_LAYER_ID = 'rec-layer-id';
 
   /**
    * @param {mapboxgl.Map} map mapbox的地图对象
    * @param {Function} onFinishDrawing 在完成绘画之后的回调，返回值为 rec: RectangleBound
    */
-  constructor(map: mapboxgl.Map, onFinishDrawing?: Function) {
+  constructor(map: mapboxgl.Map, onFinishDrawing?: (rect: mapboxgl.LngLatBounds) => void) {
     this.map = map;
     this.startPoint = [];
     this.map.on('mousedown', this.startDrawing);
@@ -64,11 +57,11 @@ export default class MapDrawingRectangleService {
       properties: []
     };
     // 获得图层
-    let layer = this.map.getLayer(this.REC_LAYER_ID);
+    let layer = this.map.getLayer(REC_LAYER_ID);
     if (!layer) {
       // 如果没有图层就新建一个
       layer = {
-        id: this.REC_LAYER_ID,
+        id: REC_LAYER_ID,
         type: 'line',
         source: {
           type: 'geojson',
@@ -82,7 +75,7 @@ export default class MapDrawingRectangleService {
       this.map.addLayer(layer);
     } else {
       // 有就更新 source 以重绘
-      (this.map.getSource(this.REC_LAYER_ID) as mapboxgl.GeoJSONSource).setData(this.data);
+      (this.map.getSource(REC_LAYER_ID) as mapboxgl.GeoJSONSource).setData(this.data);
     }
     this.map.repaint = true;
     Logger.info(this.TAG, 'after source modified', layer);
@@ -98,25 +91,25 @@ export default class MapDrawingRectangleService {
     this.map.off('mouseup', this.endDrawing);
 
     // 准备返回值
-    let rec = new RectangleBound();
-    rec.startPoint = [this.startPoint[0], this.startPoint[1]];
-    rec.endPoint = [this.startPoint[0], this.startPoint[1]];
+    let startPoint = [this.startPoint[0], this.startPoint[1]];
+    let endPoint = [this.startPoint[0], this.startPoint[1]];
     this.path.forEach(item => {
       console.log(item);
-      if (item[0] > rec.endPoint[0]) {
-        rec.endPoint[0] = item[0];
+      if (item[0] > endPoint[0]) {
+        endPoint[0] = item[0];
       }
-      if (item[0] < rec.startPoint[0]) {
-        rec.startPoint[0] = item[0];
+      if (item[0] < startPoint[0]) {
+        startPoint[0] = item[0];
       }
-      if (item[1] > rec.endPoint[1]) {
-        rec.endPoint[1] = item[1];
+      if (item[1] > endPoint[1]) {
+        endPoint[1] = item[1];
       }
-      if (item[1] < rec.startPoint[1]) {
-        rec.startPoint[1] = item[1];
+      if (item[1] < startPoint[1]) {
+        startPoint[1] = item[1];
       }
     });
-    if (this.callback) this.callback(rec);
+    let bounds = new mapboxgl.LngLatBounds(startPoint, endPoint);
+    if (this.callback) this.callback(bounds);
     // 还原地图拖动
     this.map.dragPan.enable();
   };

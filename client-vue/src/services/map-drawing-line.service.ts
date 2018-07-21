@@ -1,9 +1,10 @@
 import mapboxgl from 'mapbox-gl';
 import { GeoJSON } from '@/node_modules/@types/geojson';
 import { Logger } from '@/services/logger';
+import { LINE_LAYER_ID } from '@/constants/mapbox';
 
 /* 在地图上画一条任意形状的线 */
-export default class MapDrawingLineService {
+export class MapDrawingLineService {
   private TAG = 'MapDrawingRectangleService';
 
   private isDrawing: boolean;
@@ -13,7 +14,7 @@ export default class MapDrawingLineService {
   private map: mapboxgl.Map;
   private readonly callback: Function;
 
-  private LINE_LAYER_ID = 'line-layer-id';
+  // private LINE_LAYER_ID = 'line-layer-id';
 
   /**
    * @param {mapboxgl.Map} map mapbox的地图对象
@@ -47,16 +48,16 @@ export default class MapDrawingLineService {
       geometry: {
         type: 'LineString',
         coordinates:
-          this.path
+        this.path
       },
       properties: []
     };
     // 获得图层
-    let layer = this.map.getLayer(this.LINE_LAYER_ID);
+    let layer = this.map.getLayer(LINE_LAYER_ID);
     if (!layer) {
       // 如果没有图层就新建一个
       layer = {
-        id: this.LINE_LAYER_ID,
+        id: LINE_LAYER_ID,
         type: 'line',
         source: {
           type: 'geojson',
@@ -70,7 +71,7 @@ export default class MapDrawingLineService {
       this.map.addLayer(layer);
     } else {
       // 有就更新 source 以重绘
-      (this.map.getSource(this.LINE_LAYER_ID) as mapboxgl.GeoJSONSource).setData(this.data);
+      (this.map.getSource(LINE_LAYER_ID) as mapboxgl.GeoJSONSource).setData(this.data);
     }
     this.map.repaint = true;
   };
@@ -85,11 +86,11 @@ export default class MapDrawingLineService {
       geometry: {
         type: 'LineString',
         coordinates:
-          this.path
+        this.path
       },
       properties: []
     };
-    (this.map.getSource(this.LINE_LAYER_ID) as mapboxgl.GeoJSONSource).setData(this.data);
+    (this.map.getSource(LINE_LAYER_ID) as mapboxgl.GeoJSONSource).setData(this.data);
 
     // 解除监听
     this.map.off('mousedown', this.startDrawing);

@@ -1,8 +1,8 @@
 <template>
     <div class="outer">
         <div class="border-control">
-            <Dropdown trigger="click">
-                <Tooltip content="边界" placement="top">
+            <Dropdown trigger="click" placement="bottom-start">
+                <Tooltip content="边界" placement="right">
                     <Button icon="ios-browsers"></Button>
                 </Tooltip>
                 <DropdownMenu slot="list" style="text-align: left; width: 130px;">
@@ -20,13 +20,12 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import { Component, Emit } from 'vue-property-decorator';
+  import { Component, Emit, Prop } from "vue-property-decorator";
   import NominatimService from '../../../services/nominatim.service';
   import { Logger } from '../../../services/Logger';
   import mapboxgl from 'mapbox-gl';
   import { ACCESS_TOKEN, CHINA_BOUNDS, CHINA_CENTER } from '../../../constants/mapbox';
   import PlaceItem from '../../../types/place-item';
-  import MapDrawingLineService from "../../../services/map-drawing-line.service";
 
   @Component
   export default class PovertyMap extends Vue {
@@ -34,12 +33,23 @@
     private FIRST_LEVEL_LAYER_ID = 'first-level';
     private SECOND_LEVEL_LAYER_ID = 'second-level';
     private THIRD_LEVEL_LAYER_ID = 'third-level';
+    private borderPaint = {
+      'line-color': 'rgba(255,255,255,0.5)',
+      'line-width': 2
+    };
 
     // 行政区域划分图层
     private firstLevelLayer: mapboxgl.Layer;
     private secondLevelLayer: mapboxgl.Layer;
     private thirdLevelLayer: mapboxgl.Layer;
     private map: mapboxgl.Map;
+
+
+    // 基础地图源
+    @Prop({
+      default: () => 'mapbox://styles/mapbox/satellite-v9'
+    })
+    public mapUrl: string;
 
     // data
     public query: string;
@@ -60,39 +70,13 @@
       Logger.info(this.TAG, 'mounted');
       this.initMap();
     }
+
     private initMap() {
       Logger.info(this.TAG, 'start init map');
       mapboxgl.accessToken = ACCESS_TOKEN;
       this.map = new mapboxgl.Map({
         container: 'map-container',
-        // style: 'mapbox://styles/mapbox/streets-v10',
-        style: 'mapbox://styles/mapbox/satellite-v9',
-        // style: 'mapbox://styles/mapbox/satellite-streets-v10',
-        // style: {
-        //   'version': 8,
-        //   'name': 'Mapbox Streets',
-        //   'sprite': 'mapbox://sprites/mapbox/streets-v8',
-        //   'glyphs': 'mapbox://fonts/mapbox/{fontstack}/{range}.pbf',
-        //   "layers": [{
-        //     "id": "simple-tiles",
-        //     "type": "raster",
-        //     "source": "osm-tiles",
-        //     "minzoom": 0,
-        //     "maxzoom": 22
-        //   }],
-        //   'sources': {
-        //     'osm-tiles': {
-        //       'type': 'raster',
-        //       'tiles': [
-        //         // 'https://api.openstreetmap.org/api/0.6/map?bbox=11.54,48.14,11.543,48.145'
-        //         'http://c.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        //         // 'https://planet.openstreetmap.org/pbf/planet-latest.osm.pbf'
-        //         // 'http://download.geofabrik.de/asia/china-latest.osm.pbf'
-        //       ],
-        //       'tileSize': 256
-        //     }
-        //   }
-        // },
+        style: this.mapUrl,
         center: CHINA_CENTER,
         maxBounds: CHINA_BOUNDS
       });
@@ -103,14 +87,13 @@
       this.map.on('load', () => {
         this.onMapLoad(this.map);
         Logger.info(this.TAG, 'start drawing line');
-        // let drawLine = new MapDrawingLineService(this.map, (path: Position[]) => {Logger.info(this.TAG, '画线完成', path)});
       });
     }
 
     /* 事件emit */
+    // 地图加载完成，返回一个 mapboxgl 地图对象
     @Emit()
-    public onMapLoad(map: mapboxgl.Map) {
-    }
+    public onMapLoad(map: mapboxgl.Map) {}
 
     /* 下面是事件处理 */
 
@@ -151,10 +134,7 @@
           id: this.FIRST_LEVEL_LAYER_ID,
           type: 'line',
           source: this.FIRST_LEVEL_LAYER_ID,
-          paint: {
-            'line-color': '#fff',
-            'line-width': 4
-          }
+          paint: this.borderPaint
         };
         this.firstLevelLayer = layer;
       }
@@ -174,10 +154,7 @@
           id: this.SECOND_LEVEL_LAYER_ID,
           type: 'line',
           source: this.SECOND_LEVEL_LAYER_ID,
-          paint: {
-            'line-color': '#fff',
-            'line-width': 4
-          }
+          paint: this.borderPaint
         };
         this.secondLevelLayer = layer;
       }
