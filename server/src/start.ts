@@ -24,8 +24,8 @@ server.setConfig((app) => {
       res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
       res.header("Access-Control-Allow-Headers", "X-Requested-With");
       res.header('Access-Control-Allow-Headers', 'Content-Type');
-      res.header('X-Frame-Option', 'ALLOW-FROM http://www.injusalon.com');
-      res.header('X-Frame-Option', 'ALLOW-FROM http://127.0.0.1:1024');
+      res.header('X-Frame-Option', 'ALLOW-FROM www.injusalon.com');
+      res.header('X-Frame-Option', 'ALLOW-FROM 127.0.0.1:1024');
       next();
   });
 
