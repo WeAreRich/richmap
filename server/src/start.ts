@@ -18,7 +18,7 @@ server.setConfig((app) => {
   app.use(bodyParser.json());
     app.use(helmet({
         frameguard: {
-            action: 'deny'
+            action: 'allow'
         }
     }));
 
