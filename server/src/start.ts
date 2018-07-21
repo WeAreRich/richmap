@@ -16,15 +16,17 @@ server.setConfig((app) => {
     extended: true
   }));
   app.use(bodyParser.json());
-  // app.use(helmet());
+  app.use(helmet());
 
 
   app.all('*', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  next();
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+      res.header("Access-Control-Allow-Headers", "X-Requested-With");
+      res.header('Access-Control-Allow-Headers', 'Content-Type');
+      res.header('X-Frame-Option', 'ALLOW-FROM http://www.injusalon.com');
+      res.header('X-Frame-Option', 'ALLOW-FROM http://127.0.0.1:1024');
+      next();
   });
 
   file(app);
