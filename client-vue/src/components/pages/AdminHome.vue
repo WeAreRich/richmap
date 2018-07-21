@@ -20,10 +20,11 @@
 </template>
 
 <script lang="ts">
-    import { Component, Prop, Vue } from 'vue-property-decorator'
+    import { Component, Prop} from 'vue-property-decorator'
     import FileUploader from '../common/FileUploader.vue'
     import PdfLoader from '../common/PdfLoader.vue'
     import { APIROOTURL } from '../../services/api/HttpService';
+    import Vue from 'vue';
     @Component({
       components: {
         FileUploader,
@@ -31,7 +32,7 @@
       }
     })
     export default class AdminHome extends Vue {
-        pdfUrl:string ;
+        pdfUrl:string = "http://www.injusalon.com/files/1532164287512.pdf";
 
         params = {
           fileName: "jjj"
@@ -42,10 +43,10 @@
         }
 
         getFileName (fileName) {
-          this.$nextTick(() => {
+          // this.$nextTick(() => {
             this.pdfUrl = APIROOTURL+"files/"+fileName;
             console.log("click "+this.pdfUrl);
-          })
+          // })
 
         }
     }

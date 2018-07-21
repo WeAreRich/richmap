@@ -16,7 +16,7 @@ server.setConfig((app) => {
     extended: true
   }));
   app.use(bodyParser.json());
-  app.use(helmet());
+  // app.use(helmet());
 
 
   app.all('*', function(req, res, next) {
