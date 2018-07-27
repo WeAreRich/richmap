@@ -20,7 +20,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import { Component, Emit, Prop } from "vue-property-decorator";
+  import { Component, Emit, Prop, Watch } from 'vue-property-decorator';
   import NominatimService from '../../../services/nominatim.service';
   import { Logger } from '../../../services/Logger';
   import mapboxgl from 'mapbox-gl';
@@ -50,6 +50,13 @@
       default: () => 'mapbox://styles/mapbox/satellite-v9'
     })
     public mapUrl: string;
+
+
+    @Watch('mapUrl')
+    onMapUrlChange(val: string, oldVal: string) {
+      Logger.info(this.TAG, val, oldVal);
+      this.map.setStyle(val);
+    }
 
     // data
     public query: string;
@@ -86,7 +93,6 @@
       // 初始化完成
       this.map.on('load', () => {
         this.onMapLoad(this.map);
-        Logger.info(this.TAG, 'start drawing line');
       });
     }
 
@@ -128,7 +134,7 @@
       if (!this.firstLevelLayer) {
         this.map.addSource(this.FIRST_LEVEL_LAYER_ID, {
           type: 'geojson',
-          data: 'http://www.injusalon.com/count/pictures/region.json'
+          data: 'http://www.injusalon.com/count/pictures/china.json'
         });
         let layer: mapboxgl.Layer = {
           id: this.FIRST_LEVEL_LAYER_ID,
@@ -139,6 +145,9 @@
         this.firstLevelLayer = layer;
       }
       this.map.addLayer(this.firstLevelLayer);
+      this.map.on('sourcedata', this.FIRST_LEVEL_LAYER_ID, () => {
+        Logger.info(this.TAG, 'load layer');
+      })
     }
 
     public showSecondLevelBorder() {

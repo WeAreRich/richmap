@@ -1,6 +1,7 @@
 import mapboxgl from 'mapbox-gl';
 import { Logger } from '@/services/Logger';
 import { REC_LAYER_ID } from '@/constants/mapbox';
+
 export class MapLocatePositionService {
   /**
    * 定位到某一个 bounds 区域
@@ -8,7 +9,7 @@ export class MapLocatePositionService {
    * @param {mapboxgl.Map} map
    * @param {boolean} eraseBounds 是否在缩放后去掉边框
    */
-  public static locateToBounds(rec: mapboxgl.LngLatBounds, map: mapboxgl.Map, eraseBounds: boolean = false)  {
+  public static locateToBounds(rec: mapboxgl.LngLatBounds, map: mapboxgl.Map, eraseBounds: boolean = false) {
     Logger.info('MapLocatePositionService', 'locateToBounds', rec);
     map.fitBounds(rec);
     if (eraseBounds) {
