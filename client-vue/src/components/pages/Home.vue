@@ -1,27 +1,18 @@
 <template>
     <layout>
-        <sider style="background-color: white" hide-trigger>
-            <fixed-side-menu></fixed-side-menu>
-        </sider>
-        <layout>
-            <poverty-map/>
-            <consulting></consulting>
-        </layout>
     </layout>
 </template>
 
 <script lang="ts">
-    import {Vue, Component} from 'vue-property-decorator';
-    import Consulting from '../common/Consulting.vue';
-    import FixedSideMenu from '../common/FixedSideMenu.vue';
-    import PovertyMap from '../common/map/poverty-map/PovertyMap.vue';
+  import {Vue, Component} from 'vue-property-decorator';
+  import Consulting from '../common/Consulting.vue';
 
-    @Component({
-        components: {Consulting, FixedSideMenu, PovertyMap}
-    })
+  @Component({
+    components: {Consulting}
+  })
 
-    export default class Home extends Vue {
-    }
+  export default class Home extends Vue {
+  }
 </script>
 
 <style scoped>
