@@ -16,27 +16,29 @@ server.setConfig((app) => {
     extended: true
   }));
   app.use(bodyParser.json());
-  app.use(helmet());
+  //todo : 上传服务器时要加入安全配置
+    // app.use(helmet({
+    //     frameguard: {
+    //         action: 'allow'
+    //     }
+    // }));
 
 
-  app.all('*', function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    res.header('X-Frame-Option', 'ALLOW-FROM http://s3131212.com');
-    next();
+  app.all('*', function(req, res, next) {
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+      res.header("Access-Control-Allow-Headers", "X-Requested-With");
+      res.header('Access-Control-Allow-Headers', 'Content-Type');
+      next();
   });
-
   file(app);
   let express = require('express');
-  app.use("/files", express.static("fileDirectory"));
-
+  app.use("/files",express.static("fileDirectory"));
 });
 
 let app = server.build();
 
-app.listen(3000);
+app.listen(80);
 
 console.log('Server started on port 80 :)');
 console.log("click http://127.0.0.1:3000");
