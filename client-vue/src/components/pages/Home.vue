@@ -1,14 +1,16 @@
 <template>
     <layout>
+        <search-bar/>
     </layout>
 </template>
 
 <script lang="ts">
-  import {Vue, Component} from 'vue-property-decorator';
-  import Consulting from '../common/Consulting.vue';
+  import { Vue, Component } from "vue-property-decorator";
+  import Consulting from "../common/Consulting.vue";
+  import SearchBar from "../common/SearchBar.vue";
 
   @Component({
-    components: {Consulting}
+    components: {Consulting, SearchBar}
   })
 
   export default class Home extends Vue {

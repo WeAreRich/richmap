@@ -5,9 +5,11 @@
     <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="2">
+          <list size="4">
             <item index="0" class="java.lang.String" itemvalue="icon" />
             <item index="1" class="java.lang.String" itemvalue="size" />
+            <item index="2" class="java.lang.String" itemvalue="search" />
+            <item index="3" class="java.lang.String" itemvalue="enter-button" />
           </list>
         </value>
       </option>
@@ -16,7 +18,7 @@
     <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="21">
+          <list size="22">
             <item index="0" class="java.lang.String" itemvalue="nobr" />
             <item index="1" class="java.lang.String" itemvalue="noembed" />
             <item index="2" class="java.lang.String" itemvalue="comment" />
@@ -38,6 +40,7 @@
             <item index="18" class="java.lang.String" itemvalue="rank-sheet" />
             <item index="19" class="java.lang.String" itemvalue="word-loader" />
             <item index="20" class="java.lang.String" itemvalue="pdfloader" />
+            <item index="21" class="java.lang.String" itemvalue="search-bar" />
           </list>
         </value>
       </option>
