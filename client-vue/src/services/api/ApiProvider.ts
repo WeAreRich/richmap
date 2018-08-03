@@ -4,7 +4,7 @@ import { SearchService, SearchServiceImpl } from '@/services/api/search/SearchSe
 import { SearchServiceMock } from '@/services/api/search/SearchServiceMock';
 
 class ApiProvider {
-  isMock: boolean = true;
+  isMock: boolean = false;
 
   dataAnalysisService: DataAnalysisService;
   searchService: SearchService;

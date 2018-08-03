@@ -9,6 +9,7 @@ export class SearchServiceImpl implements SearchService {
   async search(kw: string): Promise<SearchResult> {
     const res = await http.fetch({
       path: 'search',
+      queryParams: {kw: kw}
     });
     return res.response;
   }

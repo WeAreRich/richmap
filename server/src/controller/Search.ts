@@ -1,18 +1,17 @@
-import { controller, httpGet, httpPost,queryParam } from 'inversify-express-utils';
-import {SearchService} from '../service/SearchService'
-import { Request, Response } from 'express';
+import { controller, httpGet, httpPost, queryParam } from 'inversify-express-utils';
+import { SearchService } from '../service/SearchService'
 
 @controller('/search')
 export class SearchController {
-  
-  private searchSerice:SearchService;
 
-  constructor( ) {
-    this.searchSerice = new SearchService();
- }
+  private searchService: SearchService;
 
-  @httpGet('/search')
-  public get(@queryParam("kw") kw:String){
-    return this.searchSerice.getItem(kw);
+  constructor() {
+    this.searchService = new SearchService();
+  }
+
+  @httpGet('')
+  public get(@queryParam("kw") kw: string) {
+    return this.searchService.getItem(kw);
   }
 }
