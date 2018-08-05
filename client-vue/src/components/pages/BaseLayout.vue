@@ -1,45 +1,99 @@
 <template>
-    <div class="layout" :style="{ 'min-height': pageHeight + 'px'}">
-        <Layout>
-            <fixed-menu/>
+    <div class="layout">
+        <div>
             <Layout>
+                <black-menu></black-menu>
                 <router-view>
                     <slot/>
                 </router-view>
             </Layout>
-            <fixed-footer/>
-        </Layout>
+        </div>
+        <black-footer></black-footer>
     </div>
 </template>
 
 <script lang="ts">
-    import {Vue, Component} from 'vue-property-decorator';
-    import FixedMenu from '../common/FixedMenu.vue';
-    import FixedFooter from '../common/FixedFooter.vue';
+  import { Vue, Component } from "vue-property-decorator";
+  import BlackMenu from "../common/BlackMenu.vue";
+  import BlackFooter from "../common/BlackFooter.vue";
 
-    @Component({
-        components: {FixedMenu, FixedFooter}
-    })
+  @Component({
+    components: {BlackMenu, BlackFooter}
+  })
 
-    export default class BaseLayout extends Vue {
-        pageHeight: string = '100';
-
-        mounted() {
-            const that = this;
-            this.pageHeight = `${document.documentElement.clientHeight}px`;
-            window.onresize = function getSize() {
-                that.pageHeight = `${document.documentElement.clientHeight}px`;
-            };
-        }
-    }
+  export default class BaseLayout extends Vue {
+  }
 </script>
 
 <style scoped>
+
     .layout {
         border: 1px solid #d7dde4;
         background: #f5f7f9;
         position: relative;
         border-radius: 4px;
         overflow: hidden;
+    }
+
+    .layout-header-bar {
+        background: #fff;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+    }
+
+    .layout-logo {
+        width: auto;
+        height: 30px;
+        background: #5b6270;
+        border-radius: 3px;
+        float: left;
+        position: relative;
+        top: 13px;
+        left: 20px;
+        margin-right: 25px;
+    }
+
+    .layout-logo-left {
+        width: 90%;
+        height: 30px;
+        background: #5b6270;
+        border-radius: 3px;
+        margin: 15px auto;
+    }
+
+    .menu-icon {
+        transition: all .3s;
+    }
+
+    .rotate-icon {
+        transform: rotate(-90deg);
+    }
+
+    .menu-item span {
+        display: inline-block;
+        overflow: hidden;
+        width: 69px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        vertical-align: bottom;
+        transition: width .2s ease .2s;
+    }
+
+    .menu-item i {
+        transform: translateX(0px);
+        transition: font-size .2s ease, transform .2s ease;
+        vertical-align: middle;
+        font-size: 16px;
+    }
+
+    .collapsed-menu span {
+        width: 0px;
+        transition: width .2s ease;
+    }
+
+    .collapsed-menu i {
+        transform: translateX(5px);
+        transition: font-size .2s ease .2s, transform .2s ease .2s;
+        vertical-align: middle;
+        font-size: 22px;
     }
 </style>

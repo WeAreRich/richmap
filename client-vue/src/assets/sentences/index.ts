@@ -58,7 +58,7 @@ const SENTENCES = {
     DATA_YEAR: '数据年份'
   },
   SEARCH: {
-    TITLE: '输入以搜索'
+    TITLE: '聚合搜索'
   }
 };
 
