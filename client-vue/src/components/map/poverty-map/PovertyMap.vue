@@ -93,6 +93,7 @@
       // 初始化完成
       this.map.on('load', () => {
         this.onMapLoad(this.map);
+        // console.log(this.map.getZoom());
       });
     }
 
@@ -133,13 +134,14 @@
       // 未加载过
       if (!this.firstLevelLayer) {
         this.map.addSource(this.FIRST_LEVEL_LAYER_ID, {
-          type: 'geojson',
-          data: 'http://www.injusalon.com/count/pictures/china.json'
+          type: 'vector',
+          url: 'mapbox://wenxiangdong.d4tbuoxg'
         });
         let layer: mapboxgl.Layer = {
           id: this.FIRST_LEVEL_LAYER_ID,
           type: 'line',
           source: this.FIRST_LEVEL_LAYER_ID,
+          'source-layer': 'china-9o3cd8',
           paint: this.borderPaint
         };
         this.firstLevelLayer = layer;
@@ -155,15 +157,15 @@
       // 未加载过
       if (!this.secondLevelLayer) {
         this.map.addSource(this.SECOND_LEVEL_LAYER_ID, {
-          type: 'geojson',
-          // data: 'http://www.injusalon.com/count/pictures/county.json'
-          data: 'http://www.injusalon.com/count/pictures/result.json'
+          type: 'vector',
+          url: 'mapbox://wenxiangdong.5wsa80lc'
         });
         let layer: mapboxgl.Layer = {
           id: this.SECOND_LEVEL_LAYER_ID,
           type: 'line',
           source: this.SECOND_LEVEL_LAYER_ID,
-          paint: this.borderPaint
+          paint: this.borderPaint,
+          'source-layer': 'true'
         };
         this.secondLevelLayer = layer;
       }
