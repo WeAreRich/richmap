@@ -1,27 +1,20 @@
 <template>
-    <base-layout>
-        <Sider hide-trigger>
-            <fixed-side-menu></fixed-side-menu>
-        </Sider>
-        <Layout>
-            <Affix :offset-right="0">
-                <consulting></consulting>
-            </Affix>
-        </Layout>
-    </base-layout>
+    <layout>
+        <search-bar/>
+    </layout>
 </template>
 
 <script lang="ts">
-    import {Prop, Vue, Component} from 'vue-property-decorator';
-    import Consulting from '../Consulting.vue';
-    import FixedSideMenu from '../FixedSideMenu.vue';
+  import { Vue, Component } from "vue-property-decorator";
+  import Consulting from "../common/Consulting.vue";
+  import SearchBar from "../common/SearchBar/SearchBar.vue";
 
-    @Component({
-        components: {Consulting, FixedSideMenu}
-    })
+  @Component({
+    components: {Consulting, SearchBar}
+  })
 
-    export default class Home extends Vue {
-    }
+  export default class Home extends Vue {
+  }
 </script>
 
 <style scoped>

@@ -45,6 +45,16 @@ export class OrmServiceImpl implements OrmService {
         });
     }
 
+    async find(param): Promise<any> {
+        console.log(param)
+        const connection  = await TypeOrmConnection.getConnection();
+        let en = connection.createEntityManager();
+        let res = await en.find(this.template.constructor.name, param);
+        return new Promise<any>((resolve,reject)=>{
+            resolve(res)
+        });
+    }
+
     async insert(obj: BaseOrmClass): Promise<boolean> {
         let res=true;
         let connection =await TypeOrmConnection.getConnection();
