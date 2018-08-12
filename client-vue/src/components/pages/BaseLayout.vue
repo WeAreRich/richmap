@@ -1,7 +1,7 @@
 <template>
     <div class="layout">
         <div>
-            <Layout>
+            <Layout style="min-height: 100vh;">
                 <black-menu></black-menu>
                 <router-view>
                     <slot/>
@@ -33,6 +33,7 @@
         position: relative;
         border-radius: 4px;
         overflow: hidden;
+        min-height: 100vh;
     }
 
     .layout-header-bar {

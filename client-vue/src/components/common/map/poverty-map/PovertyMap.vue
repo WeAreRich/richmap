@@ -19,26 +19,44 @@
 </template>
 
 <script lang="ts">
-  import Vue from "vue";
-  import { Component, Emit } from "vue-property-decorator";
-  import NominatimService from "../../../../services/nominatim.service";
-  import { Logger } from "../../../../services/Logger/index";
-  import mapboxgl from "mapbox-gl";
-  import { ACCESS_TOKEN, CHINA_BOUNDS, CHINA_CENTER } from "../../../../constants/mapbox";
-  import PlaceItem from "../../../../types/place-item";
+  import Vue from 'vue';
+  import { Component, Emit, Prop, Watch } from 'vue-property-decorator';
+  import NominatimService from '../../../../services/nominatim.service';
+  import { Logger } from '../../../../services/Logger';
+  import mapboxgl from 'mapbox-gl';
+  import { ACCESS_TOKEN, CHINA_BOUNDS, CHINA_CENTER } from '../../../../constants/mapbox';
+  import PlaceItem from '../../../../types/place-item';
 
   @Component
   export default class PovertyMap extends Vue {
-    private TAG = "PovertyMap";
-    private FIRST_LEVEL_LAYER_ID = "first-level";
-    private SECOND_LEVEL_LAYER_ID = "second-level";
-    private THIRD_LEVEL_LAYER_ID = "third-level";
+    private TAG = 'PovertyMap';
+    private FIRST_LEVEL_LAYER_ID = 'first-level';
+    private SECOND_LEVEL_LAYER_ID = 'second-level';
+    private THIRD_LEVEL_LAYER_ID = 'third-level';
+    private borderPaint = {
+      'line-color': 'rgba(255,255,255,0.5)',
+      'line-width': 2
+    };
 
     // 行政区域划分图层
     private firstLevelLayer: mapboxgl.Layer;
     private secondLevelLayer: mapboxgl.Layer;
     private thirdLevelLayer: mapboxgl.Layer;
     private map: mapboxgl.Map;
+
+
+    // 基础地图源
+    @Prop({
+      default: () => 'mapbox://styles/mapbox/satellite-v9'
+    })
+    public mapUrl: string;
+
+
+    @Watch('mapUrl')
+    onMapUrlChange(val: string, oldVal: string) {
+      Logger.info(this.TAG, val, oldVal);
+      this.map.setStyle(val);
+    }
 
     // data
     public query: string;
@@ -64,10 +82,8 @@
       Logger.info(this.TAG, "start init map");
       mapboxgl.accessToken = ACCESS_TOKEN;
       this.map = new mapboxgl.Map({
-        container: "map-container",
-        // style: 'mapbox://styles/mapbox/streets-v10',
-        style: "mapbox://styles/mapbox/satellite-v9",
-        // style: 'mapbox://styles/mapbox/satellite-streets-v10',
+        container: 'map-container',
+        style: this.mapUrl,
         center: CHINA_CENTER,
         maxBounds: CHINA_BOUNDS
       });
@@ -77,51 +93,16 @@
       // 初始化完成
       this.map.on("load", () => {
         this.onMapLoad(this.map);
+        // console.log(this.map.getZoom());
       });
     }
 
     /* 事件emit */
+    // 地图加载完成，返回一个 mapboxgl 地图对象
     @Emit()
-    public onMapLoad(map: mapboxgl.Map) {
-    }
+    public onMapLoad(map: mapboxgl.Map) {}
 
     /* 下面是事件处理 */
-
-    // // 搜索输入的名称 是否在地理上有对应的 项目
-    // public async handleSearch(query) {
-    //   // 检空
-    //   if (!query) {
-    //     return;
-    //   }
-    //   this.searchItems = await this.nominatimService.search(query);
-    // }
-    //
-    // // 选择搜索出的某一地名
-    // public handleSelectPlace(value) {
-    //   let map = this.map;
-    //   Logger.info(this.TAG, `select ${value}`);
-    //   let index = this.searchItems.findIndex(
-    //     item => item.display_name === value
-    //   );
-    //   if (index < 0) {
-    //     Logger.error(this.TAG, `not found ${value}`);
-    //     return;
-    //   }
-    //   let nominatimItem = this.searchItems[index];
-    //   // 定位
-    //   map.flyTo({
-    //     center: [nominatimItem.lon, nominatimItem.lat],
-    //     zoom: 9,
-    //     curve: 1,
-    //     easing(t) {
-    //       return t;
-    //     }
-    //   });
-    //   // 显示一个标志
-    //   new mapboxgl.Marker()
-    //     .setLngLat([nominatimItem.lon, nominatimItem.lat])
-    //     .addTo(map);
-    // }
 
     public handleChangeFirstLevelCheckBox(value) {
       if (value) {
@@ -153,21 +134,22 @@
       // 未加载过
       if (!this.firstLevelLayer) {
         this.map.addSource(this.FIRST_LEVEL_LAYER_ID, {
-          type: "geojson",
-          data: "http://www.injusalon.com/count/pictures/region.json"
+          type: 'vector',
+          url: 'mapbox://wenxiangdong.d4tbuoxg'
         });
         let layer: mapboxgl.Layer = {
           id: this.FIRST_LEVEL_LAYER_ID,
           type: "line",
           source: this.FIRST_LEVEL_LAYER_ID,
-          paint: {
-            "line-color": "#fff",
-            "line-width": 4
-          }
+          'source-layer': 'china-9o3cd8',
+          paint: this.borderPaint
         };
         this.firstLevelLayer = layer;
       }
       this.map.addLayer(this.firstLevelLayer);
+      this.map.on('sourcedata', this.FIRST_LEVEL_LAYER_ID, () => {
+        Logger.info(this.TAG, 'load layer');
+      })
     }
 
     public showSecondLevelBorder() {
@@ -175,18 +157,15 @@
       // 未加载过
       if (!this.secondLevelLayer) {
         this.map.addSource(this.SECOND_LEVEL_LAYER_ID, {
-          type: "geojson",
-          // data: 'http://www.injusalon.com/count/pictures/county.json'
-          data: "http://www.injusalon.com/count/pictures/s.json"
+          type: 'vector',
+          url: 'mapbox://wenxiangdong.5wsa80lc'
         });
         let layer: mapboxgl.Layer = {
           id: this.SECOND_LEVEL_LAYER_ID,
           type: "line",
           source: this.SECOND_LEVEL_LAYER_ID,
-          paint: {
-            "line-color": "#fff",
-            "line-width": 4
-          }
+          paint: this.borderPaint,
+          'source-layer': 'true'
         };
         this.secondLevelLayer = layer;
       }
@@ -216,7 +195,6 @@
     .border-control {
         display: inline-block;
         position: absolute;
-        padding: 10px;
         z-index: 999;
     }
 </style>
