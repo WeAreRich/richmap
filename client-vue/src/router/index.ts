@@ -2,11 +2,17 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/components/pages/Home.vue';
 import MapHome from '@/components/pages/MapHome.vue';
-import Try from '@/components/pages/Try.vue';
+// import Try from '@/components/pages/Try.vue';
+// const Try = r => require(['@/components/pages/Try.vue'], r);
 import BaseLayout from '../components/pages/BaseLayout.vue';
-import AdminHome from '../components/pages/AdminHome.vue';
+// import AdminHome from '../components/pages/AdminHome.vue';
+
+
+declare var require : (filename,resolve)=>any;
 
 Vue.use(Router);
+
+// Vue.component('Try', () => import('@/components/pages/Try.vue'));
 
 const routes = [
   {
@@ -15,21 +21,21 @@ const routes = [
     children: [
       {
         path: '',
-        component: Home
+        component: resolve => require(['@/components/pages/Home.vue'], resolve)
       },
       {
         path: 'map',
-        component: MapHome
+        component: resolve => require(['@/components/pages/MapHome.vue'], resolve)
       },
       {
         path: 'try',
-        component: Try
+        component: resolve => require(['@/components/pages/Try.vue'], resolve)
       },
     ]
   },
   {
     path: '/admin',
-    component: AdminHome
+    component: resolve => require(['../components/pages/AdminHome.vue'], resolve)
   },
 ];
 
