@@ -4,7 +4,13 @@
         <div class="banner banner-1"></div>
         <!--</div>-->
         <div class="search">
-       <span class="input input--kyo">
+            <h1 style="color: orange;font-size:45px;padding: 5px">
+                中国贫困在线
+            </h1>
+            <h3 style="color: white;font-size:24px">
+                —— 打造第一助贫服务平台 ——
+            </h3>
+            <span class="input input--kyo">
 		   <input class="input__field input__field--kyo" :placeholder="searchBar" style="font-size: 20px"
                   type="text"
                   @keyup.enter="startSearch()"
@@ -30,7 +36,6 @@
     };
 
     startSearch = async () => {
-      console.log(this.kw);
       const result = await api.searchService.search(this.kw);
       console.log(result);
     };
@@ -40,6 +45,7 @@
     @import "./css/component.css";
     @import "./css/demo.css";
     @import "./css/normalize.css";
+
     .search {
         text-align: center;
         position: fixed;
@@ -47,14 +53,16 @@
         width: 50%;
         margin-left: 25%;
     }
-    @media screen and (max-device-width: 500px){
+
+    @media screen and (max-device-width: 500px) {
         .search {
             width: 70%;
             margin-left: 15%;
         }
     }
+
     .banner-1 {
-        background: url(../../../assets/images/banner-1.jpg) fixed;
+        background: url(../../../assets/images/background.jpg) fixed;
         background-size: cover;
         -webkit-background-size: cover;
         -moz-background-size: cover;

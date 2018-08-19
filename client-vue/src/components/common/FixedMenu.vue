@@ -13,28 +13,22 @@
                     {{menuBar1}}
                 </MenuItem>
             </router-link>
-            <router-link :to="{path: '/guide/rank'}">
+            <router-link :to="{path: '/rank'}">
                 <MenuItem name="2">
                     <Icon type="stats-bars"></Icon>
                     {{menuBar2}}
                 </MenuItem>
             </router-link>
-            <router-link :to="{path: '/guide/detect'}">
+            <router-link :to="{path: '/help'}">
                 <MenuItem name="3">
-                    <Icon type="flash"></Icon>
+                    <Icon type="android-hand"></Icon>
                     {{menuBar3}}
                 </MenuItem>
             </router-link>
-            <router-link :to="{path: '/guide/help'}">
+            <router-link :to="{path: '/comparison'}">
                 <MenuItem name="4">
-                    <Icon type="android-hand"></Icon>
-                    {{menuBar4}}
-                </MenuItem>
-            </router-link>
-            <router-link :to="{path: '/guide/comparison'}">
-                <MenuItem name="5">
                     <Icon type="network"></Icon>
-                    {{menuBar5}}
+                    {{menuBar4}}
                 </MenuItem>
             </router-link>
         </div>
@@ -53,24 +47,23 @@
     </Menu>
 </template>
 <script lang="ts">
-  import { Component, Prop, Vue } from "vue-property-decorator";
-  import SENTENCES from "../../assets/sentences/index";
+  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import SENTENCES from '../../assets/sentences/index';
 
   @Component
   export default class FixedMenu extends Vue {
     menuBar1: string = SENTENCES.MENU.MAP;
     menuBar2: string = SENTENCES.MENU.RANK;
-    menuBar3: string = SENTENCES.MENU.DETECT;
-    menuBar4: string = SENTENCES.MENU.HELP_SERVICE;
-    menuBar5: string = SENTENCES.MENU.TYPICAL_COMPARISONS;
+    menuBar3: string = SENTENCES.MENU.HELP_SERVICE;
+    menuBar4: string = SENTENCES.MENU.TYPICAL_COMPARISONS;
     logoName: string = SENTENCES.MENU.LOGO_NAME;
     accountLogin: string = SENTENCES.ACCOUNT.LOGIN.TITLE;
     accountLoginUsername: string = SENTENCES.ACCOUNT.LOGIN.USERNAME;
     accountLoginPassword: string = SENTENCES.ACCOUNT.LOGIN.PASSWORD;
 
     isShow: boolean = false;
-    username: string = "";
-    password: string = "";
+    username: string = '';
+    password: string = '';
 
   }
 </script>
@@ -100,7 +93,7 @@
 
     .layout-nav {
         width: auto;
-        margin: 0 0px 0 auto;
+        margin: 0 0 0 auto;
     }
 
     .layout-user {

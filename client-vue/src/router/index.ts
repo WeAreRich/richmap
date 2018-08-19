@@ -5,6 +5,10 @@ import MapHome from '@/components/pages/MapHome.vue';
 import Try from '@/components/pages/Try.vue';
 import BaseLayout from '../components/pages/BaseLayout.vue';
 import AdminHome from '../components/pages/AdminHome.vue';
+import RankHome from '../components/pages/RankHome.vue';
+import HelpHome from '../components/pages/HelpHome.vue';
+import ComparisonHome from '../components/pages/ComparisonHome.vue';
+import SearchPage from '../components/pages/SearchPage.vue';
 
 Vue.use(Router);
 
@@ -20,6 +24,22 @@ const routes = [
       {
         path: 'map',
         component: MapHome
+      },
+      {
+        path: 'rank',
+        component: RankHome
+      },
+      {
+        path: 'help',
+        component: HelpHome
+      },
+      {
+        path: 'comparison',
+        component: ComparisonHome
+      },
+      {
+        path: 'search',
+        component: SearchPage
       },
       {
         path: 'try',
