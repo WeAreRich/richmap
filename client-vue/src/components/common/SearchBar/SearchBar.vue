@@ -4,20 +4,13 @@
         <div class="banner banner-1"></div>
         <!--</div>-->
         <div class="search">
-            <h1 style="color: orange;font-size:45px;padding: 5px">
+            <h1 style="color: orange;font-size:45px;">
                 中国贫困在线
             </h1>
-            <h3 style="color: white;font-size:24px">
+            <h3 style="color: white;font-size:24px;padding: 30px">
                 —— 打造第一助贫服务平台 ——
             </h3>
-            <span class="input input--kyo">
-		   <input class="input__field input__field--kyo" :placeholder="searchBar" style="font-size: 20px"
-                  type="text"
-                  @keyup.enter="startSearch()"
-                  @input="changeValue"/>
-		   <label class="input__label input__label--kyo">
-		   </label>
-	   </span>
+            <Input search enter-button="Search" placeholder="Enter something..."/>
         </div>
     </div>
 </template>
@@ -42,13 +35,9 @@
   }
 </script>
 <style>
-    @import "./css/component.css";
-    @import "./css/demo.css";
-    @import "./css/normalize.css";
-
     .search {
         text-align: center;
-        position: fixed;
+        position: absolute;
         top: 354px;
         width: 50%;
         margin-left: 25%;

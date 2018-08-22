@@ -9,7 +9,7 @@
   import { Vue, Component } from 'vue-property-decorator';
   import Consulting from '../common/Consulting.vue';
   import SearchBar from '../common/searchbar/SearchBar.vue';
-  import Introduction from '../common/introduce/Introduction.vue';
+  import Introduction from '../common/Introduction.vue';
 
   @Component({
     components: {Consulting, SearchBar, Introduction}

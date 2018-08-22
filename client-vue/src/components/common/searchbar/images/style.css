@@ -1,0 +1,24 @@
+@charset "utf-8";
+/* thinkcss-CSS初始化模板-www.thinkcss.com */
+body ,div, iframe,ul, ol, dl, dt, dd, li, dl, h1, h2, h3, h4, table, th, td, form, input, button, select, textarea {margin:0; padding:0;font-style: normal;
+font:12px/22px "\5B8B\4F53",Arial, Helvetica, sans-serif}
+ol, ul ,li{list-style:none}
+img {border:0}
+body{color:#000000;background:#FFF; text-align:center}
+.clear{clear:both;height:1px;width:100%; overflow:hidden; margin-top:-1px}
+a{color:#000000;text-decoration:none} 
+a:hover{color:#BA2636;text-decoration:underline}
+#n{margin:10px auto; width:920px; border:1px solid #CCC;font-size:12px; line-height:30px;}
+#n a{ padding:0 4px; color:#333}
+
+.red ,.red a{ color:#F00}
+.blue ,.blue a{ color:#1E51A2}
+.pd5{ padding-top:5px}
+.dis{display:block}
+.undis{display:none}
+
+*:focus {outline: none}
+
+.box{ margin:0 auto; width:326px; height:33px}
+.inputs{ background:#FFF; width:254px; text-indent:5px; font-size:14px; font-family:"\5FAE\8F6F\96C5\9ED1"; height:29px; line-height:28px; text-align:left; float:left; border:2px solid #DFDFDF; border-right:0}
+.bot{ float:right; border:0; width:70px; text-indent:-9999px; cursor:pointer; height:33px; background:url(bottom.gif) no-repeat 0 0}
