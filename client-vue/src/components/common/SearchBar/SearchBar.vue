@@ -1,18 +1,22 @@
 <template>
-    <div style="height: 100vh;">
-        <!--<div>-->
-        <div class="banner banner-1"></div>
-        <!--</div>-->
-        <div class="search">
-            <h1 style="color: orange;font-size:45px;">
-                中国贫困在线
-            </h1>
-            <h3 style="color: white;font-size:24px;padding: 30px">
-                —— 打造第一助贫服务平台 ——
-            </h3>
-            <Input search enter-button="Search" placeholder="Enter something..."/>
+    <layout>
+        <div style="height: 100vh;">
+            <!--<div>-->
+            <div class="banner banner-1"></div>
+            <!--</div>-->
+            <div class="search">
+                <h1 style="color: orange;font-size:45px;">
+                    中国贫困在线
+                </h1>
+                <h3 style="color: white;font-size:24px;padding: 30px">
+                    —— 打造第一助贫服务平台 ——
+                </h3>
+                <Input search enter-button="Search" :placeholder="searchBar"
+                       v-on:input="changeValue"
+                       @keyup.enter.native="startSearch"/>
+            </div>
         </div>
-    </div>
+    </layout>
 </template>
 <script lang="ts">
   import { Component, Emit, Inject, Model, Prop, Provide, Vue, Watch } from 'vue-property-decorator';
@@ -25,7 +29,7 @@
     kw: string;
 
     changeValue = (value) => {
-      this.kw = value.target.value;
+      this.kw = value;
     };
 
     startSearch = async () => {
