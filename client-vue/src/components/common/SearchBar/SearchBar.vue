@@ -21,20 +21,21 @@
 <script lang="ts">
   import { Component, Emit, Inject, Model, Prop, Provide, Vue, Watch } from 'vue-property-decorator';
   import SENTENCES from '../../../assets/sentences/index';
-  import { api } from '../../../services/api/ApiProvider';
 
   @Component
   export default class SearchBar extends Vue {
     searchBar: string = SENTENCES.SEARCH.TITLE;
     kw: string;
 
-    changeValue = (value) => {
+    changeValue(value) {
       this.kw = value;
     };
 
-    startSearch = async () => {
-      const result = await api.searchService.search(this.kw);
-      console.log(result);
+    startSearch() {
+      console.log(this.kw);
+      this['$router'].push({path: 'search/' + this.kw});
+      // const result = await api.searchService.search(this.kw);
+      // console.log(result);
     };
   }
 </script>

@@ -38,7 +38,7 @@ const routes = [
         component: ComparisonHome
       },
       {
-        path: 'search',
+        path: 'search/:kw',
         component: SearchPage
       },
       {
