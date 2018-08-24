@@ -21,6 +21,7 @@ export class SearchService {
      let result:SearchResult[] = [];
      await this.getBaiduItem(kw,result);
      await this.getWeixinItem(kw,result);
+     await this.getBaiduNewsItem(kw,result);
      return result;
   }
   
@@ -31,7 +32,7 @@ export class SearchService {
         url: encodeURI("http://xueshu.baidu.com/s?wd="+kw)
     }; 
     let value: SearchResult = new SearchResult();
-    value.kind = '百度';
+    value.kind = '百度学术';
     let result:SearchItem[] = []
     let body = await this.rp(options);
     let $ = this.cheerio.load(body);
@@ -45,6 +46,31 @@ export class SearchService {
     });
     value.result = result;
     resultArray.push(value)
+  }
+
+  public async getBaiduNewsItem(kw:String,resultArray:SearchResult[]){
+      let options = {
+          method: 'get',
+          url: encodeURI("http://news.baidu.com/ns?word="+kw)
+      };
+      let value: SearchResult = new SearchResult();
+      value.kind = '百度新闻';
+      let result:SearchItem[] = []
+      let body = await this.rp(options);
+      let $ = this.cheerio.load(body);
+      console.log("#####")
+      $('.result').each(function(i, elem) {
+          console.log("11111")
+          let item:SearchItem = new SearchItem();
+          item.href = "http://news.baidu.com"+($(this).children(".c-title").children('a').attr('href'));
+          item.title = ($(this).children(".c-title").children('a').text());
+
+          item.abstract_info = ($(this).children(".c-summary c-row ").text());
+          result.push(item);
+
+      });
+      value.result = result;
+      resultArray.push(value)
   }
  
   public async getWeixinItem(kw:String, resultArray:SearchResult[]){
