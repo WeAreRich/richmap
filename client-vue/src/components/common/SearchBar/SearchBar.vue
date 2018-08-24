@@ -21,6 +21,7 @@
 <script lang="ts">
   import { Component, Emit, Inject, Model, Prop, Provide, Vue, Watch } from 'vue-property-decorator';
   import SENTENCES from '../../../assets/sentences/index';
+  import store from '../../../store';
 
   @Component
   export default class SearchBar extends Vue {
@@ -32,8 +33,8 @@
     };
 
     startSearch() {
-      console.log(this.kw);
-      this['$router'].push({path: 'search/' + this.kw});
+      this['$router'].push({path: 'search', params: {kw: this.kw}});
+      store.commit('keyword', this.kw);
       // const result = await api.searchService.search(this.kw);
       // console.log(result);
     };
