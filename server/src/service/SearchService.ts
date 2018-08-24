@@ -32,7 +32,7 @@ export class SearchService {
     }; 
     let value: SearchResult = new SearchResult();
     value.kind = '百度';
-    let result:SearchItem[] = []
+    let result:SearchItem[] = [];
     let body = await this.rp(options);
     let $ = this.cheerio.load(body);
     $('.sc_content').each(function(i, elem) {
