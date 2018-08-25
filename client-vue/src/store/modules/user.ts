@@ -1,4 +1,4 @@
-let state = {
+let state: any = {
   info: {
     data: 'store data from user'
   },
@@ -16,4 +16,4 @@ export default {
   mutations,
   actions: {},
   getters
-}
+};
