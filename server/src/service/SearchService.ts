@@ -19,9 +19,9 @@ export class SearchService {
 
   public async getItem(kw: String){
      let result:SearchResult[] = [];
-     // await this.getBaiduItem(kw,result);
-     // await this.getWeixinItem(kw,result);
-     await this.getBaiduNewsItem(kw,result);
+     await this.getBaiduItem(kw,result);
+     await this.getWeixinItem(kw,result);
+     // await this.getBaiduNewsItem(kw,result);
      return result;
   }
   
