@@ -1,5 +1,9 @@
 <template>
     <div style="margin-top: 100px">
+        <div>
+            <Input search enter-button style="padding-left:20%;padding-right:20%;" placeholder="Enter something..."/>
+            <Icon type="ios-search"></Icon>
+        </div>
         <div v-for="searchTuplesAndKindItem in searchTuplesAndKind" :key="searchTuplesAndKindItem.kind">
             <div style="margin-left: 40px;margin-right: 40px;margin-top:40px">
                 <Button type="primary" size="large" style="border-radius: 0">
