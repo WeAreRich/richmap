@@ -27,7 +27,7 @@ export class SearchService {
      await this.stats_gov_cn(kw,result);
      await this.getYouChengItem(kw,result);
      await this.getJianPinItem(kw,result);
-     await this.getLeadGroupItem(ke,result);
+     await this.getLeadGroupItem(kw,result);
      return result;
   }
   
@@ -110,7 +110,7 @@ export class SearchService {
         let $ = this.cheerio.load(body);
         $('.sc_content').each(function(i, elem) {
             let item:SearchItem = new SearchItem();
-
+            item.title = ($(this).children(".cont_tit").text());
             result.push(item);
 
         });
