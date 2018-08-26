@@ -19,14 +19,14 @@ export class SearchService {
 
   public async getItem(kw: String){
      let result:SearchResult[] = [];
-     await this.getBaiduItem(kw,result);
-     await this.getWeixinItem(kw,result);
-     await this.getBaiduNewsItem(kw,result);
-     await this.getSogoItem(kw,result);
-     await this.getZhihuItem(kw,result);
-     await this.stats_gov_cn(kw,result);
-     await this.getYouChengItem(kw,result);
-     await this.getJianPinItem(kw,result);
+     // await this.getBaiduItem(kw,result);
+     // await this.getWeixinItem(kw,result);
+     // await this.getBaiduNewsItem(kw,result);
+     // await this.getSogoItem(kw,result);
+     // await this.getZhihuItem(kw,result);
+     // await this.stats_gov_cn(kw,result);
+     // await this.getYouChengItem(kw,result);
+     // await this.getJianPinItem(kw,result);
      await this.getLeadGroupItem(kw,result);
      return result;
   }
@@ -68,7 +68,6 @@ export class SearchService {
         let $ = this.cheerio.load(body);
         $('.sc_content').each(function(i, elem) {
             let item:SearchItem = new SearchItem();
-
             result.push(item);
 
         });
@@ -85,13 +84,18 @@ export class SearchService {
         value.kind = '知乎';
         let result:SearchItem[] = [];
         let body = await this.rp(options);
-        console.log(body);
         let $ = this.cheerio.load(body);
-        $('.sc_content').each(function(i, elem) {
+        $('.AnswerItem').each(function(i, elem) {
             let item:SearchItem = new SearchItem();
-
+            item.title = ($(this).children('.ContentItem-title').children('div').text());
+            item.href = "https://www.zhihu.com" + $(this).children('.ContentItem-title').children('div').children('a').attr('href');
+            item.abstract_info = ($(this).children('.RichContent').children('.RichContent-inner').text());
+            item.author = ($(this).children('.RichContent').children('.RichContent-inner').text().split("：")[0]);
+            // if(i==0) {
+            //     console.log("here");
+            //     console.log($(this).children('.RichContent').children('.RichContent-inner').text());
+            // }
             result.push(item);
-
         });
         value.result = result;
         resultArray.push(value)
@@ -106,13 +110,16 @@ export class SearchService {
         value.kind = '国家统计局';
         let result:SearchItem[] = [];
         let body = await this.rp(options);
-        console.log(body);
+        // console.log(body);
         let $ = this.cheerio.load(body);
-        $('.sc_content').each(function(i, elem) {
+        $('.cont_tit').each(function(i, elem) {
             let item:SearchItem = new SearchItem();
-            item.title = ($(this).children(".cont_tit").text());
+            // item.title = ($(this).children(".cont_tit").text());
             result.push(item);
-
+            $('font').each(function(i, elem) {
+                if(i == 0)
+                console.log($(this).children('a').attr('href'));
+            });
         });
         value.result = result;
         resultArray.push(value)
@@ -127,16 +134,21 @@ export class SearchService {
         value.kind = '友成基金会';
         let result:SearchItem[] = [];
         let body = await this.rp(options);
-        console.log(body);
+        // console.log(body);
         let $ = this.cheerio.load(body);
-        $('.sc_content').each(function(i, elem) {
-            let item:SearchItem = new SearchItem();
 
-            result.push(item);
-
-        });
-        value.result = result;
-        resultArray.push(value)
+        $('.search_div').each(function(i, elem) {
+            $(this).children('ul').children('li').each(function (i, elem) {
+                let item: SearchItem = new SearchItem();
+                item.title = ($(this).text());
+                item.href = "http://www.youcheng.org/"+$(this).children('a').attr('href');
+                if (i == 0)
+                    console.log($(this).html());
+                result.push(item);
+            });
+            value.result = result;
+            resultArray.push(value)
+        })
     }
 
     public async getJianPinItem(kw: String, resultArray:SearchResult[]){
@@ -163,18 +175,32 @@ export class SearchService {
     public async getLeadGroupItem(kw: String, resultArray:SearchResult[]){
         let options = {
             method: 'get',
-            url: encodeURI("http://www.cpad.gov.cn/jsearch/search.do?pagemode=result&appid=1&webid=1&style=1&pos=title%2Ccontent&pg=10&ck=o&tmp_od=0&q="+kw)
+            url: ("http://www.cpad.gov.cn/jsearch/search.do?pos=title%2Ccontent&q=113&pagemode=result&appid=1&style=1&ck=o")
         };
         let value: SearchResult = new SearchResult();
         value.kind = '国务院扶贫领导小组办公室';
         let result:SearchItem[] = [];
         let body = await this.rp(options);
-        console.log(body);
         let $ = this.cheerio.load(body);
-        $('.sc_content').each(function(i, elem) {
-            let item:SearchItem = new SearchItem();
-
-            result.push(item);
+        $('.js-result').each(function(i, elem) {
+            $('table').each(function(i, elem) {
+                if(i!=0&&i<=5) {
+                    let item: SearchItem = new SearchItem();
+                    $(this).children('tbody').children('tr').each(function(i, elem) {
+                        if(i==0) {
+                            item.title = $(this).text();
+                            $(this).children('td').each(function(i, elem) {
+                                item.href = $(this).children('a').attr('href');
+                            });
+                            // item.href = $(this).children('jsearchblue').children('a').attr('href');
+                        }
+                        if(i==1){
+                            item.abstract_info = $(this).text();
+                        }
+                    });
+                    result.push(item);
+                }
+            });
 
         });
         value.result = result;
