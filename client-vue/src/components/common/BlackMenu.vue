@@ -10,7 +10,7 @@
                 </MenuItem>
             </router-link>
             <div class="layout-nav" v-if="isPC">
-                <router-link :to="{path: '/'}">
+                <router-link :to="{path: '/map'}">
                     <MenuItem name="1">
                         <Icon type="map"></Icon>
                         {{menuBar1}}
@@ -49,7 +49,7 @@
                     <Icon type="ios-arrow-down" color="white"></Icon>
                     <DropdownMenu slot="list">
                         <DropdownItem>
-                            <router-link :to="{path: '/'}">
+                            <router-link :to="{path: '/map'}">
                                 <Icon type="map"></Icon>
                                 {{menuBar1}}
                             </router-link>
@@ -106,7 +106,7 @@
       window.onresize = () => {
         that.isPC = document.documentElement.clientWidth > 895;
       };
-    }
+  }
   }
 </script>
 

@@ -1,6 +1,6 @@
 <template>
     <div class="layout-side">
-        <map-query-component></map-query-component>
+        <map-query-component v-on:child-say="listenToMyBoy"></map-query-component>
         <div style="background-color:whitesmoke;margin: 5px;-webkit-border-radius: 5px">
             <Cascader :placeholder="dataType" size="large" :data="dataTypeList" v-model="dataTypeValue"
                       style="padding:20px"></Cascader>
@@ -26,7 +26,7 @@
     components: {MapQueryComponent}
   })
 
-  export default class DetectFixedSideMenu extends Vue {
+  export default class DetectFixedSideMenu extends Vue{
     dataType: string = SENTENCES.SIDE_MENU.DATA_TYPE;
     startDate: string = SENTENCES.SIDE_MENU.START_DATE;
     endDate: string = SENTENCES.SIDE_MENU.END_DATE;
@@ -43,7 +43,13 @@
     dataTypeValue: string[] = [];
     mapTypeValue: string[] = [];
 
+    listenToMyBoy(year, place){
+      console.log(year+" "+place);
+      this.$emit('child-say', year, place)
+    }
+
     async mounted() {
+      // this.dataTypeList = ['坡度数据'];
       this.dataTypeList = await api.dataAnalysisService.getPoorState();
       this.mapTypeList = [
         {

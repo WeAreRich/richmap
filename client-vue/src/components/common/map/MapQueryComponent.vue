@@ -11,7 +11,7 @@
             </DatePicker>
         </FormItem>
         <FormItem prop="selectedPlace">
-            <search-place @on-select="handleSelectPlace"/>
+            <search-place v-on:set-place="handleSelectPlace"/>
         </FormItem>
         <FormItem>
             <Button
@@ -62,8 +62,9 @@
     /**
      * 表格填写提交，参数完成
      */
-    @Emit()
+    @Emit('child-say')
     onSubmit() {
+
     }
 
     /* handler */
@@ -82,7 +83,8 @@
         this.messageService.error("请选择一个地点");
         return;
       }
-      this.onSubmit();
+      this.$emit('child-say', this.selectedYear, this.selectedPlace);
+      // this.onSubmit();
     }
   }
 </script>
