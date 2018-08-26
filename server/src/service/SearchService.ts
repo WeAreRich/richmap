@@ -41,7 +41,7 @@ export class SearchService {
     value.kind = '百度学术';
     let result:SearchItem[] = [];
     let body = await this.rp(options);
-    console.log(body);
+
     let $ = this.cheerio.load(body);
     $('.sc_content').each(function(i, elem) {
         let item:SearchItem = new SearchItem();
@@ -64,7 +64,7 @@ export class SearchService {
         value.kind = '搜狗搜索';
         let result:SearchItem[] = [];
         let body = await this.rp(options);
-        console.log(body);
+
         let $ = this.cheerio.load(body);
         $('.sc_content').each(function(i, elem) {
             let item:SearchItem = new SearchItem();
@@ -85,7 +85,7 @@ export class SearchService {
         value.kind = '知乎';
         let result:SearchItem[] = [];
         let body = await this.rp(options);
-        console.log(body);
+
         let $ = this.cheerio.load(body);
         $('.sc_content').each(function(i, elem) {
             let item:SearchItem = new SearchItem();
@@ -100,18 +100,27 @@ export class SearchService {
     public async stats_gov_cn(kw: String, resultArray:SearchResult[]){
         let options = {
             method: 'get',
-            url: encodeURI("http://www.stats.gov.cn/was5/web/search?channelid=288041&andsen="+kw)
+            url: encodeURI("http://www.stats.gov.cn/was5/web/search?channelid=288041&andsen="+kw),
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+            }
         };
         let value: SearchResult = new SearchResult();
         value.kind = '国家统计局';
         let result:SearchItem[] = [];
         let body = await this.rp(options);
-        console.log(body);
+
         let $ = this.cheerio.load(body);
-        $('.sc_content').each(function(i, elem) {
-            let item:SearchItem = new SearchItem();
-            item.title = ($(this).children(".cont_tit").text());
-            result.push(item);
+        let count=0;
+        $('.cont_tit').each(function(i, elem) {
+            count=count+1;
+            if(count%3==1) {
+                let item: SearchItem = new SearchItem();
+                //item.title = ($(this).children('.cont_tit03').text());
+                item.title = ($(this).children('.cont_tit03').children('a').attr('href'));
+
+                result.push(item);
+            }
 
         });
         value.result = result;
@@ -127,7 +136,7 @@ export class SearchService {
         value.kind = '友成基金会';
         let result:SearchItem[] = [];
         let body = await this.rp(options);
-        console.log(body);
+
         let $ = this.cheerio.load(body);
         $('.sc_content').each(function(i, elem) {
             let item:SearchItem = new SearchItem();
@@ -148,11 +157,18 @@ export class SearchService {
         value.kind = '中国减贫研究数据库';
         let result:SearchItem[] = [];
         let body = await this.rp(options);
-        console.log(body);
-        let $ = this.cheerio.load(body);
-        $('.sc_content').each(function(i, elem) {
-            let item:SearchItem = new SearchItem();
 
+        let $ = this.cheerio.load(body);
+        $('.book_right1').each(function(i, elem) {
+            let item:SearchItem = new SearchItem();
+            $('h2').each(function(i1, elem){
+                item.title=($(this).text());
+                item.href="https://www.jianpincn.com/skwx_jp/"+($(this).children('a').attr('href'));
+            });
+
+            item.abstract_info = ($(this).children("p").text());
+
+            item.author=($(this).children(".list1").text());
             result.push(item);
 
         });
@@ -169,7 +185,7 @@ export class SearchService {
         value.kind = '国务院扶贫领导小组办公室';
         let result:SearchItem[] = [];
         let body = await this.rp(options);
-        console.log(body);
+
         let $ = this.cheerio.load(body);
         $('.sc_content').each(function(i, elem) {
             let item:SearchItem = new SearchItem();
@@ -195,14 +211,14 @@ export class SearchService {
       value.kind = '百度新闻';
       let result:SearchItem[] = [];
       let body = await this.rp(options);
-      console.log(body);
+
       let $ = this.cheerio.load(body);
 
       this.request(options, function (err, res, body) {
           if (err) {
               console.log(err)
           }else {
-              console.log(body)
+             // console.log(body)
           }
       });
       $('.result').each(function(i, elem) {
