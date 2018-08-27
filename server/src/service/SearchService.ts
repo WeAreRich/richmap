@@ -16,12 +16,22 @@ export class SearchService {
   request = require('request');
   cheerio = require('cheerio');
 
+  public async getOneItem(kw: String){
+      let result:SearchResult[] = [];
+      let res = await Promise.all(
+          [
+              this.getBaiduItem(kw)
+          ]);
+      res.forEach(function(value,index,array){
+          result.push(value[0]);
+      });
+      return result;
+  }
 
   public async getItem(kw: String){
      let result:SearchResult[] = [];
      let res = await Promise.all(
          [
-             this.getBaiduItem(kw),
              this.getWeixinItem(kw),
              this.getBaiduNewsItem(kw),
              this.getSogoItem(kw),
@@ -76,14 +86,41 @@ export class SearchService {
         let body = await this.rp(options);
 
         let $ = this.cheerio.load(body);
-        $('.vrTitle').each(function(i, elem) {
-            let item:SearchItem = new SearchItem();
-            item.title=($(this).text());
-            item.href="http://www.sogo.com"+($(this).children('a').attr('href'));
-            result.push(item);
+        $('.vrwrap').each(function(i, elem) {
+            if(i<9) {
+                if (i == 0) {
+                    // console.log($(this).html())
+                }
+                let item: SearchItem = new SearchItem();
+                item.title = ($(this).children('.vrTitle').text());
+                item.href = "http://www.sogo.com" + ($(this).children('.vrTitle').children('a').attr('href'));
+                item.abstract_info = $(this).children('.strBox').children('.str_info').text();
+                if (item.abstract_info === "") {
+                    item.abstract_info = $(this).children('.strBox').children('.str_info_div').text();
+                }
+                if (item.abstract_info === "") {
+                    item.abstract_info = $(this).children('.str-text-info').text();
+                }
+                if (item.abstract_info === "") {
+                    item.abstract_info = $(this).children('.str-pd-box').children('.str_info').text();
+                }
+                if (item.abstract_info === "") {
+                    item.abstract_info = $(this).children('.str_info_div').children('.str_info').text();
+                }
+                try {
+                    item.picture = $(this).children('.strBox').children('.str_div').children('a').children('img').attr('src');
+                    if (!item.picture) {
+                        item.picture = $(this).children('.str-pd-box').children('.str_div').children('a').children('img').attr('src');
+                    }
+                } catch (e) {
 
+                }
+                if (!item.title.endsWith('人还搜了')&& item.title!=""&&item.abstract_info!="")
+                    result.push(item);
+            }
         });
         value.result = result;
+
         resultArray.push(value);
         return resultArray;
     }
@@ -126,20 +163,27 @@ export class SearchService {
         value.kind = '国家统计局';
         let result:SearchItem[] = [];
         let body = await this.rp(options);
-        // console.log(body);
         let $ = this.cheerio.load(body);
-        $('.cont_tit03').each(function(i, elem) {
-            let item:SearchItem = new SearchItem();
-            // item.title = ($(this).children(".cont_tit").text());
-
-            /*$('font').each(function(i, elem) {
-                if(i == 0) {
-                    item.href=$(this).text();
+        $('.center_list_contlist').each(function(i, elem) {
+            $(this).children('li').each(function(i, elem) {
+                if(i%2==0&&i<10) {
+                    let item: SearchItem = new SearchItem();
+                    $(this).children('.cont_tit').each(function (i, elem) {
+                        if (i == 0)
+                            $(this).children('font').each(function (i, elem) {
+                                if (i == 0) {
+                                    item.title = $(this).text();
+                                    item.href = $(this).html().split('urlstr = \'')[1].split('\';')[0];
+                                    console.log($(this).html().split('urlstr = \'')[1].split('\';')[0]);
+                                }
+                            });
+                        if(i==1){
+                            item.abstract_info = $(this).text();
+                        }
+                    });
+                    result.push(item);
                 }
-            });*/
-            item.title=$(this).text();
-            //item.href=$(this).children('a').text();
-            result.push(item);
+            });
         });
         value.result = result;
         resultArray.push(value);
@@ -161,12 +205,14 @@ export class SearchService {
 
         $('.search_div').each(function(i, elem) {
             $(this).children('ul').children('li').each(function (i, elem) {
-                let item: SearchItem = new SearchItem();
-                item.title = ($(this).text());
-                item.href = "http://www.youcheng.org/"+$(this).children('a').attr('href');
-                if (i == 0)
-                    console.log($(this).html());
-                result.push(item);
+                if(i<5) {
+                    let item: SearchItem = new SearchItem();
+                    item.title = ($(this).text());
+                    item.href = "http://www.youcheng.org/" + $(this).children('a').attr('href');
+                    if (i == 0)
+                        console.log($(this).html());
+                    result.push(item);
+                }
             });
             value.result = result;
             resultArray.push(value)
@@ -204,11 +250,11 @@ export class SearchService {
         return resultArray;
     }
 
-    public async getLeadGroupItem(kw: String){
+    public async getLeadGroupItem(kw){
         let resultArray: SearchResult[] = [];
         let options = {
             method: 'get',
-            url: ("http://www.cpad.gov.cn/jsearch/search.do?pos=title%2Ccontent&q="+kw+"&pagemode=result&appid=1&style=1&ck=o")
+            url: ("http://www.cpad.gov.cn/jsearch/search.do?pos=title%2Ccontent&q="+encodeURI(kw)+"&pagemode=result&appid=1&style=1&ck=o")
         };
         let value: SearchResult = new SearchResult();
         value.kind = '国务院扶贫领导小组办公室';
