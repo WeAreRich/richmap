@@ -26,8 +26,11 @@
   import mapboxgl from 'mapbox-gl';
   import { ACCESS_TOKEN, CHINA_BOUNDS, CHINA_CENTER, HUBEI_BOUNDS } from '../../../../constants/mapbox';
   import PlaceItem from '../../../../types/place-item';
+  import {Dropdown, Tooltip, DropdownMenu, Checkbox, Button} from 'iview';
 
-  @Component
+  @Component({
+    components: {Dropdown, Tooltip, DropdownMenu, Checkbox, Button}
+  })
   export default class PovertyMap extends Vue {
     private TAG = 'PovertyMap';
     private FIRST_LEVEL_LAYER_ID = 'first-level';
@@ -210,7 +213,10 @@
     }
 
     .border-control {
+        top: 10px;
+        left: 10px;
         display: inline-block;
+        /*width: 20px;*/
         position: absolute;
         z-index: 999;
     }

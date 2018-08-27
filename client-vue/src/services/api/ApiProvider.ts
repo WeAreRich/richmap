@@ -6,7 +6,7 @@ import { MapSourceService, MapSourceServiceImpl } from '@/services/api/map-sourc
 import { MapSourceServiceMock } from '@/services/api/map-source/MapSourceServiceMock';
 
 class ApiProvider {
-  isMock: boolean = true;
+  isMock: boolean = false;
 
   dataAnalysisService: DataAnalysisService;
   searchService: SearchService;

@@ -21,10 +21,14 @@
 </template>
 
 <script lang="ts">
+  declare var require : (filename,resolve)=>any;
+  const Consulting = (r) => require(['../common/Consulting.vue'],r);
+  const DetectFixedSideMenu = (r) => require(["../common/DetectFixedSideMenu.vue"],r);
+  const PovertyMap = (r) => require(["../common/map/poverty-map/PovertyMap.vue"],r);
   import { Vue, Component } from "vue-property-decorator";
-  import Consulting from "../common/Consulting.vue";
-  import DetectFixedSideMenu from "../common/DetectFixedSideMenu.vue";
-  import PovertyMap from "../common/map/poverty-map/PovertyMap.vue";
+  // import Consulting from "../common/Consulting.vue";
+  // import DetectFixedSideMenu from "../common/DetectFixedSideMenu.vue";
+  // import PovertyMap from "../common/map/poverty-map/PovertyMap.vue";
   import { Logger } from '../../services/Logger';
   import { MapLocatePositionService } from '../../services/map-locate-position.service';
   import { MapSourceService } from '../../services/api/map-source/MapSourceService';
@@ -33,9 +37,10 @@
   import { HUBEI_BOUNDS } from '../../constants/mapbox';
   import { MapSourceAnimationService } from '../../services/map-source-animation.service';
   import { MapboxSource } from '../../types/mapbox-source';
+  import {Sider,Layout} from 'iview'
 
   @Component({
-    components: {Consulting, DetectFixedSideMenu, PovertyMap}
+    components: {Consulting, DetectFixedSideMenu, PovertyMap,Sider,Layout}
   })
 
   export default class MapHome extends Vue {
@@ -109,6 +114,7 @@
           this.mapSources = res;
           Logger.info(this.TAG, 'get sources', res);
           await this.mapAnimationService.addSources(this.mapSources);
+          Logger.info(this.TAG, '加载所有sources成功');
         } catch (e) {}
       }
       Logger.info(this.TAG, this.mapSources.length);

@@ -7,10 +7,11 @@ export class Logger {
   static info(tag, ...contents): void {
     let time = new Date().toLocaleTimeString();
     if (console.info) {
-      console.info(`At ${time} in ${tag}`);
+      console.info(`At ${time} in 【${tag}】`);
       for (let item of contents) {
         console.info(item);
       }
+      console.log('-------------------------------');
     } else {
       Logger.log(tag, ...contents);
     }

@@ -88,8 +88,11 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import SENTENCES from '../../assets/sentences/index';
+  import {Header, Icon, Menu, MenuItem, Dropdown, DropdownMenu, DropdownItem} from 'iview';
 
-  @Component
+  @Component({
+    components: {Header, Icon, Menu, MenuItem, Dropdown, DropdownMenu, DropdownItem}
+  })
   export default class BlackMenu extends Vue {
     menuBar1: string = SENTENCES.MENU.MAP;
     menuBar2: string = SENTENCES.MENU.RANK;
