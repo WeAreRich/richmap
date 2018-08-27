@@ -36,10 +36,17 @@
   import PlaceItem from "../../../types/place-item";
   import { Message } from "../../../services/Message/index";
   import SENTENCES from "../../../assets/sentences";
+  import {Form, FormItem, Button, DatePicker, Select, Option} from 'iview';
 
   @Component({
     components: {
-      SearchPlace
+      SearchPlace,
+      Form,
+      FormItem,
+      Button,
+      DatePicker,
+      Select,
+      Option
     }
   })
 

@@ -24,8 +24,13 @@
   import { Emit, Component } from "vue-property-decorator";
   import { Logger } from "../../../services/Logger/index";
   import SENTENCES from "../../../assets/sentences";
+  import {AutoComplete, Option} from 'iview';
 
-  @Component
+  @Component({
+    components: {
+      AutoComplete, Option
+    }
+  })
   export default class SearchPlace extends Vue {
     mapSearch: string = SENTENCES.SIDE_MENU.MAP_SEARCH;
     // 类数据

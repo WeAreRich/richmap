@@ -36,8 +36,11 @@
 <script lang="ts">
   import { Component, Emit, Inject, Model, Prop, Provide, Vue, Watch } from "vue-property-decorator";
   import SENTENCES from "../../assets/sentences";
+  import {Footer, Row, Col} from 'iview';
 
-  @Component
+  @Component({
+    components: {Footer, Row, Col}
+  })
   export default class BlackFooter extends Vue {
     footer1Title: string = SENTENCES.FOOTER.UNIQUE_SERVICE.TITLE;
     footer1Content1: string = SENTENCES.FOOTER.UNIQUE_SERVICE.LEVEL_EVALUATE;

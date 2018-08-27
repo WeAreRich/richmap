@@ -40,13 +40,14 @@
   import SearchPlace from './map/SearchPlace';
   import { Logger } from '../../services/Logger';
   import { Message } from '../../services/Message';
+  import {Select, Option, Button, DatePicker} from 'iview';
 
 
   const TAG = 'DetectFixedSideMenu';
 
 
   @Component({
-    components: {SearchPlace, MapQueryComponent}
+    components: {SearchPlace, MapQueryComponent, Select, Option, Button, DatePicker}
   })
   export default class DetectFixedSideMenu extends Vue{
     dataType: string = '';
