@@ -51,7 +51,7 @@ export class MapSourceAnimationService {
    * @param {string} id
    */
   public showLayer(id: string | number) {
-    Logger.info(this.TAG, `id: ${id}`);
+    Logger.info(this.TAG, `show layer: ${id}`);
     let index = this.layers.findIndex(item => item.id === id.toString());
     if (index > -1) {
       this.map.addLayer(this.layers[index]);
@@ -64,7 +64,6 @@ export class MapSourceAnimationService {
         source: id.toString()
       };
       this.map.addLayer(layer);
-      Logger.info(this.TAG, `add layer ${id}`);
       this.layers.push(layer);
     }
   }
@@ -75,7 +74,7 @@ export class MapSourceAnimationService {
    */
   public hideLayer(id: string | number) {
     if (this.layers.findIndex(layer => layer.id === id.toString()) > -1) {
-      Logger.info(this.TAG, 'remove');
+      Logger.info(this.TAG, 'remove layer:' + id);
       this.map.removeLayer(id.toString());
     }
   }
@@ -98,7 +97,7 @@ export class MapSourceAnimationService {
    */
   public autoDisplayByRange(start: number, end: number) {
     const rangeSources = this.mapboxSources.filter(source => start <= source.year && source.year <= end);
-    Logger.info(this.TAG, rangeSources);
+    Logger.info(this.TAG, 'will to play range' ,rangeSources);
     this.reAutoDisplayByRange(rangeSources, 0);
   }
   /**
@@ -130,7 +129,7 @@ export class MapSourceAnimationService {
     this.showLayer(sources[index].ID);
     // 递归
     setTimeout(() => {
-      this.reAutoDisplay(index + 1);
+      this.reAutoDisplayByRange(sources, index + 1);
     }, 1000);
   }
 
