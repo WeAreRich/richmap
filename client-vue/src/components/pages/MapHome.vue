@@ -114,6 +114,7 @@
           this.mapSources = res;
           Logger.info(this.TAG, 'get sources', res);
           await this.mapAnimationService.addSources(this.mapSources);
+          Logger.info(this.TAG, '加载所有sources成功');
         } catch (e) {}
       }
       Logger.info(this.TAG, this.mapSources.length);
