@@ -11,7 +11,12 @@
             </DatePicker>
         </FormItem>
         <FormItem prop="selectedPlace">
-            <search-place v-on:set-place="handleSelectPlace"/>
+            <!--<search-place v-on:on-select-place="handleSelectPlace"/>-->
+            <Select placeholder="数据类型" size="large" v-model="dataType">
+                <Option v-for="op in typeOptions" :value="op.value">
+                    {{op.label}}
+                </Option>
+            </Select>
         </FormItem>
         <FormItem>
             <Button
@@ -41,8 +46,9 @@
   export default class MapQueryComponent extends Vue {
     mapYear: string = SENTENCES.SIDE_MENU.MAP_YEAR;
     public selectedPlace: PlaceItem;
-    public selectedYear: number;
-    public rules: {
+    public selectedYear: Date = undefined;
+    public dataType = '';
+    public rules = {
       selectedPlace: [
         { required: true, message: "地点不能为空", trigger: "blur" }
         ],
@@ -51,20 +57,25 @@
         ],
     };
 
+    public typeOptions =  [{
+      label: 'DEM',
+      value: 'hubeiDEM'
+    }, {
+      label: 'GDP',
+      value: 'hubeiGDP'
+    }, {
+      label: '坡度',
+      value: 'hubeiSlope'
+    }, {
+      label: '夜间灯光',
+      value: 'hubeiNightLight'
+    }];
+
     private messageService: Message;
 
     constructor() {
       super();
       this.messageService = new Message(this);
-    }
-
-    /* emit */
-    /**
-     * 表格填写提交，参数完成
-     */
-    @Emit('child-say')
-    onSubmit() {
-
     }
 
     /* handler */
@@ -78,13 +89,12 @@
         this.messageService.error("请选择一个年份");
         return;
       }
-      if (!this.selectedPlace) {
+      if (!this.dataType) {
         // (this as any).$Message.error('请选择一个年份');
-        this.messageService.error("请选择一个地点");
+        this.messageService.error("请选择一个类型");
         return;
       }
-      this.$emit('child-say', this.selectedYear, this.selectedPlace);
-      // this.onSubmit();
+      this.$emit('child-say', this.selectedYear.getFullYear(), this.dataType);
     }
   }
 </script>
