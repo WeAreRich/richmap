@@ -47,10 +47,9 @@
           id: 'hubei',
           type: 'raster',
           source: 'hubei',
-          'source-layer': 'GDP-0ewvfw'
+          // 'source-layer': 'GDP-0ewvfw'
        });
     }
-
 
   }
 </script>
