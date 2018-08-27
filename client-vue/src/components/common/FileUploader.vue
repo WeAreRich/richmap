@@ -23,8 +23,12 @@
 <script lang="ts">
   import { Component, Emit, Inject, Model, Prop, Provide, Vue, Watch } from "vue-property-decorator";
   import { APIROOTURL } from '../../services/api/HttpService';
+  import {Upload,Button} from 'iview'
 
   @Component({
+    components:{
+      Upload,Button
+    }
   })
   export default class App extends Vue {
     @Prop()

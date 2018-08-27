@@ -13,9 +13,13 @@
 </template>
 
 <script lang="ts">
+  declare var require : (filename,resolve)=>any;
   import { Vue, Component } from "vue-property-decorator";
-  import BlackMenu from "../common/BlackMenu.vue";
-  import BlackFooter from "../common/BlackFooter.vue";
+  // import BlackMenu from "../common/BlackMenu.vue";
+  // import BlackFooter from "../common/BlackFooter.vue";
+
+  const BlackMenu = (r) => require(["../common/BlackMenu.vue"],r);
+  const BlackFooter = (r) => require(["../common/BlackFooter.vue"],r);
 
   @Component({
     components: {BlackMenu, BlackFooter}

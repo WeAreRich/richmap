@@ -6,13 +6,15 @@
 </template>
 
 <script lang="ts">
+  declare var require : (filename,resolve)=>any;
   import { Vue, Component } from 'vue-property-decorator';
-  import Consulting from '../common/Consulting.vue';
-  import SearchBar from '../common/searchbar/SearchBar.vue';
-  import Introduction from '../common/Introduction.vue';
+  const SearchBar = (r) => require(['../common/searchbar/SearchBar.vue'],r);
+  const Introduction = (r) => require(['../common/Introduction.vue'],r);
+  // import SearchBar from '../common/searchbar/SearchBar.vue';
+  // import Introduction from '../common/Introduction.vue';
 
   @Component({
-    components: {Consulting, SearchBar, Introduction}
+    components: { SearchBar, Introduction}
   })
 
   export default class Home extends Vue {
