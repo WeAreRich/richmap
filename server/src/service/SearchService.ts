@@ -19,21 +19,29 @@ export class SearchService {
 
   public async getItem(kw: String){
      let result:SearchResult[] = [];
-     // await this.getBaiduItem(kw,result);
-     // await this.getWeixinItem(kw,result);
-     // await this.getBaiduNewsItem(kw,result);
-     // await this.getSogoItem(kw,result);
-     // await this.getZhihuItem(kw,result);
-     // await this.stats_gov_cn(kw,result);
-     // await this.getYouChengItem(kw,result);
-     // await this.getJianPinItem(kw,result);
-     await this.getLeadGroupItem(kw,result);
+     let res = await Promise.all(
+         [
+             this.getBaiduItem(kw),
+             this.getWeixinItem(kw),
+             this.getBaiduNewsItem(kw),
+             this.getSogoItem(kw),
+             this.getZhihuItem(kw),
+             this.stats_gov_cn(kw),
+             this.getYouChengItem(kw),
+             this.getJianPinItem(kw),
+             this.getLeadGroupItem(kw)
+         ]);
+     res.forEach(function(value,index,array){
+         result.push(value[0]);
+     });
      return result;
   }
   
 
-  public async getBaiduItem(kw: String, resultArray:SearchResult[]){
-    let options = {
+  public async getBaiduItem(kw: String){
+      let resultArray: SearchResult[] = [];
+
+      let options = {
         method: 'get',
         url: encodeURI("http://xueshu.baidu.com/s?wd="+kw)
     }; 
@@ -52,10 +60,12 @@ export class SearchService {
         result.push(item);
     });
     value.result = result;
-    resultArray.push(value)
+    resultArray.push(value);
+      return resultArray;
   }
 
-    public async getSogoItem(kw: String, resultArray:SearchResult[]){
+    public async getSogoItem(kw: String){
+        let resultArray: SearchResult[] = [];
         let options = {
             method: 'get',
             url: encodeURI("https://www.sogou.com/web?query="+kw)
@@ -72,10 +82,12 @@ export class SearchService {
 
         });
         value.result = result;
-        resultArray.push(value)
+        resultArray.push(value);
+        return resultArray;
     }
 
-    public async getZhihuItem(kw: String, resultArray:SearchResult[]){
+    public async getZhihuItem(kw: String){
+        let resultArray: SearchResult[] = [];
         let options = {
             method: 'get',
             url: encodeURI("https://www.zhihu.com/search?type=content&q="+kw)
@@ -84,9 +96,8 @@ export class SearchService {
         value.kind = '知乎';
         let result:SearchItem[] = [];
         let body = await this.rp(options);
-
         let $ = this.cheerio.load(body);
-        $('.sc_content').each(function(i, elem) {
+        $('.AnswerItem').each(function(i, elem) {
             let item:SearchItem = new SearchItem();
             item.title = ($(this).children('.ContentItem-title').children('div').text());
             item.href = "https://www.zhihu.com" + $(this).children('.ContentItem-title').children('div').children('a').attr('href');
@@ -97,13 +108,14 @@ export class SearchService {
             //     console.log($(this).children('.RichContent').children('.RichContent-inner').text());
             // }
             result.push(item);
-
         });
         value.result = result;
-        resultArray.push(value)
+        resultArray.push(value);
+        return resultArray;
     }
 
-    public async stats_gov_cn(kw: String, resultArray:SearchResult[]){
+    public async stats_gov_cn(kw: String){
+        let resultArray: SearchResult[] = [];
         let options = {
             method: 'get',
             url: encodeURI("http://www.stats.gov.cn/was5/web/search?channelid=288041&andsen="+kw)
@@ -120,14 +132,16 @@ export class SearchService {
             result.push(item);
             $('font').each(function(i, elem) {
                 if(i == 0)
-                console.log($(this).children('a').attr('href'));
+                // console.log($(this).children('a').attr('href'));
             });
         });
         value.result = result;
-        resultArray.push(value)
+        resultArray.push(value);
+        return resultArray;
     }
 
-    public async getYouChengItem(kw: String, resultArray:SearchResult[]){
+    public async getYouChengItem(kw: String){
+        let resultArray: SearchResult[] = [];
         let options = {
             method: 'get',
             url: encodeURI("http://www.youcheng.org/search.php?search_key="+kw)
@@ -150,10 +164,12 @@ export class SearchService {
             });
             value.result = result;
             resultArray.push(value)
-        })
+        });
+        return resultArray;
     }
 
-    public async getJianPinItem(kw: String, resultArray:SearchResult[]){
+    public async getJianPinItem(kw: String){
+        let resultArray: SearchResult[] = [];
         let options = {
             method: 'get',
             url: encodeURI("https://www.jianpincn.com/skwx_jp/Search.aspx?type=all&title=All&KeyWords="+kw)
@@ -178,13 +194,15 @@ export class SearchService {
 
         });
         value.result = result;
-        resultArray.push(value)
+        resultArray.push(value);
+        return resultArray;
     }
 
-    public async getLeadGroupItem(kw: String, resultArray:SearchResult[]){
+    public async getLeadGroupItem(kw: String){
+        let resultArray: SearchResult[] = [];
         let options = {
             method: 'get',
-            url: ("http://www.cpad.gov.cn/jsearch/search.do?pos=title%2Ccontent&q=113&pagemode=result&appid=1&style=1&ck=o")
+            url: ("http://www.cpad.gov.cn/jsearch/search.do?pos=title%2Ccontent&q="+kw+"&pagemode=result&appid=1&style=1&ck=o")
         };
         let value: SearchResult = new SearchResult();
         value.kind = '国务院扶贫领导小组办公室';
@@ -213,12 +231,14 @@ export class SearchService {
 
         });
         value.result = result;
-        resultArray.push(value)
+        resultArray.push(value);
+        return resultArray;
     }
 
 
 
-  public async getBaiduNewsItem(kw:String,resultArray:SearchResult[]){
+  public async getBaiduNewsItem(kw:String){
+      let resultArray: SearchResult[] = [];
       let options = {
           method: 'get',
           url: encodeURI("https://news.baidu.com/ns?word=11"),
@@ -251,10 +271,12 @@ export class SearchService {
 
       });
       value.result = result;
-      resultArray.push(value)
+      resultArray.push(value);
+      return resultArray;
   }
  
-  public async getWeixinItem(kw:String, resultArray:SearchResult[]){
+  public async getWeixinItem(kw:String){
+      let resultArray: SearchResult[] = [];
     var  options = {
         method: 'get',
         url: encodeURI("http://weixin.sogou.com/weixin?type=2&query="+kw)
@@ -277,7 +299,8 @@ export class SearchService {
         result.push(item);
     });
     value.result = result;
-    resultArray.push(value)
+    resultArray.push(value);
+      return resultArray;
   }
 
 }
