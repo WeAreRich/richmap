@@ -1,6 +1,7 @@
 const ACCESS_TOKEN = 'pk.eyJ1Ijoid2VueGlhbmdkb25nIiwiYSI6ImNqajEyN2owYjBvNHYzdm10c2p2NXowM2kifQ.kixIr8Jwk2mAqmlQCWW88Q';
 const CHINA_BOUNDS = [[70, 17], [140, 55]];
-const HUBEI_BOUNDS =[[106.3,25.0],[120.3,36.3]];
+// 108.3,29.0,116.3,33.3
+const HUBEI_BOUNDS =[[108.3,29.0],[116.3,33.3]];
 
 const CHINA_CENTER = [104.999927, 35.000074];
 let mapStyles = {
@@ -9,10 +10,10 @@ let mapStyles = {
 };
 
 let tileSets = {
-  'DEM': 'mapbox://wenxiangdong.bp3u4q4m',
-  'GDP': 'mapbox://wenxiangdong.d3cpxjy6',
-  'slope': 'mapbox://wenxiangdong.3yngbsb6',
-  'nightLight': 'mapbox://wenxiangdong.527q7f2p'
+  'hubeiDEM': 'mapbox://wenxiangdong.6mjehw01',
+  'hubeiGDP': 'mapbox://wenxiangdong.aa00vskv',
+  'hubeiSlope': 'mapbox://wenxiangdong.9vwvp9tc',
+  'hubieNightLight': 'mapbox://wenxiangdong.527q7f2p'
 };
 const REC_LAYER_ID = 'rec-layer-id';
 const LINE_LAYER_ID = 'line-layer-id';
