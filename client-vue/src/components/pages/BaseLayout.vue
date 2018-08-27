@@ -17,7 +17,6 @@
   import { Vue, Component } from "vue-property-decorator";
   // import BlackMenu from "../common/BlackMenu.vue";
   // import BlackFooter from "../common/BlackFooter.vue";
-
   const BlackMenu = (r) => require(["../common/BlackMenu.vue"],r);
   const BlackFooter = (r) => require(["../common/BlackFooter.vue"],r);
 
