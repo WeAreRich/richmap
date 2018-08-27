@@ -3,5 +3,6 @@ import '../controller/home';
 import '../controller/DistrictNumber'
 import '../controller/user';
 import '../controller/Search';
+import '../controller/Map';
 import '../service/user';
 import '../service/DistrictService'
