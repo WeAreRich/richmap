@@ -41,7 +41,7 @@ export class SearchService {
     value.kind = '百度学术';
     let result:SearchItem[] = [];
     let body = await this.rp(options);
-    console.log(body);
+
     let $ = this.cheerio.load(body);
     $('.sc_content').each(function(i, elem) {
         let item:SearchItem = new SearchItem();
@@ -64,7 +64,7 @@ export class SearchService {
         value.kind = '搜狗搜索';
         let result:SearchItem[] = [];
         let body = await this.rp(options);
-        console.log(body);
+
         let $ = this.cheerio.load(body);
         $('.sc_content').each(function(i, elem) {
             let item:SearchItem = new SearchItem();
@@ -84,8 +84,9 @@ export class SearchService {
         value.kind = '知乎';
         let result:SearchItem[] = [];
         let body = await this.rp(options);
+
         let $ = this.cheerio.load(body);
-        $('.AnswerItem').each(function(i, elem) {
+        $('.sc_content').each(function(i, elem) {
             let item:SearchItem = new SearchItem();
             item.title = ($(this).children('.ContentItem-title').children('div').text());
             item.href = "https://www.zhihu.com" + $(this).children('.ContentItem-title').children('div').children('a').attr('href');
@@ -96,6 +97,7 @@ export class SearchService {
             //     console.log($(this).children('.RichContent').children('.RichContent-inner').text());
             // }
             result.push(item);
+
         });
         value.result = result;
         resultArray.push(value)
@@ -134,7 +136,7 @@ export class SearchService {
         value.kind = '友成基金会';
         let result:SearchItem[] = [];
         let body = await this.rp(options);
-        // console.log(body);
+
         let $ = this.cheerio.load(body);
 
         $('.search_div').each(function(i, elem) {
@@ -160,11 +162,18 @@ export class SearchService {
         value.kind = '中国减贫研究数据库';
         let result:SearchItem[] = [];
         let body = await this.rp(options);
-        console.log(body);
-        let $ = this.cheerio.load(body);
-        $('.sc_content').each(function(i, elem) {
-            let item:SearchItem = new SearchItem();
 
+        let $ = this.cheerio.load(body);
+        $('.book_right1').each(function(i, elem) {
+            let item:SearchItem = new SearchItem();
+            $('h2').each(function(i1, elem){
+                item.title=($(this).text());
+                item.href="https://www.jianpincn.com/skwx_jp/"+($(this).children('a').attr('href'));
+            });
+
+            item.abstract_info = ($(this).children("p").text());
+
+            item.author=($(this).children(".list1").text());
             result.push(item);
 
         });
@@ -221,14 +230,14 @@ export class SearchService {
       value.kind = '百度新闻';
       let result:SearchItem[] = [];
       let body = await this.rp(options);
-      console.log(body);
+
       let $ = this.cheerio.load(body);
 
       this.request(options, function (err, res, body) {
           if (err) {
               console.log(err)
           }else {
-              console.log(body)
+             // console.log(body)
           }
       });
       $('.result').each(function(i, elem) {
