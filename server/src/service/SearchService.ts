@@ -293,7 +293,7 @@ export class SearchService {
       let resultArray: SearchResult[] = [];
       let options = {
           method: 'get',
-          url: encodeURI("https://news.baidu.com/ns?word=11"),
+          url: encodeURI("https://news.baidu.com/ns?word="+kw),
           headers: {
               'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
           }
@@ -318,7 +318,7 @@ export class SearchService {
           item.href = ($(this).children(".c-title").children('a').attr('href'));
           item.title = ($(this).children(".c-title").children('a').text());
 
-          item.abstract_info = ($(this).children(".c-summary c-row ").text());
+          item.abstract_info = ($(this).children(".c-summary").text()).split("查看更多")[0];
           result.push(item);
 
       });
