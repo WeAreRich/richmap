@@ -26,8 +26,8 @@ export class SearchService {
      // await this.getZhihuItem(kw,result);
      // await this.stats_gov_cn(kw,result);
      // await this.getYouChengItem(kw,result);
-     // await this.getJianPinItem(kw,result);
-     await this.getLeadGroupItem(kw,result);
+      await this.getJianPinItem(kw,result);
+     // await this.getLeadGroupItem(kw,result);
      return result;
   }
   
@@ -66,8 +66,10 @@ export class SearchService {
         let body = await this.rp(options);
 
         let $ = this.cheerio.load(body);
-        $('.sc_content').each(function(i, elem) {
+        $('.vrTitle').each(function(i, elem) {
             let item:SearchItem = new SearchItem();
+            item.title=($(this).text());
+            item.href="http://www.sogo.com"+($(this).children('a').attr('href'));
             result.push(item);
 
         });
@@ -114,14 +116,18 @@ export class SearchService {
         let body = await this.rp(options);
         // console.log(body);
         let $ = this.cheerio.load(body);
-        $('.cont_tit').each(function(i, elem) {
+        $('.cont_tit03').each(function(i, elem) {
             let item:SearchItem = new SearchItem();
             // item.title = ($(this).children(".cont_tit").text());
+
+            /*$('font').each(function(i, elem) {
+                if(i == 0) {
+                    item.href=$(this).text();
+                }
+            });*/
+            item.title=$(this).text();
+            //item.href=$(this).children('a').text();
             result.push(item);
-            $('font').each(function(i, elem) {
-                if(i == 0)
-                console.log($(this).children('a').attr('href'));
-            });
         });
         value.result = result;
         resultArray.push(value)
