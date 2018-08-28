@@ -50,17 +50,17 @@
     handleChange() {
       Logger.info(this.TAG, 'change');
       // let url = 'mapbox://wenxiangdong.dhr5yy3g';
-      this.animationService = new MapSourceAnimationService(this.map);
-      let animation = this.animationService;
-      let promises = this.urls.map(
-        url => animation.addSource(url)
-      );
-      this.animationService.addSources(this.urls)
-        .then(res => {
-          Logger.info(this.TAG, res);
-          this.ids = [];
-          this.ids = res;
-        });
+      this.map.addSource('hubei', {
+        type: 'raster',
+        url: 'mapbox://vsr2018.2g41qcaf'
+      });
+      this.map.addLayer({
+        id: 'hubei',
+        type: 'raster',
+        source: 'hubei',
+        'source-layer': '1-6zujon'
+      });
+
     }
     handleShow(id) {
       Logger.info(this.TAG, id);

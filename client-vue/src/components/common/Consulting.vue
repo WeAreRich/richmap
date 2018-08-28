@@ -10,8 +10,11 @@
 <script lang="ts">
   import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
   import SENTENCES from "../../assets/sentences/index";
+  import {Affix, Poptip, Button} from 'iview';
 
-  @Component
+  @Component({
+    components: {Affix, Poptip, Button}
+  })
   export default class Consulting extends Vue {
     onlineConsultTitle: string = SENTENCES.ONLINE_CONSULT.TITLE;
     onlineConsultContent: string = SENTENCES.ONLINE_CONSULT.CONTENT;

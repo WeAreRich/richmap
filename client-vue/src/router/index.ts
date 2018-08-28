@@ -10,6 +10,7 @@ import HelpHome from '../components/pages/HelpHome.vue';
 import ComparisonHome from '../components/pages/ComparisonHome.vue';
 import SearchPage from '../components/pages/SearchPage.vue';
 
+declare var require : (filename,resolve)=>any;
 Vue.use(Router);
 
 const routes = [
@@ -19,31 +20,31 @@ const routes = [
     children: [
       {
         path: '',
-        component: Home
+        component: resolve => require(['@/components/pages/Home.vue'], resolve)
       },
       {
         path: 'map',
-        component: MapHome
-      },
-      {
-        path: 'rank',
-        component: RankHome
-      },
-      {
-        path: 'help',
-        component: HelpHome
-      },
-      {
-        path: 'comparison',
-        component: ComparisonHome
-      },
-      {
-        path: 'search',
-        component: SearchPage
+        component: resolve => require(['@/components/pages/MapHome.vue'], resolve)
       },
       {
         path: 'try',
-        component: Try
+        component: resolve => require(['@/components/pages/Try.vue'], resolve)
+      },
+      {
+        path: 'rank',
+        component: resolve => require(['../components/pages/RankHome.vue'], resolve)
+      },
+      {
+        path: 'help',
+        component: resolve => require(['../components/pages/HelpHome.vue'], resolve)
+      },
+      {
+        path: 'comparison',
+        component: resolve => require(['../components/pages/ComparisonHome.vue'], resolve)
+      },
+      {
+        path: 'search',
+        component: resolve => require(['../components/pages/SearchPage.vue'], resolve)
       },
     ]
   },

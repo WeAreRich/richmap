@@ -33,8 +33,11 @@
   import store from '../../store';
   import { api } from '../../services/api/ApiProvider';
   import { SearchResult } from '../../models/SearchResult';
+  import {Input,Button} from 'iview'
 
-  @Component
+  @Component({
+    components:{ Input,Button }
+  })
   export default class SearchList extends Vue {
     searchTuplesAndKind: SearchResult[] = [];
 

@@ -24,10 +24,13 @@
   import NominatimService from '../../../../services/nominatim.service';
   import { Logger } from '../../../../services/Logger';
   import mapboxgl from 'mapbox-gl';
-  import { ACCESS_TOKEN, CHINA_BOUNDS, CHINA_CENTER } from '../../../../constants/mapbox';
+  import { ACCESS_TOKEN, CHINA_BOUNDS, CHINA_CENTER, HUBEI_BOUNDS } from '../../../../constants/mapbox';
   import PlaceItem from '../../../../types/place-item';
+  import {Dropdown, Tooltip, DropdownMenu, Checkbox, Button} from 'iview';
 
-  @Component
+  @Component({
+    components: {Dropdown, Tooltip, DropdownMenu, Checkbox, Button}
+  })
   export default class PovertyMap extends Vue {
     private TAG = 'PovertyMap';
     private FIRST_LEVEL_LAYER_ID = 'first-level';
@@ -84,8 +87,8 @@
       this.map = new mapboxgl.Map({
         container: 'map-container',
         style: this.mapUrl,
-        center: CHINA_CENTER,
-        maxBounds: CHINA_BOUNDS
+        // center: CHINA_CENTER,
+        maxBounds: HUBEI_BOUNDS
       });
       // 增加控件
       this.map.addControl(new mapboxgl.NavigationControl());
@@ -135,13 +138,13 @@
       if (!this.firstLevelLayer) {
         this.map.addSource(this.FIRST_LEVEL_LAYER_ID, {
           type: 'vector',
-          url: 'mapbox://wenxiangdong.d4tbuoxg'
+          url: 'mapbox://vsr2018.78vj6bhk'
         });
         let layer: mapboxgl.Layer = {
           id: this.FIRST_LEVEL_LAYER_ID,
           type: "line",
           source: this.FIRST_LEVEL_LAYER_ID,
-          'source-layer': 'china-9o3cd8',
+          'source-layer': 'first-6jawx0',
           paint: this.borderPaint
         };
         this.firstLevelLayer = layer;
@@ -158,14 +161,14 @@
       if (!this.secondLevelLayer) {
         this.map.addSource(this.SECOND_LEVEL_LAYER_ID, {
           type: 'vector',
-          url: 'mapbox://wenxiangdong.5wsa80lc'
+          url: 'mapbox://vsr2018.050px5x2'
         });
         let layer: mapboxgl.Layer = {
           id: this.SECOND_LEVEL_LAYER_ID,
           type: "line",
           source: this.SECOND_LEVEL_LAYER_ID,
           paint: this.borderPaint,
-          'source-layer': 'true'
+          'source-layer': 'second-dsvifq'
         };
         this.secondLevelLayer = layer;
       }
@@ -174,9 +177,26 @@
 
     public showThirdLevelBorder() {
       Logger.info(this.TAG, "showThirdLevelBorder");
+      // 未加载过
+      if (!this.thirdLevelLayer) {
+        this.map.addSource(this.THIRD_LEVEL_LAYER_ID, {
+          type: 'vector',
+          url: 'mapbox://vsr2018.5tz0fat5'
+        });
+        let layer: mapboxgl.Layer = {
+          id: this.THIRD_LEVEL_LAYER_ID,
+          type: "line",
+          source: this.THIRD_LEVEL_LAYER_ID,
+          paint: this.borderPaint,
+          'source-layer': 'third-dppmjz'
+        };
+        this.thirdLevelLayer = layer;
+      }
+      this.map.addLayer(this.thirdLevelLayer);
     }
   }
 </script>
+
 
 <style scoped>
     .outer {
@@ -188,12 +208,15 @@
     }
 
     #map-container {
-        height: 600px;
+        height: 800px;
         width: 100%;
     }
 
     .border-control {
+        top: 10px;
+        left: 10px;
         display: inline-block;
+        /*width: 20px;*/
         position: absolute;
         z-index: 999;
     }

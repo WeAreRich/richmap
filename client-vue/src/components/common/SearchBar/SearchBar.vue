@@ -22,8 +22,11 @@
   import { Component, Emit, Inject, Model, Prop, Provide, Vue, Watch } from 'vue-property-decorator';
   import SENTENCES from '../../../assets/sentences/index';
   import store from '../../../store';
+  import {Input} from 'iview'
 
-  @Component
+  @Component({
+    components: {Input}
+  })
   export default class SearchBar extends Vue {
     searchBar: string = SENTENCES.SEARCH.TITLE;
     kw: string;

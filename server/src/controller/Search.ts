@@ -14,4 +14,9 @@ export class SearchController {
   public get(@queryParam("kw") kw: string) {
     return this.searchService.getItem(kw);
   }
+
+  @httpGet('/one')
+  public getBaidu(@queryParam("kw") kw: string) {
+    return this.searchService.getOneItem(kw);
+  }
 }

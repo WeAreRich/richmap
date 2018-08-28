@@ -1,4 +1,5 @@
 import { Logger } from '@/services/Logger';
+import { MapboxSource } from '@/types/mapbox-source';
 
 export class MapSourceAnimationService {
   private TAG = 'MapSourceAnimationService';
@@ -6,21 +7,24 @@ export class MapSourceAnimationService {
   private counter = 0;
   private layers: mapboxgl.Layer[] = [];
   private sourceIds: string[] = [];
+
+  private mapboxSources: MapboxSource[] = [];
   constructor(private map: mapboxgl.Map) {
   }
 
   /**
    * 增加一个地图资源
-   * @param {string} sourceUrl
+   * @param {MapboxSource} mapBoxSource
    * @return {Promise<string>}
    */
-  public addSource(sourceUrl: string): Promise<string> {
+  public addSource(mapBoxSource: MapboxSource): Promise<string> {
     return new Promise((resolve => {
       let source: mapboxgl.RasterSource = {
         type: 'raster',
-        url: sourceUrl
+        url: mapBoxSource.url
       };
       let id = this.ID + (this.counter++);
+      mapBoxSource.ID = id;
       this.map.addSource(id, source);
       this.sourceIds.push(id);
       this.map.on('sourcedata', () => {
@@ -34,9 +38,10 @@ export class MapSourceAnimationService {
    * @param {string[]} sourceUrlList
    * @return {Promise<string[]>}
    */
-  public addSources(sourceUrlList: string[]): Promise<string[]> {
-    let promises = sourceUrlList.map(
-      url => this.addSource(url)
+  public addSources(mapboxSources: MapboxSource[]): Promise<string[]> {
+    this.mapboxSources = mapboxSources;
+    let promises = mapboxSources.map(
+      source => this.addSource(source)
     );
     return Promise.all(promises);
   }
@@ -45,21 +50,20 @@ export class MapSourceAnimationService {
    * 显示某一资源对应的图层
    * @param {string} id
    */
-  public showLayer(id: string) {
-    Logger.info(this.TAG, `id: ${id}`);
-    let index = this.layers.findIndex(item => item.id === id);
+  public showLayer(id: string | number) {
+    Logger.info(this.TAG, `show layer: ${id}`);
+    let index = this.layers.findIndex(item => item.id === id.toString());
     if (index > -1) {
       this.map.addLayer(this.layers[index]);
       Logger.info(this.TAG, `exist layer ${id}`);
     } else {
       Logger.info(this.TAG, `not exist layer ${id}`);
       let layer: mapboxgl.Layer = {
-        id: id,
+        id: id.toString(),
         type: 'raster',
-        source: id
+        source: id.toString()
       };
       this.map.addLayer(layer);
-      Logger.info(this.TAG, `add layer ${id}`);
       this.layers.push(layer);
     }
   }
@@ -68,12 +72,13 @@ export class MapSourceAnimationService {
    * 隐藏某一资源对应的图层
    * @param {string} id
    */
-  public hideLayer(id: string) {
-    let index = this.layers.findIndex(item => item.id === id);
-    if (index > -1) {
-      this.map.removeLayer(id);
+  public hideLayer(id: string | number) {
+    if (this.layers.findIndex(layer => layer.id === id.toString()) > -1) {
+      Logger.info(this.TAG, 'remove layer:' + id);
+      this.map.removeLayer(id.toString());
     }
   }
+
 
   /**
    * 自动播放所有资源，从头开始
@@ -90,8 +95,10 @@ export class MapSourceAnimationService {
    * @param start
    * @param end
    */
-  public autoDisplayByRange(start: any, end: any) {
-
+  public autoDisplayByRange(start: number, end: number) {
+    const rangeSources = this.mapboxSources.filter(source => start <= source.year && source.year <= end);
+    Logger.info(this.TAG, 'will to play range' ,rangeSources);
+    this.reAutoDisplayByRange(rangeSources, 0);
   }
   /**
    * 从头自动 播放的递归实现
@@ -112,7 +119,27 @@ export class MapSourceAnimationService {
     }, 1000);
   }
 
-  private reAutoDisplayByRange() {
+  private reAutoDisplayByRange(sources: MapboxSource[], index: number) {
+    if (index === sources.length) return;
+    // 是否有上层
+    if (index > 0) {
+      this.hideLayer(sources[index - 1].ID);
+    }
+    // 显示当前
+    this.showLayer(sources[index].ID);
+    // 递归
+    setTimeout(() => {
+      this.reAutoDisplayByRange(sources, index + 1);
+    }, 1000);
+  }
 
+
+  public hideAllLayer() {
+    Logger.info(this.TAG, 'hide all');
+    this.layers.forEach(layer => {
+      try {
+          this.map.removeLayer(layer.id);
+      } catch (e) {}
+    })
   }
 }

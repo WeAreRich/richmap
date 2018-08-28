@@ -10,7 +10,7 @@
                 </MenuItem>
             </router-link>
             <div class="layout-nav" v-if="isPC">
-                <router-link :to="{path: '/'}">
+                <router-link :to="{path: '/map'}">
                     <MenuItem name="1">
                         <Icon type="map"></Icon>
                         {{menuBar1}}
@@ -49,7 +49,7 @@
                     <Icon type="ios-arrow-down" color="white"></Icon>
                     <DropdownMenu slot="list">
                         <DropdownItem>
-                            <router-link :to="{path: '/'}">
+                            <router-link :to="{path: '/map'}">
                                 <Icon type="map"></Icon>
                                 {{menuBar1}}
                             </router-link>
@@ -88,8 +88,11 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import SENTENCES from '../../assets/sentences/index';
+  import {Header, Icon, Menu, MenuItem, Dropdown, DropdownMenu, DropdownItem} from 'iview';
 
-  @Component
+  @Component({
+    components: {Header, Icon, Menu, MenuItem, Dropdown, DropdownMenu, DropdownItem}
+  })
   export default class BlackMenu extends Vue {
     menuBar1: string = SENTENCES.MENU.MAP;
     menuBar2: string = SENTENCES.MENU.RANK;
@@ -106,7 +109,7 @@
       window.onresize = () => {
         that.isPC = document.documentElement.clientWidth > 895;
       };
-    }
+  }
   }
 </script>
 

@@ -19,13 +19,12 @@
 <script lang="ts">
   import { Component, Prop } from "vue-property-decorator";
   import FileUploader from "../common/FileUploader.vue";
-  import PdfLoader from "../common/PdfLoader.vue";
   import { APIROOTURL } from "../../services/api/HttpService";
   import Vue from "vue";
-
+  import {Menu, MenuItem} from 'iview'
   @Component({
     components: {
-      FileUploader
+      FileUploader, Menu, MenuItem
     }
   })
   export default class AdminHome extends Vue {

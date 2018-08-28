@@ -3,6 +3,8 @@ import { Logger } from '@/services/Logger';
 import { REC_LAYER_ID } from '@/constants/mapbox';
 
 export class MapLocatePositionService {
+
+  private static marker: mapboxgl.Marker;
   /**
    * 定位到某一个 bounds 区域
    * @param {mapboxgl.LngLatBounds} rec
@@ -21,13 +23,21 @@ export class MapLocatePositionService {
    * 定位到某一点
    * @param {mapboxgl.LngLatLike} pos
    * @param {mapboxgl.Map} map
-   * @param {number} zoom 缩放等级 默认6
+   * @param {number} zoom 缩放等级 默认7
    */
-  public static locateToPosition(pos: mapboxgl.LngLatLike, map: mapboxgl.Map, zoom: number = 6) {
+  public static locateToPosition(pos: mapboxgl.LngLatLike, map: mapboxgl.Map, zoom: number = 7, showMark: boolean = true) {
     map.flyTo({
       center: pos,
       curve: 1,
       zoom: zoom
     });
+    if (showMark) {
+      if (this.marker) {
+        this.marker.remove();
+      }
+      this.marker = new mapboxgl.Marker()
+        .setLngLat(pos)
+        .addTo(map);
+    }
   }
 }
