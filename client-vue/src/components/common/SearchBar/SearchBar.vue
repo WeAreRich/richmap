@@ -11,9 +11,11 @@
                 <h3 style="color: white;font-size:24px;padding: 30px">
                     —— 打造第一助贫服务平台 ——
                 </h3>
-                <Input search enter-button="Search" :placeholder="searchBar"
+                <Input :placeholder="searchBar"
+                       style="border-radius: 10px;border: 1px;width:90%;font-size: 24px;height:200%;font-weight: bold"
                        v-on:input="changeValue"
-                       @keyup.enter.native="startSearch"/>
+                       @keyup.enter.native="startSearch" title="search" size="large"/>
+                <Button type="primary" icon="ios-search" size="large" @click.native="startSearch">搜索</Button>
             </div>
         </div>
     </layout>
@@ -22,10 +24,10 @@
   import { Component, Emit, Inject, Model, Prop, Provide, Vue, Watch } from 'vue-property-decorator';
   import SENTENCES from '../../../assets/sentences/index';
   import store from '../../../store';
-  import {Input} from 'iview'
+  import { Button, Input, Layout } from 'iview';
 
   @Component({
-    components: {Input}
+    components: {Button, Input, Layout}
   })
   export default class SearchBar extends Vue {
     searchBar: string = SENTENCES.SEARCH.TITLE;
@@ -38,8 +40,7 @@
     startSearch() {
       this['$router'].push({path: 'search', params: {kw: this.kw}});
       store.commit('keyword', this.kw);
-      // const result = await api.searchService.search(this.kw);
-      // console.log(result);
+      store.commit('toSearch');
     };
   }
 </script>

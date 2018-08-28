@@ -88,7 +88,8 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import SENTENCES from '../../assets/sentences/index';
-  import {Header, Icon, Menu, MenuItem, Dropdown, DropdownMenu, DropdownItem} from 'iview';
+  import { Header, Icon, Menu, MenuItem, Dropdown, DropdownMenu, DropdownItem } from 'iview';
+  import store from '../../store';
 
   @Component({
     components: {Header, Icon, Menu, MenuItem, Dropdown, DropdownMenu, DropdownItem}
@@ -104,12 +105,23 @@
     isPC: boolean = true;
 
     mounted() {
-      this.isPC = document.documentElement.clientWidth > 895;
-      const that = this;
+      if (document.documentElement.clientWidth > 895) {
+        store.commit('toPC');
+      } else {
+        store.commit('toMobile');
+      }
+      let state: any = store.state;
+      this.isPC = state.layout.isPC;
       window.onresize = () => {
-        that.isPC = document.documentElement.clientWidth > 895;
+        if (document.documentElement.clientWidth > 895) {
+          store.commit('toPC');
+        } else {
+          store.commit('toMobile');
+        }
+        let state: any = store.state;
+        this.isPC = state.layout.isPC;
       };
-  }
+    }
   }
 </script>
 

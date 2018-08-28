@@ -30,13 +30,13 @@
 </template>
 
 <script lang="ts">
-  import Vue from "vue";
-  import { Component, Emit } from "vue-property-decorator";
-  import SearchPlace from "./SearchPlace.vue";
-  import PlaceItem from "../../../types/place-item";
-  import { Message } from "../../../services/Message/index";
-  import SENTENCES from "../../../assets/sentences";
-  import {Form, FormItem, Button, DatePicker, Select, Option} from 'iview';
+  import Vue from 'vue';
+  import { Component, Emit } from 'vue-property-decorator';
+  import SearchPlace from './SearchPlace.vue';
+  import PlaceItem from '../../../types/place-item';
+  import { Message } from '../../../services/Message/index';
+  import SENTENCES from '../../../assets/sentences';
+  import { Form, FormItem, Button, DatePicker, Select, Option } from 'iview';
 
   @Component({
     components: {
@@ -57,14 +57,14 @@
     public dataType = '';
     public rules = {
       selectedPlace: [
-        { required: true, message: "地点不能为空", trigger: "blur" }
-        ],
+        {required: true, message: '地点不能为空', trigger: 'blur'}
+      ],
       selectedYear: [
-        { required: true, message: "年份不能为空", trigger: "blur" }
-        ],
+        {required: true, message: '年份不能为空', trigger: 'blur'}
+      ],
     };
 
-    public typeOptions =  [{
+    public typeOptions = [{
       label: 'DEM',
       value: 'hubeiDEM'
     }, {
@@ -80,6 +80,16 @@
 
     private messageService: Message;
 
+    isPC: boolean = true;
+
+    mounted() {
+      this.isPC = document.documentElement.clientWidth > 895;
+      const that = this;
+      window.onresize = () => {
+        that.isPC = document.documentElement.clientWidth > 895;
+      };
+    }
+
     constructor() {
       super();
       this.messageService = new Message(this);
@@ -93,12 +103,12 @@
     handleClickSearch() {
       if (!this.selectedYear) {
         // (this as any).$Message.error('请选择一个年份');
-        this.messageService.error("请选择一个年份");
+        this.messageService.error('请选择一个年份');
         return;
       }
       if (!this.dataType) {
         // (this as any).$Message.error('请选择一个年份');
-        this.messageService.error("请选择一个类型");
+        this.messageService.error('请选择一个类型');
         return;
       }
       this.$emit('child-say', this.selectedYear.getFullYear(), this.dataType);

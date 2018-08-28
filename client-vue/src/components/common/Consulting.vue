@@ -8,9 +8,9 @@
     </Affix>
 </template>
 <script lang="ts">
-  import {Component, Emit, Inject, Model, Prop, Provide, Vue, Watch} from 'vue-property-decorator';
-  import SENTENCES from "../../assets/sentences/index";
-  import {Affix, Poptip, Button} from 'iview';
+  import { Component, Emit, Inject, Model, Prop, Provide, Vue, Watch } from 'vue-property-decorator';
+  import SENTENCES from '../../assets/sentences/index';
+  import { Affix, Poptip, Button } from 'iview';
 
   @Component({
     components: {Affix, Poptip, Button}
@@ -23,9 +23,9 @@
 
 <style scoped>
     .fixed-consult {
-        position: fixed;
+        position: absolute;
         z-index: 9999;
         right: 10px;
-        bottom: 6%;
+        bottom: 50%;
     }
 </style>
