@@ -40,7 +40,7 @@
     };
   }
 </script>
-<style>
+<style scoped>
     .search {
         text-align: center;
         position: absolute;
