@@ -1,5 +1,6 @@
 import { Logger } from '@/services/Logger';
 import { MapboxSource } from '@/types/mapbox-source';
+import Timer = NodeJS.Timer;
 
 export class MapSourceAnimationService {
   private TAG = 'MapSourceAnimationService';
@@ -7,6 +8,7 @@ export class MapSourceAnimationService {
   private counter = 0;
   private layers: mapboxgl.Layer[] = [];
   private sourceIds: string[] = [];
+  private timeId;
 
   private mapboxSources: MapboxSource[] = [];
   constructor(private map: mapboxgl.Map) {
@@ -89,6 +91,12 @@ export class MapSourceAnimationService {
     this.reAutoDisplay(0);
   }
 
+
+  public stop() {
+    Logger.info(this.TAG, '停止播放');
+    clearTimeout(this.timeId);
+    this.hideAllLayer();
+  }
   /**
    * 根据区间来自动播放
    * TODO: 实现，由于开始和结束的时间格式未定，未实现
@@ -128,13 +136,12 @@ export class MapSourceAnimationService {
     // 显示当前
     this.showLayer(sources[index].ID);
     // 递归
-    setTimeout(() => {
+    this.timeId = setTimeout(() => {
       this.reAutoDisplayByRange(sources, index + 1);
     }, 1000);
   }
 
-
-  public hideAllLayer() {
+  private hideAllLayer() {
     Logger.info(this.TAG, 'hide all');
     this.layers.forEach(layer => {
       try {

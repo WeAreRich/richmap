@@ -33,7 +33,7 @@
   import { MapLocatePositionService } from '../../services/map-locate-position.service';
   import { MapSourceService } from '../../services/api/map-source/MapSourceService';
   import { api } from '../../services/api/ApiProvider';
-  import { Message } from '../../services/Message';
+  import { Message as MessageService } from '../../services/Message';
   import { HUBEI_BOUNDS } from '../../constants/mapbox';
   import { MapSourceAnimationService } from '../../services/map-source-animation.service';
   import { MapboxSource } from '../../types/mapbox-source';
@@ -48,14 +48,15 @@
     private map: mapboxgl.Map;
     private SHOWING_SOURCE = 'showing-source';
     private sourceApi: MapSourceService;
-    private messageService: Message;
+    private messageService: MessageService;
     private mapAnimationService: MapSourceAnimationService;
 
-    private mapSources: MapboxSource[] = []; // 地图源
+    private mapSources = {}; // 地图源
 
     mounted() {
       this.sourceApi = api.mapSourceService;
-      this.messageService = new Message(this);
+      this.messageService = new MessageService(this);
+      this.mapSources;
     }
 
     handleOnMapLoad(map: mapboxgl.Map) {
@@ -108,21 +109,24 @@
     }
 
     async handlePlayMap(startYear, endYear, name) {
-      if (!this.mapSources.length) {
+      if (!this.mapSources[name]) {
         try {
           let res = await this.sourceApi.getByName(name);
-          this.mapSources = res;
+          this.mapSources[name] = res;
           Logger.info(this.TAG, 'get sources', res);
-          await this.mapAnimationService.addSources(this.mapSources);
+          (this as any).$Spin.show();
+          await this.mapAnimationService.addSources(this.mapSources[name]);
           Logger.info(this.TAG, '加载所有sources成功');
-        } catch (e) {}
+        } catch (e) {} finally {
+          (this as any).$Spin.hide();
+        }
       }
-      Logger.info(this.TAG, this.mapSources.length);
+      Logger.info(this.TAG, this.mapSources[name]);
       this.mapAnimationService.autoDisplayByRange(startYear, endYear);
     }
 
     handleStopMap() {
-      this.mapAnimationService.hideAllLayer();
+      this.mapAnimationService.stop();
     }
   }
 </script>
