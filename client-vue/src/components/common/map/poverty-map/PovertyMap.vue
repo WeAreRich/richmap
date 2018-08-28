@@ -18,6 +18,7 @@
                         <div>
                             <input type="checkbox" id="third" @click="handleChangeThirdLevelCheckBox">
                             <label for="third">三级行政区边界</label>
+                            <Button @click="handleChangeFirstLevelCheckBox"></Button>
                         </div>
                         <!--<Checkbox label="一级行政区边界" @on-change="handleChangeFirstLevelCheckBox">一级行政区边界</Checkbox>-->
                         <!--<Checkbox label="二级行政区边界" @on-change="handleChangeSecondLevelCheckBox">二级行政区边界</Checkbox>-->
@@ -56,9 +57,9 @@
     };
 
     // 行政区域划分图层
-    private firstLevelLayer: mapboxgl.Layer;
-    private secondLevelLayer: mapboxgl.Layer;
-    private thirdLevelLayer: mapboxgl.Layer;
+    private firstLevelLayer: mapboxgl.Layer = undefined;
+    private secondLevelLayer: mapboxgl.Layer = undefined;
+    private thirdLevelLayer: mapboxgl.Layer = undefined;
     private map: mapboxgl.Map;
 
     public firstCheck = false;
@@ -96,6 +97,7 @@
 
     mounted() {
       Logger.info(this.TAG, "mounted");
+      this.firstLevelLayer = undefined;
       this.initMap();
     }
 
@@ -113,7 +115,7 @@
       this.map.addControl(new mapboxgl.ScaleControl());
       // 初始化完成
       this.map.on("load", () => {
-        this.onMapLoad(this.map);
+        this.$emit('on-map-load', this.map);
         // console.log(this.map.getZoom());
       });
     }
@@ -121,11 +123,6 @@
     public click(){
       console.log("hhhhh")
     }
-
-    /* 事件emit */
-    // 地图加载完成，返回一个 mapboxgl 地图对象
-    @Emit()
-    public onMapLoad(map: mapboxgl.Map) {}
 
     /* 下面是事件处理 */
 
@@ -162,6 +159,7 @@
       Logger.info(this.TAG, "show first level border");
       // 未加载过
       if (!this.firstLevelLayer) {
+        console.log("add first");
         this.map.addSource(this.FIRST_LEVEL_LAYER_ID, {
           type: 'vector',
           url: 'mapbox://vsr2018.78vj6bhk'

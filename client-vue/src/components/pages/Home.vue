@@ -2,13 +2,13 @@
     <Layout>
         <search-bar></search-bar>
         <introduction></introduction>
-        <Checkbox label="一级行政区边界" @on-change="handleChangeFirstLevelCheckBox">一级行政区边界</Checkbox>
     </Layout>
 </template>
 
 <script lang="ts">
   declare var require : (filename,resolve)=>any;
-  import { Vue, Component } from 'vue-property-decorator';
+  import Vue from 'Vue'
+  import { Component } from 'vue-property-decorator';
   // const SearchBar = (r) => require(['../common/searchbar/SearchBar.vue'],r);
   // const Introduction = (r) => require(['../common/Introduction.vue'],r);
   import SearchBar from '../common/searchbar/SearchBar.vue';
@@ -21,9 +21,17 @@
 
   export default class Home extends Vue {
 
-    public handleChangeFirstLevelCheckBox(){
-      console.log("here")
-    }
+      constructor(){
+        super();
+        console.log('here')
+      }
+
+      mounted(){
+         console.log('lawlawlaw')
+      }
+      created(){
+        console.log('lawlawlaw')
+      }
   }
 </script>
 
