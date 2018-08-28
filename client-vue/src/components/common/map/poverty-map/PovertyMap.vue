@@ -13,11 +13,11 @@
                         </div>
                         <div>
                             <input type="checkbox" id="second" @click="handleChangeSecondLevelCheckBox">
-                            <label for="second">一级行政区边界</label>
+                            <label for="second">二级行政区边界</label>
                         </div>
                         <div>
                             <input type="checkbox" id="third" @click="handleChangeThirdLevelCheckBox">
-                            <label for="third">一级行政区边界</label>
+                            <label for="third">三级行政区边界</label>
                         </div>
                         <!--<Checkbox label="一级行政区边界" @on-change="handleChangeFirstLevelCheckBox">一级行政区边界</Checkbox>-->
                         <!--<Checkbox label="二级行政区边界" @on-change="handleChangeSecondLevelCheckBox">二级行政区边界</Checkbox>-->
