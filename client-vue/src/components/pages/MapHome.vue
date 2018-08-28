@@ -22,13 +22,13 @@
 
 <script lang="ts">
   declare var require : (filename,resolve)=>any;
-  // const Consulting = (r) => require(['../common/Consulting.vue'],r);
-  // const DetectFixedSideMenu = (r) => require(["../common/DetectFixedSideMenu.vue"],r);
-  // const PovertyMap = (r) => require(["../common/map/poverty-map/PovertyMap.vue"],r);
+  const Consulting = (r) => require(['../common/Consulting.vue'],r);
+  const DetectFixedSideMenu = (r) => require(["../common/DetectFixedSideMenu.vue"],r);
+  const PovertyMap = (r) => require(["../common/map/poverty-map/PovertyMap.vue"],r);
   import { Vue, Component } from "vue-property-decorator";
-  import Consulting from "../common/Consulting.vue";
-  import DetectFixedSideMenu from "../common/DetectFixedSideMenu.vue";
-  import PovertyMap from "../common/map/poverty-map/PovertyMap.vue";
+  // import Consulting from "../common/Consulting.vue";
+  // import DetectFixedSideMenu from "../common/DetectFixedSideMenu.vue";
+  // import PovertyMap from "../common/map/poverty-map/PovertyMap.vue";
   import { Logger } from '../../services/Logger';
   import { MapLocatePositionService } from '../../services/map-locate-position.service';
   import { MapSourceService } from '../../services/api/map-source/MapSourceService';

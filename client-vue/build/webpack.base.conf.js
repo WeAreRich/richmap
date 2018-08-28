@@ -13,10 +13,10 @@ function resolve (dir) {
 
 module.exports = {
   entry: {
-    app: './src/main.ts',
-    vendor: [
-      "lodash"
-    ]
+    app: './src/main.ts'
+    // vendor: [
+    //   "lodash"
+    // ]
   },
   output: {
     path: config.build.assetsRoot,

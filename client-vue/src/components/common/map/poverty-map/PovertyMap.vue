@@ -7,7 +7,7 @@
                 </Tooltip>
                 <DropdownMenu slot="list" style="text-align: left; width: 130px;">
                     <div style="display: flex; flex-direction: column; padding: 10px;">
-                        <Checkbox label="一级行政区边界" @on-change="handleChangeFirstLevelCheckBox">一级行政区边界</Checkbox>
+                        <Checkbox label="一级行政区边界" @on-change="handleChangeFirstLevelCheckBox" @onclick="click">一级行政区边界</Checkbox>
                         <Checkbox label="二级行政区边界" @on-change="handleChangeSecondLevelCheckBox">二级行政区边界</Checkbox>
                         <Checkbox label="三级行政区边界" @on-change="handleChangeThirdLevelCheckBox">三级行政区边界</Checkbox>
                     </div>
@@ -100,6 +100,10 @@
       });
     }
 
+    public click(){
+      console.log("hhhhh")
+    }
+
     /* 事件emit */
     // 地图加载完成，返回一个 mapboxgl 地图对象
     @Emit()
@@ -108,6 +112,7 @@
     /* 下面是事件处理 */
 
     public handleChangeFirstLevelCheckBox(value) {
+      console.log("加载第一级");
       if (value) {
         this.showFirstLevelBorder();
       } else {
