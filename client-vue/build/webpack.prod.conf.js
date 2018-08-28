@@ -24,7 +24,8 @@ const webpackConfig = merge(baseWebpackConfig, {
       extract: true
     })
   },
-  devtool: config.build.productionSourceMap ? '#source-map' : false,
+  // devtool: config.build.productionSourceMap ? '#source-map' : false,
+    devtool: 'source-map',
   output: {
     path: config.build.assetsRoot,
     filename: utils.assetsPath('js/[name].[chunkhash].js'),
@@ -54,12 +55,13 @@ const webpackConfig = merge(baseWebpackConfig, {
     }),
     // UglifyJs do not support ES6+, you can also use babel-minify for better treeshaking: https://github.com/babel/minify
     new UglifyJsPlugin({
-      parallel: true,
-      cache: true,
+      // parallel: true,
+      // cache: true,
       sourceMap: true,
       uglifyOptions: {
         compress: {
           warnings: true,
+            comparisons: false,
           /* eslint-disable */
           // drop_debugger: true,
           // drop_console: true

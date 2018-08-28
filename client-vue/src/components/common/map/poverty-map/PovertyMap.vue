@@ -67,11 +67,11 @@
     public thirdCheck = false;
 
 
-    // 基础地图源
-    @Prop({
-      default: () => 'mapbox://styles/mapbox/satellite-v9'
-    })
-    public mapUrl: string;
+    // // 基础地图源
+    // @Prop({
+    //   default: () => 'mapbox://styles/mapbox/satellite-v9'
+    // })
+    public mapUrl = 'mapbox://styles/mapbox/satellite-v9';
 
 
     @Watch('mapUrl')
@@ -107,7 +107,6 @@
       this.map = new mapboxgl.Map({
         container: 'map-container',
         style: this.mapUrl,
-        // center: CHINA_CENTER,
         maxBounds: HUBEI_BOUNDS
       });
       // 增加控件
@@ -172,6 +171,7 @@
           paint: this.borderPaint
         };
         this.firstLevelLayer = layer;
+        console.log(this.firstLevelLayer)
       }
       this.map.addLayer(this.firstLevelLayer);
       this.map.on('sourcedata', this.FIRST_LEVEL_LAYER_ID, () => {
