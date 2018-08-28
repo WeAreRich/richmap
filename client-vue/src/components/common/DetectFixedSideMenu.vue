@@ -19,9 +19,9 @@
                     :placeholder="endDate"
                     v-model="endYear"
                     style="padding-left:20px;padding-right:20px;"></DatePicker>
-            <div style="text-align: center">
-                <Button type="text" icon="play" size="large" @click="handlePlay" :disabled="isPlaying"></Button>
-                <Button type="text" icon="stop" size="large" @click="handleStop" :disabled="!isPlaying"></Button>
+            <div style="text-align: center;padding: 5px;">
+                <Button type="text" icon="md-play" size="large" @click="handlePlay" :disabled="isPlaying"></Button>
+                <Button type="text" icon="md-square" size="large" @click="handleStop" :disabled="!isPlaying"></Button>
             </div>
         </div>
         <div style="background-color:whitesmoke;margin: 5px;-webkit-border-radius: 5px">
