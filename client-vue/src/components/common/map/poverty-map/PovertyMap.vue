@@ -7,7 +7,7 @@
                 </Tooltip>
                 <DropdownMenu slot="list" style="text-align: left; width: 130px;">
                     <div style="display: flex; flex-direction: column; padding: 10px;">
-                        <Checkbox label="一级行政区边界" @on-change="handleChangeFirstLevelCheckBox" @onclick="click">一级行政区边界</Checkbox>
+                        <Checkbox label="一级行政区边界" @on-change="handleChangeFirstLevelCheckBox">一级行政区边界</Checkbox>
                         <Checkbox label="二级行政区边界" @on-change="handleChangeSecondLevelCheckBox">二级行政区边界</Checkbox>
                         <Checkbox label="三级行政区边界" @on-change="handleChangeThirdLevelCheckBox">三级行政区边界</Checkbox>
                     </div>
@@ -20,10 +20,12 @@
 
 <script lang="ts">
   import Vue from 'vue';
+  declare var require : (filename,resolve)=>any;
   import { Component, Emit, Prop, Watch } from 'vue-property-decorator';
   import NominatimService from '../../../../services/nominatim.service';
   import { Logger } from '../../../../services/Logger';
   import mapboxgl from 'mapbox-gl';
+  // const mapboxgl = (a) => require('mapbox-gl.js',a);
   import { ACCESS_TOKEN, CHINA_BOUNDS, CHINA_CENTER, HUBEI_BOUNDS } from '../../../../constants/mapbox';
   import PlaceItem from '../../../../types/place-item';
   import {Dropdown, Tooltip, DropdownMenu, Checkbox, Button} from 'iview';
@@ -133,7 +135,6 @@
         this.showThirdLevelBorder();
       } else {
         this.map.removeLayer(this.THIRD_LEVEL_LAYER_ID);
-        this.map.removeSource(this.FIRST_LEVEL_LAYER_ID);
       }
     }
 

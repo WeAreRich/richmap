@@ -8,7 +8,14 @@ import 'iview/dist/styles/fonts/ionicons.svg'
 import 'iview/dist/styles/fonts/ionicons.ttf'
 import 'iview/dist/styles/fonts/ionicons.woff'
 
-// Vue.config.productionTip = false;
+
+import {Spin, Message} from 'iview';
+
+Vue.config.productionTip = false;
+Vue.prototype.$Message = Message;
+Vue.prototype.$Spin = Spin;
+
+
 // Vue.use(iview);
 export default new Vue({
   el: '#app',

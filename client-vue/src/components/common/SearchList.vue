@@ -1,7 +1,7 @@
 <template>
     <div style="margin-top: 100px">
         <div>
-            <Input suffix="ios-search" placeholder="Enter text" style="width: auto" />
+            <Input suffix="ios-search" placeholder="Enter text" style="width: auto"/>
         </div>
         <div v-for="searchTuplesAndKindItem in searchTuplesAndKind" :key="searchTuplesAndKindItem.kind">
             <div style="margin-left: 40px;margin-right: 40px;margin-top:40px">
@@ -9,7 +9,10 @@
                     {{searchTuplesAndKindItem.kind}}({{searchTuplesAndKindItem.result.length}})
                 </Button>
                 <div v-for="searchTuple in searchTuplesAndKindItem.result">
-                    <div style="margin-top: 20px;">、
+                    <div v-if="searchTuple.picture" style="display: inline-block">
+                        <img :src="searchTuple.picture"/>
+                    </div>
+                    <div style="margin-top: 20px;display: inline-block">、
                         <a style="font-size: 16px;"
                            :href="searchTuple.href">{{searchTuple.title}}</a>
                         <div style="font-size: 12px;">
@@ -47,5 +50,4 @@
 </script>
 
 <style scoped>
-
 </style>

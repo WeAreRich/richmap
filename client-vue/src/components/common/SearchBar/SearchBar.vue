@@ -1,5 +1,5 @@
 <template>
-    <layout>
+    <Layout>
         <div style="height: 100vh;">
             <!--<div>-->
             <div class="banner banner-1"></div>
@@ -16,16 +16,16 @@
                        @keyup.enter.native="startSearch"/>
             </div>
         </div>
-    </layout>
+    </Layout>
 </template>
 <script lang="ts">
   import { Component, Emit, Inject, Model, Prop, Provide, Vue, Watch } from 'vue-property-decorator';
   import SENTENCES from '../../../assets/sentences/index';
   import store from '../../../store';
-  import {Input} from 'iview'
+  import {Input,Layout} from 'iview'
 
   @Component({
-    components: {Input}
+    components: {Input,Layout}
   })
   export default class SearchBar extends Vue {
     searchBar: string = SENTENCES.SEARCH.TITLE;
@@ -43,7 +43,7 @@
     };
   }
 </script>
-<style>
+<style scoped>
     .search {
         text-align: center;
         position: absolute;

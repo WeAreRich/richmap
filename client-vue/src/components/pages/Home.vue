@@ -1,8 +1,9 @@
 <template>
-    <layout>
+    <Layout>
         <search-bar></search-bar>
         <introduction></introduction>
-    </layout>
+        <Checkbox label="一级行政区边界" @on-change="handleChangeFirstLevelCheckBox">一级行政区边界</Checkbox>
+    </Layout>
 </template>
 
 <script lang="ts">
@@ -12,12 +13,17 @@
   // const Introduction = (r) => require(['../common/Introduction.vue'],r);
   import SearchBar from '../common/searchbar/SearchBar.vue';
   import Introduction from '../common/Introduction.vue';
+  import {Layout,Checkbox} from 'iview'
 
   @Component({
-    components: { SearchBar, Introduction}
+    components: { SearchBar, Introduction, Layout,Checkbox}
   })
 
   export default class Home extends Vue {
+
+    public handleChangeFirstLevelCheckBox(){
+      console.log("here")
+    }
   }
 </script>
 

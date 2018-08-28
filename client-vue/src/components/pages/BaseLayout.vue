@@ -17,11 +17,13 @@
   import { Vue, Component } from "vue-property-decorator";
   // import BlackMenu from "../common/BlackMenu.vue";
   // import BlackFooter from "../common/BlackFooter.vue";
+  import {Layout} from 'iview';
+
   const BlackMenu = (r) => require(["../common/BlackMenu.vue"],r);
   const BlackFooter = (r) => require(["../common/BlackFooter.vue"],r);
 
   @Component({
-    components: {BlackMenu, BlackFooter}
+    components: {BlackMenu, BlackFooter, Layout}
   })
 
   export default class BaseLayout extends Vue {
