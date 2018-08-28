@@ -4,12 +4,14 @@
 
         </div>
         <layout>
-            <detect-fixed-side-menu
-                    v-on:child-say="chooseMap"
-                    v-on:on-select-place="handleSelectPalce"
-                    v-on:on-play="handlePlayMap"
-                    v-on:on-stop="handleStopMap"
-            ></detect-fixed-side-menu>
+            <Sider style="background-color: white" hide-trigger>
+                <detect-fixed-side-menu
+                        v-on:child-say="chooseMap"
+                        v-on:on-select-place="handleSelectPalce"
+                        v-on:on-play="handlePlayMap"
+                        v-on:on-stop="handleStopMap"
+                ></detect-fixed-side-menu>
+            </Sider>
             <Layout>
                 <poverty-map @on-map-load="handleOnMapLoad"></poverty-map>
                 <consulting></consulting>
@@ -19,11 +21,11 @@
 </template>
 
 <script lang="ts">
-  declare var require: (filename, resolve) => any;
-  const Consulting = (r) => require(['../common/Consulting.vue'], r);
-  const DetectFixedSideMenu = (r) => require(['../common/DetectFixedSideMenu.vue'], r);
-  const PovertyMap = (r) => require(['../common/map/poverty-map/PovertyMap.vue'], r);
-  import { Vue, Component } from 'vue-property-decorator';
+  declare var require : (filename,resolve)=>any;
+  const Consulting = (r) => require(['../common/Consulting.vue'],r);
+  const DetectFixedSideMenu = (r) => require(["../common/DetectFixedSideMenu.vue"],r);
+  const PovertyMap = (r) => require(["../common/map/poverty-map/PovertyMap.vue"],r);
+  import { Vue, Component } from "vue-property-decorator";
   // import Consulting from "../common/Consulting.vue";
   // import DetectFixedSideMenu from "../common/DetectFixedSideMenu.vue";
   // import PovertyMap from "../common/map/poverty-map/PovertyMap.vue";
@@ -31,14 +33,14 @@
   import { MapLocatePositionService } from '../../services/map-locate-position.service';
   import { MapSourceService } from '../../services/api/map-source/MapSourceService';
   import { api } from '../../services/api/ApiProvider';
-  import { Message } from '../../services/Message';
+  import { Message as MessageService } from '../../services/Message';
   import { HUBEI_BOUNDS } from '../../constants/mapbox';
   import { MapSourceAnimationService } from '../../services/map-source-animation.service';
   import { MapboxSource } from '../../types/mapbox-source';
-  import { Sider, Layout } from 'iview';
+  import {Sider,Layout} from 'iview'
 
   @Component({
-    components: {Consulting, DetectFixedSideMenu, PovertyMap, Sider, Layout}
+    components: {Consulting, DetectFixedSideMenu, PovertyMap,Sider,Layout}
   })
 
   export default class MapHome extends Vue {
@@ -46,14 +48,15 @@
     private map: mapboxgl.Map;
     private SHOWING_SOURCE = 'showing-source';
     private sourceApi: MapSourceService;
-    private messageService: Message;
+    private messageService: MessageService;
     private mapAnimationService: MapSourceAnimationService;
 
-    private mapSources: MapboxSource[] = []; // 地图源
+    private mapSources = {}; // 地图源
 
     mounted() {
       this.sourceApi = api.mapSourceService;
-      this.messageService = new Message(this);
+      this.messageService = new MessageService(this);
+      this.mapSources;
     }
 
     handleOnMapLoad(map: mapboxgl.Map) {
@@ -62,12 +65,12 @@
       this.mapAnimationService = new MapSourceAnimationService(map);
     }
 
-    async chooseMap(year, name) {
+    async chooseMap(year, name){
       console.log(year, name);
       console.log('in map home');
       // const map = this.map;
       if (!this.map) {
-        this.messageService.error('请等待地图组件加载完成...');
+        this.messageService.error('请等待地图组件加载完成...')
       }
       // MapLocatePositionService.locateToPosition([place.lon, place.lat], this.map);
       if (this.map.isSourceLoaded(this.SHOWING_SOURCE)) {
@@ -90,8 +93,7 @@
 
           source: this.SHOWING_SOURCE
         });
-      } catch (e) {
-      }
+      } catch (e) {}
     }
 
 
@@ -107,28 +109,30 @@
     }
 
     async handlePlayMap(startYear, endYear, name) {
-      if (!this.mapSources.length) {
+      if (!this.mapSources[name]) {
         try {
           let res = await this.sourceApi.getByName(name);
-          this.mapSources = res;
+          this.mapSources[name] = res;
           Logger.info(this.TAG, 'get sources', res);
-          await this.mapAnimationService.addSources(this.mapSources);
+          (this as any).$Spin.show();
+          await this.mapAnimationService.addSources(this.mapSources[name]);
           Logger.info(this.TAG, '加载所有sources成功');
-        } catch (e) {
+        } catch (e) {} finally {
+          (this as any).$Spin.hide();
         }
       }
-      Logger.info(this.TAG, this.mapSources.length);
+      Logger.info(this.TAG, this.mapSources[name]);
       this.mapAnimationService.autoDisplayByRange(startYear, endYear);
     }
 
     handleStopMap() {
-      this.mapAnimationService.hideAllLayer();
+      this.mapAnimationService.stop();
     }
   }
 </script>
 
 <style scoped>
-    .top {
-        height: 65px;
+    .top{
+        height: 100px;
     }
 </style>

@@ -24,7 +24,8 @@ const webpackConfig = merge(baseWebpackConfig, {
       extract: true
     })
   },
-  devtool: config.build.productionSourceMap ? '#source-map' : false,
+  // devtool: config.build.productionSourceMap ? '#source-map' : false,
+    devtool: 'source-map',
   output: {
     path: config.build.assetsRoot,
     filename: utils.assetsPath('js/[name].[chunkhash].js'),
@@ -54,30 +55,43 @@ const webpackConfig = merge(baseWebpackConfig, {
     }),
     // UglifyJs do not support ES6+, you can also use babel-minify for better treeshaking: https://github.com/babel/minify
     new UglifyJsPlugin({
-      parallel: true,
-      cache: true,
+      // parallel: true,
+      // cache: true,
       sourceMap: true,
       uglifyOptions: {
         compress: {
           warnings: true,
+            comparisons: false,
           /* eslint-disable */
-          drop_debugger: true,
-          drop_console: true
+          // drop_debugger: true,
+          // drop_console: true
         },
         mangle: true
       }
     }),
     // extract css into its own file
-    new ExtractTextPlugin({
-      filename: utils.assetsPath('css/[name].[hash].css')
-    }),
+    // new ExtractTextPlugin({
+    //   filename: utils.assetsPath('css/[name].[hash].css')
+    // }),
+      new ExtractTextPlugin({
+          filename: utils.assetsPath('css/[name].[hash].css'),
+          // set the following option to `true` if you want to extract CSS from
+          // codesplit chunks into this main css file as well.
+          // This will result in *all* of your app's CSS being loaded upfront.
+          allChunks: true,
+      }),
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
-    new OptimizeCSSPlugin({
-      cssProcessorOptions: {
-        safe: true
-      }
-    }),
+    // new OptimizeCSSPlugin({
+    //   cssProcessorOptions: {
+    //     safe: true
+    //   }
+    // }),
+      new OptimizeCSSPlugin({
+          cssProcessorOptions: config.build.productionSourceMap
+              ? { safe: true, map: { inline: false } }
+              : { safe: true }
+      }),
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin

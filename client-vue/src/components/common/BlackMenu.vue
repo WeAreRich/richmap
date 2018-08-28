@@ -12,31 +12,31 @@
             <div class="layout-nav" v-if="isPC">
                 <router-link :to="{path: '/map'}">
                     <MenuItem name="1">
-                        <Icon type="map"></Icon>
+                        <Icon type="md-map"></Icon>
                         {{menuBar1}}
                     </MenuItem>
                 </router-link>
                 <router-link :to="{path: '/guide/rank'}">
                     <MenuItem name="2">
-                        <Icon type="stats-bars"></Icon>
+                        <Icon type="md-stats"></Icon>
                         {{menuBar2}}
                     </MenuItem>
                 </router-link>
                 <router-link :to="{path: '/guide/detect'}">
                     <MenuItem name="3">
-                        <Icon type="flash"></Icon>
+                        <Icon type="md-flash"></Icon>
                         {{menuBar3}}
                     </MenuItem>
                 </router-link>
                 <router-link :to="{path: '/guide/help'}">
                     <MenuItem name="4">
-                        <Icon type="android-hand"></Icon>
+                        <Icon type="md-hand"></Icon>
                         {{menuBar4}}
                     </MenuItem>
                 </router-link>
                 <router-link :to="{path: '/guide/comparison'}">
                     <MenuItem name="5">
-                        <Icon type="network"></Icon>
+                        <Icon type="md-git-network"></Icon>
                         {{menuBar5}}
                     </MenuItem>
                 </router-link>
@@ -50,31 +50,31 @@
                     <DropdownMenu slot="list">
                         <DropdownItem>
                             <router-link :to="{path: '/map'}">
-                                <Icon type="map"></Icon>
+                                <Icon type="md-map"></Icon>
                                 {{menuBar1}}
                             </router-link>
                         </DropdownItem>
                         <DropdownItem>
                             <router-link :to="{path: '/guide/rank'}">
-                                <Icon type="stats-bars"></Icon>
+                                <Icon type="md-stats"></Icon>
                                 {{menuBar2}}
                             </router-link>
                         </DropdownItem>
                         <DropdownItem>
                             <router-link :to="{path: '/guide/detect'}">
-                                <Icon type="flash"></Icon>
+                                <Icon type="md-flash"></Icon>
                                 {{menuBar3}}
                             </router-link>
                         </DropdownItem>
                         <DropdownItem>
                             <router-link :to="{path: '/guide/help'}">
-                                <Icon type="android-hand"></Icon>
+                                <Icon type="md-hand"></Icon>
                                 {{menuBar4}}
                             </router-link>
                         </DropdownItem>
                         <DropdownItem>
                             <router-link :to="{path: '/guide/comparison'}">
-                                <Icon type="network"></Icon>
+                                <Icon type="md-git-network"></Icon>
                                 {{menuBar5}}
                             </router-link>
                         </DropdownItem>

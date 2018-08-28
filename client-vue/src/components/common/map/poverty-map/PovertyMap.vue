@@ -7,9 +7,22 @@
                 </Tooltip>
                 <DropdownMenu slot="list" style="text-align: left; width: 130px;">
                     <div style="display: flex; flex-direction: column; padding: 10px;">
-                        <Checkbox label="一级行政区边界" @on-change="handleChangeFirstLevelCheckBox">一级行政区边界</Checkbox>
-                        <Checkbox label="二级行政区边界" @on-change="handleChangeSecondLevelCheckBox">二级行政区边界</Checkbox>
-                        <Checkbox label="三级行政区边界" @on-change="handleChangeThirdLevelCheckBox">三级行政区边界</Checkbox>
+                        <div>
+                            <input type="checkbox" id="first" @click="handleChangeFirstLevelCheckBox">
+                            <label for="first">一级行政区边界</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="second" @click="handleChangeSecondLevelCheckBox">
+                            <label for="second">二级行政区边界</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="third" @click="handleChangeThirdLevelCheckBox">
+                            <label for="third">三级行政区边界</label>
+                            <Button @click="handleChangeFirstLevelCheckBox"></Button>
+                        </div>
+                        <!--<Checkbox label="一级行政区边界" @on-change="handleChangeFirstLevelCheckBox">一级行政区边界</Checkbox>-->
+                        <!--<Checkbox label="二级行政区边界" @on-change="handleChangeSecondLevelCheckBox">二级行政区边界</Checkbox>-->
+                        <!--<Checkbox label="三级行政区边界" @on-change="handleChangeThirdLevelCheckBox">三级行政区边界</Checkbox>-->
                     </div>
                 </DropdownMenu>
             </Dropdown>
@@ -20,16 +33,18 @@
 
 <script lang="ts">
   import Vue from 'vue';
+  declare var require : (filename,resolve)=>any;
   import { Component, Emit, Prop, Watch } from 'vue-property-decorator';
   import NominatimService from '../../../../services/nominatim.service';
   import { Logger } from '../../../../services/Logger';
   import mapboxgl from 'mapbox-gl';
+  // const mapboxgl = (a) => require('mapbox-gl.js',a);
   import { ACCESS_TOKEN, CHINA_BOUNDS, CHINA_CENTER, HUBEI_BOUNDS } from '../../../../constants/mapbox';
   import PlaceItem from '../../../../types/place-item';
-  import {Dropdown, Tooltip, DropdownMenu, Checkbox, Button} from 'iview';
+  import {Dropdown, Tooltip, DropdownMenu, Button} from 'iview';
 
   @Component({
-    components: {Dropdown, Tooltip, DropdownMenu, Checkbox, Button}
+    components: {Dropdown, Tooltip, DropdownMenu, Button}
   })
   export default class PovertyMap extends Vue {
     private TAG = 'PovertyMap';
@@ -42,17 +57,21 @@
     };
 
     // 行政区域划分图层
-    private firstLevelLayer: mapboxgl.Layer;
-    private secondLevelLayer: mapboxgl.Layer;
-    private thirdLevelLayer: mapboxgl.Layer;
+    private firstLevelLayer: mapboxgl.Layer = undefined;
+    private secondLevelLayer: mapboxgl.Layer = undefined;
+    private thirdLevelLayer: mapboxgl.Layer = undefined;
     private map: mapboxgl.Map;
 
+    public firstCheck = false;
+    public secondCheck = false;
+    public thirdCheck = false;
 
-    // 基础地图源
-    @Prop({
-      default: () => 'mapbox://styles/mapbox/satellite-v9'
-    })
-    public mapUrl: string;
+
+    // // 基础地图源
+    // @Prop({
+    //   default: () => 'mapbox://styles/mapbox/satellite-v9'
+    // })
+    public mapUrl = 'mapbox://styles/mapbox/satellite-v9';
 
 
     @Watch('mapUrl')
@@ -78,6 +97,7 @@
 
     mounted() {
       Logger.info(this.TAG, "mounted");
+      this.firstLevelLayer = undefined;
       this.initMap();
     }
 
@@ -87,7 +107,6 @@
       this.map = new mapboxgl.Map({
         container: 'map-container',
         style: this.mapUrl,
-        // center: CHINA_CENTER,
         maxBounds: HUBEI_BOUNDS
       });
       // 增加控件
@@ -95,40 +114,43 @@
       this.map.addControl(new mapboxgl.ScaleControl());
       // 初始化完成
       this.map.on("load", () => {
-        this.onMapLoad(this.map);
+        this.$emit('on-map-load', this.map);
         // console.log(this.map.getZoom());
       });
     }
 
-    /* 事件emit */
-    // 地图加载完成，返回一个 mapboxgl 地图对象
-    @Emit()
-    public onMapLoad(map: mapboxgl.Map) {}
+    public click(){
+      console.log("hhhhh")
+    }
 
     /* 下面是事件处理 */
 
-    public handleChangeFirstLevelCheckBox(value) {
-      if (value) {
+
+    public handleChangeFirstLevelCheckBox() {
+      console.log("here");
+      this.firstCheck = !this.firstCheck;
+      if (this.firstCheck) {
         this.showFirstLevelBorder();
       } else {
         this.map.removeLayer(this.FIRST_LEVEL_LAYER_ID);
       }
     }
 
-    public handleChangeSecondLevelCheckBox(value) {
-      if (value) {
+    public handleChangeSecondLevelCheckBox() {
+      this.secondCheck = !this.secondCheck;
+      if (this.secondCheck) {
         this.showSecondLevelBorder();
       } else {
         this.map.removeLayer(this.SECOND_LEVEL_LAYER_ID);
       }
     }
 
-    public handleChangeThirdLevelCheckBox(value) {
-      if (value) {
+    public handleChangeThirdLevelCheckBox() {
+      this.thirdCheck = !this.thirdCheck;
+      if (this.thirdCheck) {
         this.showThirdLevelBorder();
       } else {
         this.map.removeLayer(this.THIRD_LEVEL_LAYER_ID);
-        this.map.removeSource(this.FIRST_LEVEL_LAYER_ID);
       }
     }
 
@@ -136,6 +158,7 @@
       Logger.info(this.TAG, "show first level border");
       // 未加载过
       if (!this.firstLevelLayer) {
+        console.log("add first");
         this.map.addSource(this.FIRST_LEVEL_LAYER_ID, {
           type: 'vector',
           url: 'mapbox://vsr2018.78vj6bhk'
@@ -148,6 +171,7 @@
           paint: this.borderPaint
         };
         this.firstLevelLayer = layer;
+        console.log(this.firstLevelLayer)
       }
       this.map.addLayer(this.firstLevelLayer);
       this.map.on('sourcedata', this.FIRST_LEVEL_LAYER_ID, () => {
