@@ -128,7 +128,6 @@
         this.showThirdLevelBorder();
       } else {
         this.map.removeLayer(this.THIRD_LEVEL_LAYER_ID);
-        this.map.removeSource(this.FIRST_LEVEL_LAYER_ID);
       }
     }
 

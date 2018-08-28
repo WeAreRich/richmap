@@ -53,7 +53,7 @@
   export default class MapQueryComponent extends Vue {
     mapYear: string = SENTENCES.SIDE_MENU.MAP_YEAR;
     public selectedPlace: PlaceItem;
-    public selectedYear: Date = undefined;
+    public selectedYear: Date = new Date();
     public dataType = '';
     public rules = {
       selectedPlace: [

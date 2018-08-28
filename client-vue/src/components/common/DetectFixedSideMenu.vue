@@ -64,8 +64,8 @@
     dataTypeList: MapTypeOption[] = [];
     mapTypeList: MapTypeOption[] = [];
 
-    startYear: Date = undefined;
-    endYear: Date = undefined;
+    startYear: Date = new Date();
+    endYear: Date = new Date();
 
     isPlaying: boolean = false;
 
@@ -94,7 +94,7 @@
 
     async mounted() {
       // this.dataTypeList = ['坡度数据'];
-      this.dataTypeList = await api.dataAnalysisService.getPoorState();
+      // this.dataTypeList = await api.dataAnalysisService.getPoorState();
       this.mapTypeList = [
         {
           value: this.mapTypeAdministration,
