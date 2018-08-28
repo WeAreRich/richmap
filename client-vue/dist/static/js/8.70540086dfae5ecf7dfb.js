@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[8],{UUL2:function(n,e,t){"use strict";var s=t("Vs5N");t.n(s).a},Vs5N:function(n,e){},yXwo:function(n,e,t){"use strict";t.r(e);var s=(t("UUL2"),t("KHd+")),c=Object(s.a)({name:"help-home"},function(){var n=this.$createElement;return(this._self._c||n)("div",[this._v("\n    正在开发，敬请期待\n")])},[],!1,null,"5bc72be2",null);e.default=c.exports}}]);
-//# sourceMappingURL=8.70540086dfae5ecf7dfb.js.map

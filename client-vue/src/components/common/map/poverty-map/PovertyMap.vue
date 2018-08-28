@@ -7,9 +7,21 @@
                 </Tooltip>
                 <DropdownMenu slot="list" style="text-align: left; width: 130px;">
                     <div style="display: flex; flex-direction: column; padding: 10px;">
-                        <Checkbox label="一级行政区边界" @on-change="handleChangeFirstLevelCheckBox">一级行政区边界</Checkbox>
-                        <Checkbox label="二级行政区边界" @on-change="handleChangeSecondLevelCheckBox">二级行政区边界</Checkbox>
-                        <Checkbox label="三级行政区边界" @on-change="handleChangeThirdLevelCheckBox">三级行政区边界</Checkbox>
+                        <div>
+                            <input type="checkbox" id="first" @click="handleChangeFirstLevelCheckBox">
+                            <label for="first">一级行政区边界</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="second" @click="handleChangeSecondLevelCheckBox">
+                            <label for="second">二级行政区边界</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="third" @click="handleChangeThirdLevelCheckBox">
+                            <label for="third">三级行政区边界</label>
+                        </div>
+                        <!--<Checkbox label="一级行政区边界" @on-change="handleChangeFirstLevelCheckBox">一级行政区边界</Checkbox>-->
+                        <!--<Checkbox label="二级行政区边界" @on-change="handleChangeSecondLevelCheckBox">二级行政区边界</Checkbox>-->
+                        <!--<Checkbox label="三级行政区边界" @on-change="handleChangeThirdLevelCheckBox">三级行政区边界</Checkbox>-->
                     </div>
                 </DropdownMenu>
             </Dropdown>
@@ -28,10 +40,10 @@
   // const mapboxgl = (a) => require('mapbox-gl.js',a);
   import { ACCESS_TOKEN, CHINA_BOUNDS, CHINA_CENTER, HUBEI_BOUNDS } from '../../../../constants/mapbox';
   import PlaceItem from '../../../../types/place-item';
-  import {Dropdown, Tooltip, DropdownMenu, Checkbox, Button} from 'iview';
+  import {Dropdown, Tooltip, DropdownMenu, Button} from 'iview';
 
   @Component({
-    components: {Dropdown, Tooltip, DropdownMenu, Checkbox, Button}
+    components: {Dropdown, Tooltip, DropdownMenu, Button}
   })
   export default class PovertyMap extends Vue {
     private TAG = 'PovertyMap';
@@ -48,6 +60,10 @@
     private secondLevelLayer: mapboxgl.Layer;
     private thirdLevelLayer: mapboxgl.Layer;
     private map: mapboxgl.Map;
+
+    public firstCheck = false;
+    public secondCheck = false;
+    public thirdCheck = false;
 
 
     // 基础地图源
@@ -113,25 +129,29 @@
 
     /* 下面是事件处理 */
 
-    public handleChangeFirstLevelCheckBox(value) {
-      console.log("加载第一级");
-      if (value) {
+
+    public handleChangeFirstLevelCheckBox() {
+      console.log("here");
+      this.firstCheck = !this.firstCheck;
+      if (this.firstCheck) {
         this.showFirstLevelBorder();
       } else {
         this.map.removeLayer(this.FIRST_LEVEL_LAYER_ID);
       }
     }
 
-    public handleChangeSecondLevelCheckBox(value) {
-      if (value) {
+    public handleChangeSecondLevelCheckBox() {
+      this.secondCheck = !this.secondCheck;
+      if (this.secondCheck) {
         this.showSecondLevelBorder();
       } else {
         this.map.removeLayer(this.SECOND_LEVEL_LAYER_ID);
       }
     }
 
-    public handleChangeThirdLevelCheckBox(value) {
-      if (value) {
+    public handleChangeThirdLevelCheckBox() {
+      this.thirdCheck = !this.thirdCheck;
+      if (this.thirdCheck) {
         this.showThirdLevelBorder();
       } else {
         this.map.removeLayer(this.THIRD_LEVEL_LAYER_ID);
