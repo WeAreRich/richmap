@@ -6,7 +6,7 @@
         <layout>
             <Sider collapsible v-model="isCollapsed"
                    style="background-color: white;text-align: center;width: auto;">
-                <Menu active-name="1-2" width="auto" :class="menuitemClasses">
+                <Menu active-name="1-2" width="auto">
                     <MenuItem name="1-1">
                         <Icon size="36px" type="ios-navigate"></Icon>
                         <div v-if="!isCollapsed">
@@ -62,7 +62,6 @@
     private mapAnimationService: MapSourceAnimationService;
 
     private mapSources = {}; // 地图源
-    isPC: boolean = true;
     isCollapsed: boolean = true;
 
     mounted() {
@@ -71,10 +70,12 @@
       this.mapSources;
 
       let state: any = store.state;
-      this.isPC = state.layout.isPC;
+      this.isCollapsed = !state.layout.isPC;
+      let that = this;
       window.onresize = () => {
         let state: any = store.state;
-        this.isPC = state.layout.isPC;
+        that.isCollapsed = !state.layout.isPC;
+        console.log(that.isCollapsed);
       };
 
     }
