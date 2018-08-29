@@ -113,7 +113,7 @@
           type: 'raster',
 
           source: this.SHOWING_SOURCE
-        });
+        }, TOP_LAYER_ID);
       } catch (e) {
       }
     }
