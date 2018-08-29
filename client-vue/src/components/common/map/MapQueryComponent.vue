@@ -80,16 +80,6 @@
 
     private messageService: Message;
 
-    isPC: boolean = true;
-
-    mounted() {
-      this.isPC = document.documentElement.clientWidth > 895;
-      const that = this;
-      window.onresize = () => {
-        that.isPC = document.documentElement.clientWidth > 895;
-      };
-    }
-
     constructor() {
       super();
       this.messageService = new Message(this);
