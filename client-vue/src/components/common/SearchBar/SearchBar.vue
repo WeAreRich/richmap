@@ -11,11 +11,19 @@
                 <h3 style="color: white;font-size:24px;padding: 30px">
                     —— 打造第一助贫服务平台 ——
                 </h3>
-                <Input :placeholder="searchBar"
-                       style="border-radius: 10px;border: 1px;width:85%;font-size: 24px;height:200%;font-weight: bold"
-                       v-on:input="changeValue"
-                       @keyup.enter.native="startSearch" title="search" size="large"/>
-                <Button type="primary" icon="ios-search" size="large" @click.native="startSearch">搜索</Button>
+                <Row>
+                    <Col span="18" style="text-align: right">
+                    <Input :placeholder="searchBar"
+                           style="border-radius: 10px;border: 1px;width:80%;font-size: 24px;font-weight: bold"
+                           v-on:input="changeValue" search autocomplete
+                           @keyup.enter.native="startSearch" title="search" size="large"/>
+                    </Col>
+                    <Col span="6" style="text-align: left;vertical-align: center;padding-left:10px;padding-top: 1px">
+                    <Button type="primary" style="display: inline-block" icon="ios-search" size="large"
+                            @click.native="startSearch">搜索
+                    </Button>
+                    </Col>
+                </Row>
             </div>
         </div>
     </layout>
@@ -24,10 +32,10 @@
   import { Component, Emit, Inject, Model, Prop, Provide, Vue, Watch } from 'vue-property-decorator';
   import SENTENCES from '../../../assets/sentences/index';
   import store from '../../../store';
-  import { Button, Input, Layout } from 'iview';
+  import { Button, Input, Layout, Col, Row } from 'iview';
 
   @Component({
-    components: {Button, Input, Layout}
+    components: {Button, Input, Layout, Col, Row}
   })
   export default class SearchBar extends Vue {
     searchBar: string = SENTENCES.SEARCH.TITLE;
