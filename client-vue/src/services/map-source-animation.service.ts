@@ -1,5 +1,6 @@
 import { Logger } from '@/services/Logger';
 import { MapboxSource } from '@/types/mapbox-source';
+import Timer = NodeJS.Timer;
 import { TOP_LAYER_ID } from '@/constants/mapbox';
 
 export class MapSourceAnimationService {

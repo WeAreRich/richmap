@@ -6,7 +6,7 @@
         <layout>
             <Sider collapsible v-model="isCollapsed"
                    style="background-color: white;text-align: center;width: auto;">
-                <Menu active-name="1-2" width="auto" >
+                <Menu active-name="1-2" width="auto">
                     <MenuItem name="1-1">
                         <Icon size="36px" type="ios-navigate"></Icon>
                         <div v-if="!isCollapsed">
@@ -44,7 +44,7 @@
   import { MapSourceService } from '../../services/api/map-source/MapSourceService';
   import { api } from '../../services/api/ApiProvider';
   import { Message as MessageService } from '../../services/Message';
-  import { HUBEI_BOUNDS, TOP_LAYER_ID } from '../../constants/mapbox';
+  import { HUBEI_BOUNDS } from '../../constants/mapbox';
   import { MapSourceAnimationService } from '../../services/map-source-animation.service';
   import { MapboxSource } from '../../types/mapbox-source';
   import { Sider, Layout, Icon, Menu, MenuItem } from 'iview';
@@ -62,7 +62,6 @@
     private mapAnimationService: MapSourceAnimationService;
 
     private mapSources = {}; // 地图源
-    isPC: boolean = true;
     isCollapsed: boolean = true;
 
     mounted() {
@@ -71,10 +70,12 @@
       this.mapSources;
 
       let state: any = store.state;
-      this.isPC = state.layout.isPC;
+      this.isCollapsed = !state.layout.isPC;
+      let that = this;
       window.onresize = () => {
         let state: any = store.state;
-        this.isPC = state.layout.isPC;
+        that.isCollapsed = !state.layout.isPC;
+        console.log(that.isCollapsed);
       };
 
     }
@@ -110,9 +111,11 @@
         this.map.addLayer({
           id: this.SHOWING_SOURCE,
           type: 'raster',
+
           source: this.SHOWING_SOURCE
-        }, TOP_LAYER_ID);
-      } catch (e) {}
+        });
+      } catch (e) {
+      }
     }
 
 
