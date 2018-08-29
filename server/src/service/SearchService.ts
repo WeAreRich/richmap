@@ -107,14 +107,14 @@ export class SearchService {
                 if (item.abstract_info === "") {
                     item.abstract_info = $(this).children('.str_info_div').children('.str_info').text();
                 }
-                try {
-                    item.picture = $(this).children('.strBox').children('.str_div').children('a').children('img').attr('src');
-                    if (!item.picture) {
-                        item.picture = $(this).children('.str-pd-box').children('.str_div').children('a').children('img').attr('src');
-                    }
-                } catch (e) {
-
-                }
+                // try {
+                //     item.picture = $(this).children('.strBox').children('.str_div').children('a').children('img').attr('src');
+                //     if (!item.picture) {
+                //         item.picture = $(this).children('.str-pd-box').children('.str_div').children('a').children('img').attr('src');
+                //     }
+                // } catch (e) {
+                //
+                // }
                 if (!item.title.endsWith('人还搜了')&& item.title!=""&&item.abstract_info!="")
                     result.push(item);
             }
