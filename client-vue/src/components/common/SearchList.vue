@@ -28,7 +28,7 @@
                                     <div style="font-size: 14px;max-width: 1000px;">
                                         {{searchTuple.abstract_info}}
                                     </div>
-                                    <div style="font-size: 10px;color: gray">
+                                    <div v-if="searchTuple.author" style="font-size: 10px;color: gray">
                                         {{searchTuple.author}}
                                     </div>
                                 </div>
