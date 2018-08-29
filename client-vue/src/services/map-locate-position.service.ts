@@ -26,10 +26,11 @@ export class MapLocatePositionService {
    * @param {number} zoom 缩放等级 默认7
    */
   public static locateToPosition(pos: mapboxgl.LngLatLike, map: mapboxgl.Map, zoom: number = 7, showMark: boolean = true) {
+    zoom = map.getZoom();
     map.flyTo({
       center: pos,
       curve: 1,
-      zoom: zoom
+      // zoom: zoom
     });
     if (showMark) {
       if (this.marker) {
