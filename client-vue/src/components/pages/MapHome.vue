@@ -4,13 +4,21 @@
 
         </div>
         <layout>
-            <Sider style="background-color: white" hide-trigger>
-                <detect-fixed-side-menu
-                        v-on:child-say="chooseMap"
-                        v-on:on-select-place="handleSelectPalce"
-                        v-on:on-play="handlePlayMap"
-                        v-on:on-stop="handleStopMap"
-                ></detect-fixed-side-menu>
+            <Sider collapsible v-model="isCollapsed"
+                   style="background-color: white;text-align: center;width: auto;">
+                <Menu active-name="1-2" width="auto" :class="menuitemClasses">
+                    <MenuItem name="1-1">
+                        <Icon size="36px" type="ios-navigate"></Icon>
+                        <div v-if="!isCollapsed">
+                            <detect-fixed-side-menu
+                                    v-on:child-say="chooseMap"
+                                    v-on:on-select-place="handleSelectPalce"
+                                    v-on:on-play="handlePlayMap"
+                                    v-on:on-stop="handleStopMap"
+                            ></detect-fixed-side-menu>
+                        </div>
+                    </MenuItem>
+                </Menu>
             </Sider>
             <Layout>
                 <poverty-map @on-map-load="handleOnMapLoad"></poverty-map>
@@ -21,11 +29,13 @@
 </template>
 
 <script lang="ts">
-  declare var require : (filename,resolve)=>any;
-  const Consulting = (r) => require(['../common/Consulting.vue'],r);
-  const DetectFixedSideMenu = (r) => require(["../common/DetectFixedSideMenu.vue"],r);
-  const PovertyMap = (r) => require(["../common/map/poverty-map/PovertyMap.vue"],r);
-  import { Vue, Component } from "vue-property-decorator";
+  import store from '../../store';
+
+  declare var require: (filename, resolve) => any;
+  const Consulting = (r) => require(['../common/Consulting.vue'], r);
+  const DetectFixedSideMenu = (r) => require(['../common/DetectFixedSideMenu.vue'], r);
+  const PovertyMap = (r) => require(['../common/map/poverty-map/PovertyMap.vue'], r);
+  import { Vue, Component } from 'vue-property-decorator';
   // import Consulting from "../common/Consulting.vue";
   // import DetectFixedSideMenu from "../common/DetectFixedSideMenu.vue";
   // import PovertyMap from "../common/map/poverty-map/PovertyMap.vue";
@@ -37,10 +47,10 @@
   import { HUBEI_BOUNDS, TOP_LAYER_ID } from '../../constants/mapbox';
   import { MapSourceAnimationService } from '../../services/map-source-animation.service';
   import { MapboxSource } from '../../types/mapbox-source';
-  import {Sider,Layout} from 'iview'
+  import { Sider, Layout, Icon, Menu, MenuItem } from 'iview';
 
   @Component({
-    components: {Consulting, DetectFixedSideMenu, PovertyMap,Sider,Layout}
+    components: {Consulting, DetectFixedSideMenu, PovertyMap, Sider, Layout, Icon, Menu, MenuItem}
   })
 
   export default class MapHome extends Vue {
@@ -52,11 +62,21 @@
     private mapAnimationService: MapSourceAnimationService;
 
     private mapSources = {}; // 地图源
+    isPC: boolean = true;
+    isCollapsed: boolean = true;
 
     mounted() {
       this.sourceApi = api.mapSourceService;
       this.messageService = new MessageService(this);
       this.mapSources;
+
+      let state: any = store.state;
+      this.isPC = state.layout.isPC;
+      window.onresize = () => {
+        let state: any = store.state;
+        this.isPC = state.layout.isPC;
+      };
+
     }
 
     handleOnMapLoad(map: mapboxgl.Map) {
@@ -65,12 +85,12 @@
       this.mapAnimationService = new MapSourceAnimationService(map);
     }
 
-    async chooseMap(year, name){
+    async chooseMap(year, name) {
       console.log(year, name);
       console.log('in map home');
       // const map = this.map;
       if (!this.map) {
-        this.messageService.error('请等待地图组件加载完成...')
+        this.messageService.error('请等待地图组件加载完成...');
       }
       // MapLocatePositionService.locateToPosition([place.lon, place.lat], this.map);
       if (this.map.isSourceLoaded(this.SHOWING_SOURCE)) {
@@ -116,7 +136,8 @@
           (this as any).$Spin.show();
           await this.mapAnimationService.addSources(this.mapSources[name]);
           Logger.info(this.TAG, '加载所有sources成功');
-        } catch (e) {} finally {
+        } catch (e) {
+        } finally {
           (this as any).$Spin.hide();
         }
       }
@@ -131,7 +152,41 @@
 </script>
 
 <style scoped>
-    .top{
-        height: 100px;
+    .top {
+        height: 65px;
+    }
+
+    .layout-con {
+        height: 100%;
+        width: 100%;
+    }
+
+    .menu-item span {
+        display: inline-block;
+        overflow: hidden;
+        width: 69px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        vertical-align: bottom;
+        transition: width .2s ease .2s;
+    }
+
+    .menu-item i {
+        transform: translateX(0px);
+        transition: font-size .2s ease, transform .2s ease;
+        vertical-align: middle;
+        font-size: 16px;
+    }
+
+    .collapsed-menu span {
+        width: 0px;
+        transition: width .2s ease;
+    }
+
+    .collapsed-menu i {
+        transform: translateX(5px);
+        transition: font-size .2s ease .2s, transform .2s ease .2s;
+        vertical-align: middle;
+        font-size: 22px;
     }
 </style>

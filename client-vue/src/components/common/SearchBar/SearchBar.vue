@@ -1,5 +1,5 @@
 <template>
-    <Layout>
+    <layout>
         <div style="height: 100vh;">
             <!--<div>-->
             <div class="banner banner-1"></div>
@@ -11,21 +11,23 @@
                 <h3 style="color: white;font-size:24px;padding: 30px">
                     —— 打造第一助贫服务平台 ——
                 </h3>
-                <Input search enter-button="Search" :placeholder="searchBar"
+                <Input :placeholder="searchBar"
+                       style="border-radius: 10px;border: 1px;width:85%;font-size: 24px;height:200%;font-weight: bold"
                        v-on:input="changeValue"
-                       @keyup.enter.native="startSearch"/>
+                       @keyup.enter.native="startSearch" title="search" size="large"/>
+                <Button type="primary" icon="ios-search" size="large" @click.native="startSearch">搜索</Button>
             </div>
         </div>
-    </Layout>
+    </layout>
 </template>
 <script lang="ts">
   import { Component, Emit, Inject, Model, Prop, Provide, Vue, Watch } from 'vue-property-decorator';
   import SENTENCES from '../../../assets/sentences/index';
   import store from '../../../store';
-  import {Input,Layout} from 'iview'
+  import { Button, Input, Layout } from 'iview';
 
   @Component({
-    components: {Input,Layout}
+    components: {Button, Input, Layout}
   })
   export default class SearchBar extends Vue {
     searchBar: string = SENTENCES.SEARCH.TITLE;
@@ -38,8 +40,7 @@
     startSearch() {
       this['$router'].push({path: 'search', params: {kw: this.kw}});
       store.commit('keyword', this.kw);
-      // const result = await api.searchService.search(this.kw);
-      // console.log(result);
+      store.commit('toSearch');
     };
   }
 </script>

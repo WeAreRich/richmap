@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[6],{BQ5m:function(n,t){},lsR7:function(n,t,e){"use strict";var s=e("BQ5m");e.n(s).a},r9FC:function(n,t,e){"use strict";e.r(t);var s=(e("lsR7"),e("KHd+")),a=Object(s.a)({name:"rank-home"},function(){var n=this.$createElement;return(this._self._c||n)("div",[this._v("\n    正在开发，敬请期待\n")])},[],!1,null,"8a088722",null);t.default=a.exports}}]);
-//# sourceMappingURL=6.d1384e37842633c1e09e.js.map
