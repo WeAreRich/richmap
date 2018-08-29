@@ -18,7 +18,7 @@
                         <div>
                             <input type="checkbox" id="third" @click="handleChangeThirdLevelCheckBox">
                             <label for="third">三级行政区边界</label>
-                            <Button @click="handleChangeFirstLevelCheckBox"></Button>
+                            <!--<Button @click="handleChangeFirstLevelCheckBox"></Button>-->
                         </div>
                         <!--<Checkbox label="一级行政区边界" @on-change="handleChangeFirstLevelCheckBox">一级行政区边界</Checkbox>-->
                         <!--<Checkbox label="二级行政区边界" @on-change="handleChangeSecondLevelCheckBox">二级行政区边界</Checkbox>-->
@@ -39,7 +39,7 @@
   import { Logger } from '../../../../services/Logger';
   import mapboxgl from 'mapbox-gl';
   // const mapboxgl = (a) => require('mapbox-gl.js',a);
-  import { ACCESS_TOKEN, CHINA_BOUNDS, CHINA_CENTER, HUBEI_BOUNDS } from '../../../../constants/mapbox';
+  import { ACCESS_TOKEN, CHINA_BOUNDS, CHINA_CENTER, HUBEI_BOUNDS, HUBEI_CENTER } from '../../../../constants/mapbox';
   import PlaceItem from '../../../../types/place-item';
   import {Dropdown, Tooltip, DropdownMenu, Button} from 'iview';
 
@@ -71,8 +71,8 @@
     // @Prop({
     //   default: () => 'mapbox://styles/mapbox/satellite-v9'
     // })
-    public mapUrl = 'mapbox://styles/mapbox/satellite-v9';
-
+    // public mapUrl = 'mapbox://styles/mapbox/satellite-v9';
+      public mapUrl = 'mapbox://styles/wenxiangdong/cjleq0gru5sag2slq2xqqtojn';
 
     @Watch('mapUrl')
     onMapUrlChange(val: string, oldVal: string) {
@@ -107,7 +107,8 @@
       this.map = new mapboxgl.Map({
         container: 'map-container',
         style: this.mapUrl,
-        maxBounds: HUBEI_BOUNDS
+        maxBounds: HUBEI_BOUNDS,
+        center: HUBEI_CENTER
       });
       // 增加控件
       this.map.addControl(new mapboxgl.NavigationControl());
@@ -115,7 +116,7 @@
       // 初始化完成
       this.map.on("load", () => {
         this.$emit('on-map-load', this.map);
-        // console.log(this.map.getZoom());
+        console.log(this.map.getStyle().layers);
       });
     }
 
@@ -168,12 +169,15 @@
           type: "line",
           source: this.FIRST_LEVEL_LAYER_ID,
           'source-layer': 'first-6jawx0',
-          paint: this.borderPaint
+          paint: {
+            'line-color': 'rgba(255,10,10,0.5)',
+            'line-width': 3
+          }
         };
         this.firstLevelLayer = layer;
         console.log(this.firstLevelLayer)
       }
-      this.map.addLayer(this.firstLevelLayer);
+      this.map.addLayer(this.firstLevelLayer, "country-label-lg");
       this.map.on('sourcedata', this.FIRST_LEVEL_LAYER_ID, () => {
         Logger.info(this.TAG, 'load layer');
       })
@@ -191,12 +195,15 @@
           id: this.SECOND_LEVEL_LAYER_ID,
           type: "line",
           source: this.SECOND_LEVEL_LAYER_ID,
-          paint: this.borderPaint,
+          paint: {
+            'line-color': 'rgba(10,255,10,0.5)',
+            'line-width': 2
+          },
           'source-layer': 'second-dsvifq'
         };
         this.secondLevelLayer = layer;
       }
-      this.map.addLayer(this.secondLevelLayer);
+      this.map.addLayer(this.secondLevelLayer, "country-label-lg");
     }
 
     public showThirdLevelBorder() {
@@ -211,12 +218,15 @@
           id: this.THIRD_LEVEL_LAYER_ID,
           type: "line",
           source: this.THIRD_LEVEL_LAYER_ID,
-          paint: this.borderPaint,
+          paint: {
+            'line-color': 'rgba(10,10,255,0.5)',
+            'line-width': 2
+          },
           'source-layer': 'third-dppmjz'
         };
         this.thirdLevelLayer = layer;
       }
-      this.map.addLayer(this.thirdLevelLayer);
+      this.map.addLayer(this.thirdLevelLayer, "country-label-lg");
     }
   }
 </script>

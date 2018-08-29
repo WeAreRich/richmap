@@ -1,6 +1,7 @@
 import { Logger } from '@/services/Logger';
 import { MapboxSource } from '@/types/mapbox-source';
 import Timer = NodeJS.Timer;
+import { TOP_LAYER_ID } from '@/constants/mapbox';
 
 export class MapSourceAnimationService {
   private TAG = 'MapSourceAnimationService';
@@ -56,7 +57,7 @@ export class MapSourceAnimationService {
     Logger.info(this.TAG, `show layer: ${id}`);
     let index = this.layers.findIndex(item => item.id === id.toString());
     if (index > -1) {
-      this.map.addLayer(this.layers[index]);
+      this.map.addLayer(this.layers[index], TOP_LAYER_ID);
       Logger.info(this.TAG, `exist layer ${id}`);
     } else {
       Logger.info(this.TAG, `not exist layer ${id}`);
@@ -65,7 +66,7 @@ export class MapSourceAnimationService {
         type: 'raster',
         source: id.toString()
       };
-      this.map.addLayer(layer);
+      this.map.addLayer(layer, TOP_LAYER_ID);
       this.layers.push(layer);
     }
   }
@@ -134,6 +135,7 @@ export class MapSourceAnimationService {
       this.hideLayer(sources[index - 1].ID);
     }
     // 显示当前
+
     this.showLayer(sources[index].ID);
     // 递归
     this.timeId = setTimeout(() => {

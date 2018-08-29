@@ -2,6 +2,7 @@ const ACCESS_TOKEN = 'pk.eyJ1Ijoid2VueGlhbmdkb25nIiwiYSI6ImNqajEyN2owYjBvNHYzdm1
 const CHINA_BOUNDS = [[70, 17], [140, 55]];
 // 108.3,29.0,116.3,33.3
 const HUBEI_BOUNDS =[[108.3,29.0],[116.3,33.3]];
+const HUBEI_CENTER = [112.3, 31.2];
 
 const CHINA_CENTER = [104.999927, 35.000074];
 let mapStyles = {
@@ -17,4 +18,6 @@ let tileSets = {
 };
 const REC_LAYER_ID = 'rec-layer-id';
 const LINE_LAYER_ID = 'line-layer-id';
-export { ACCESS_TOKEN, CHINA_BOUNDS, CHINA_CENTER, mapStyles, REC_LAYER_ID, LINE_LAYER_ID, HUBEI_BOUNDS, tileSets };
+
+const TOP_LAYER_ID = 'place-city-sm';
+export { ACCESS_TOKEN, CHINA_BOUNDS, CHINA_CENTER, mapStyles, REC_LAYER_ID, LINE_LAYER_ID, HUBEI_BOUNDS, HUBEI_CENTER, tileSets, TOP_LAYER_ID };
