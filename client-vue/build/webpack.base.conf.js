@@ -116,5 +116,6 @@ module.exports = {
     new webpack.ProvidePlugin({
       _: 'lodash'
     })
+
   ]
-}
+};

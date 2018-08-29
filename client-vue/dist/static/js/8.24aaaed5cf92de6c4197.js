@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[8],{"2JTM":function(n,t){},OvPT:function(n,t,e){"use strict";e.r(t);var i=(e("bnuk"),e("KHd+")),s=Object(i.a)({name:"comparison-home"},function(){var n=this.$createElement;return(this._self._c||n)("div",[this._v("\n    正在开发，敬请期待\n")])},[],!1,null,"12bab64f",null);t.default=s.exports},bnuk:function(n,t,e){"use strict";var i=e("2JTM");e.n(i).a}}]);
-//# sourceMappingURL=8.24aaaed5cf92de6c4197.js.map
