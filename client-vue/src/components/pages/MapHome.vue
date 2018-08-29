@@ -44,7 +44,7 @@
   import { MapSourceService } from '../../services/api/map-source/MapSourceService';
   import { api } from '../../services/api/ApiProvider';
   import { Message as MessageService } from '../../services/Message';
-  import { HUBEI_BOUNDS } from '../../constants/mapbox';
+  import { HUBEI_BOUNDS, TOP_LAYER_ID } from '../../constants/mapbox';
   import { MapSourceAnimationService } from '../../services/map-source-animation.service';
   import { MapboxSource } from '../../types/mapbox-source';
   import { Sider, Layout, Icon, Menu, MenuItem } from 'iview';
@@ -111,9 +111,8 @@
         this.map.addLayer({
           id: this.SHOWING_SOURCE,
           type: 'raster',
-
           source: this.SHOWING_SOURCE
-        });
+        }, TOP_LAYER_ID);
       } catch (e) {
       }
     }
