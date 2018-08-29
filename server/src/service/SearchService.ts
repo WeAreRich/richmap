@@ -343,11 +343,11 @@ export class SearchService {
         item.href = $(this).children("h3").children('a').attr('href');
         item.title = $(this).children("h3").children('a').text();
         item.abstract_info = $(this).children(".txt-info").text().replace(/\s+/g,"");
-        try{
-            item.picture = $(this).parent().children(".img-box").children("a").children('img').attr('src').split('&url=')[1];
-        }catch(err){
-            
-        }
+        // try{
+        //     item.picture = $(this).parent().children(".img-box").children("a").children('img').attr('src').split('&url=')[1];
+        // }catch(err){
+        //
+        // }
         result.push(item);
     });
     value.result = result;
