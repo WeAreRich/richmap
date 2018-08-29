@@ -1,12 +1,20 @@
 <template>
     <layout>
         <div style="padding-top: 100px">
-            <div style="padding-left: 30px;">
-                <Input :placeholder="searchBar"
-                       style="border-radius: 10px;border: 1px;width:90%;font-size: 24px;height:200%;font-weight: bold"
-                       v-on:input="changeValue"
-                       @keyup.enter.native="startSearch" title="search" size="large"/>
-                <Button type="primary" icon="ios-search" size="large" @click.native="startSearch">搜索</Button>
+            <div style="padding-left: 50px;">
+                <Row>
+                    <Col span="18">
+                    <Input :placeholder="searchBar"
+                           style="border-radius: 10px;border: 1px;width:100%;font-size: 24px;font-weight: bold"
+                           v-on:input="changeValue"
+                           @keyup.enter.native="startSearch" title="search" size="large"/>
+                    </Col>
+                    <Col span="6" style="text-align: left;vertical-align: center;padding-left:10px;padding-top: 1px">
+                    <Button type="primary" style="display: inline-block" icon="ios-search" size="large"
+                            @click.native="startSearch">搜索
+                    </Button>
+                    </Col>
+                </Row>
             </div>
             <div style="margin-bottom: 20px;">
                 <div v-if="searchTuplesAndKind.length<=0">
@@ -28,7 +36,7 @@
                                     <div style="font-size: 14px;max-width: 1000px;">
                                         {{searchTuple.abstract_info}}
                                     </div>
-                                    <div style="font-size: 10px;color: gray">
+                                    <div v-if="searchTuple.author" style="font-size: 10px;color: gray">
                                         {{searchTuple.author}}
                                     </div>
                                 </div>
@@ -46,11 +54,11 @@
   import store from '../../store';
   import { api } from '../../services/api/ApiProvider';
   import { SearchResult } from '../../models/SearchResult';
-  import { Input, Button, Spin, Icon } from 'iview';
+  import { Input, Button, Spin, Icon, Row, Col } from 'iview';
   import SENTENCES from '../../assets/sentences';
 
   @Component({
-    components: {Input, Button, Spin, Icon}
+    components: {Input, Button, Spin, Icon, Row, Col}
   })
   export default class SearchList extends Vue {
     searchBar: string = SENTENCES.SEARCH.TITLE;
