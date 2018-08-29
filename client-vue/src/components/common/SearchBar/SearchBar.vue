@@ -12,7 +12,7 @@
                     —— 打造第一助贫服务平台 ——
                 </h3>
                 <Input :placeholder="searchBar"
-                       style="border-radius: 10px;border: 1px;width:90%;font-size: 24px;height:200%;font-weight: bold"
+                       style="border-radius: 10px;border: 1px;width:85%;font-size: 24px;height:200%;font-weight: bold"
                        v-on:input="changeValue"
                        @keyup.enter.native="startSearch" title="search" size="large"/>
                 <Button type="primary" icon="ios-search" size="large" @click.native="startSearch">搜索</Button>

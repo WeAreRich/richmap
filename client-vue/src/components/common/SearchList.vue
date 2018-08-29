@@ -78,7 +78,12 @@
     async search() {
       store.commit('searchResult', []);
       let state: any = store.state;
-      store.commit('searchResult', await api.searchService.search(state.search.kw));
+      store.commit('searchResult', await api.searchService.searchOne(state.search.kw));
+      this.searchTuplesAndKind = state.search.searchTuplesAndKind;
+      let tempList = state.search.searchTuplesAndKind;
+      let otherResult = await api.searchService.search(state.search.kw);
+      otherResult.forEach((result) => tempList.push(result));
+      store.commit('searchResult', tempList);
       this.searchTuplesAndKind = state.search.searchTuplesAndKind;
     }
   }
