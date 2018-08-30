@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import 'iview/dist/styles/iview.css'
+// import 'iview/dist/styles/iview.css'
 // import promise from 'es6-promise';
 import "@babel/polyfill";
 
@@ -19,7 +19,7 @@ Vue.prototype.$Spin = Spin;
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  router: router,
+  router,
   components: { App },
   template: '<App/>'
 })
