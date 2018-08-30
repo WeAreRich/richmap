@@ -173,7 +173,7 @@
         type: "line",
         source: this.SECOND_LEVEL_LAYER_ID,
         paint: {
-          'line-color': 'rgba(10,255,10,0.5)',
+          'line-color': 'rgba(106,0,95,0.8)',
           'line-width': 2
         },
         'source-layer': 'second-d1yuis'
