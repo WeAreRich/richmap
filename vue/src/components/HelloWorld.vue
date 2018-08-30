@@ -84,12 +84,33 @@
 </template>
 
 <script>
+import http from '../services/api/HttpService';
+import nominatim from '../services/nominatim.service';
+import {Logger} from '../services/Logger';
+import {api} from '../services/api/ApiProvider';
+import Axios from 'axios';
+
+const _TAG = 'HelloWorld.vue';
+
 export default {
   name: 'HelloWorld',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  mounted() {
+    // api.searchService.search('李培林').then(res => {
+    //   Logger.info(_TAG, res);
+    // }).catch(e => {
+    //   Logger.error(_TAG, e);
+    // })
+    api.mapSourceService.getByName('hubeiGDP').then(res => {
+      Logger.info(_TAG, res);
+    })
+    // Axios.get('http://www.baidu.com').then(res => {
+    //   console.log(res);
+    // })
   }
 }
 </script>
