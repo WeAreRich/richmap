@@ -11,7 +11,7 @@ export class MapSourceServiceImpl {
   }
 
   async getByNameAndYear(name, year) {
-    return http.get('/map/year');
+    return http.get('/map/year', {name, year});
   }
 
 }

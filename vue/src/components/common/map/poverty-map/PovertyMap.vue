@@ -36,7 +36,6 @@
   import { Logger } from '../../../../services/Logger';
   import mapboxgl from 'mapbox-gl';
   import { ACCESS_TOKEN, CHINA_BOUNDS, CHINA_CENTER, HUBEI_BOUNDS, HUBEI_CENTER } from '../../../../constants/mapbox';
-  import PlaceItem from '../../../../types/place-item';
   import {Dropdown, Tooltip, DropdownMenu, Button} from 'iview';
   export default {
     components: {
@@ -76,6 +75,7 @@
       this.query = "";
       this.searchItems = [];
       this.nominatimService = new NominatimService();
+      this.initMap();
     },
     methods:{
       initMap() {

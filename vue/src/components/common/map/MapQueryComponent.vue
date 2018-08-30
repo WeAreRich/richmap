@@ -31,9 +31,8 @@
 
 <script>
   import SearchPlace from  './SearchPlace.vue';
-  import PlaceItem from '../../../types/place-item';
-  import { Message } from '../../../services/Message/index';
-  import SENTENCES from '../../../assets/sentences/index';
+  // import { Message } from '../../../services/Message/index';
+  import {SENTENCES} from '../../../assets/sentences/index';
   import { Form, FormItem, Button, DatePicker, Select, Option } from 'iview';
   export default {
     components: {
@@ -73,23 +72,20 @@
         label: '夜间灯光',
         value: 'hubeiNightLight'
       }],
-
-        messageService: ""
       }
     },
     mounted(){
-      this.messageService = new Message(this);
     },
     methods:{
       handleClickSearch() {
         if (!this.selectedYear) {
           // (this as any).$Message.error('请选择一个年份');
-          this.messageService.error('请选择一个年份');
+          this.$Message.error('请选择一个年份');
           return;
         }
         if (!this.dataType) {
           // (this as any).$Message.error('请选择一个年份');
-          this.messageService.error('请选择一个类型');
+          this.$Message.error('请选择一个类型');
           return;
         }
         this.$emit('child-say', this.selectedYear.getFullYear(), this.dataType);

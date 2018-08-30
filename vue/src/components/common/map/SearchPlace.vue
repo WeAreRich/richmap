@@ -18,7 +18,6 @@
 </template>
 
 <script>
-  import PlaceItem from "../../../types/place-item";
   import NominatimService from "../../../services/nominatim.service";
   import { Logger } from "../../../services/Logger/index";
   import {SENTENCES} from "../../../assets/sentences/index";

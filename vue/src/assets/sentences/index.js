@@ -62,4 +62,4 @@ const SENTENCES = {
   }
 }
 
-export {SENTENCES}
+export {SENTENCES};

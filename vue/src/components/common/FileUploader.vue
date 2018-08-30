@@ -22,7 +22,7 @@
 </template>
 <script>
   import {Upload,Button} from 'iview'
-  import { APIROOTURL } from '../../services/api/HttpService';
+  // import { APIROOTURL } from '../../services/api/HttpService';
   export default {
     components: {
       Upload,Button
@@ -35,12 +35,12 @@
     data(){
       return{
         fileName:'',
-        fileRoute: APIROOTURL + this.route
+        fileRoute: '' + this.route
       }
     },
     mounted(){
       console.log("启动");
-      this.fileRoute = APIROOTURL+this.route;
+      this.fileRoute = '' + this.route;
       console.log(this.fileRoute);
     },
     methods:{

@@ -32,13 +32,10 @@
   import {Sider, Layout, Icon, Menu, MenuItem } from 'iview'
   import { Logger } from '../../services/Logger';
   import { MapLocatePositionService } from '../../services/map-locate-position.service';
-  import { MapSourceService } from '../../services/api/map-source/MapSourceService';
+  // import { MapSourceService } from '../../services/api/map-source/MapSourceService';
   import { api } from '../../services/api/ApiProvider';
-  import { Message as MessageService } from '../../services/Message';
   import { HUBEI_BOUNDS, TOP_LAYER_ID } from '../../constants/mapbox';
   import { MapSourceAnimationService } from '../../services/map-source-animation.service';
-  import { MapboxSource } from '../../types/mapbox-source';
-  import {Vue} from "../../../node_modules/vue/types/vue"
   const Consulting = () => import('../common/Consulting.vue');
   const DetectFixedSideMenu = () => import('../common/DetectFixedSideMenu.vue');
   const PovertyMap = () => import('../common/map/poverty-map/PovertyMap.vue');
@@ -49,19 +46,17 @@
     data(){
       return{
         TAG : 'MapHome.vue',
-        map: mapboxgl.Map,
+        map: undefined,
         SHOWING_SOURCE : 'showing-source',
-        sourceApi: MapSourceService,
-        messageService: MessageService,
-        mapAnimationService: MapSourceAnimationService,
+        sourceApi: undefined,
+        messageService: undefined,
+        mapAnimationService: undefined,
         mapSources : {},
         isCollapsed: true
       }
     },
     mounted(){
       this.sourceApi = api.mapSourceService;
-      this.messageService = new MessageService(this);
-      this.mapSources;
 
       let state = store.state;
       this.isCollapsed = !state.layout.isPC;

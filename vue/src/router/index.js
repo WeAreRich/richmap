@@ -19,10 +19,6 @@ const routes = [
         component: resolve => require(['@/components/pages/MapHome.vue'], resolve)
       },
       {
-        path: 'try',
-        component: resolve => require(['@/components/pages/Try.vue'], resolve)
-      },
-      {
         path: 'rank',
         component: resolve => require(['../components/pages/RankHome.vue'], resolve)
       },

@@ -49,10 +49,10 @@
     </layout>
 </template>
 
-<script lang="ts">
+<script>
   import store from '../../store/index';
   import { api } from '../../services/api/ApiProvider';
-  import {Input, Button, Spin, Icon, Row, Col} from 'iview'
+  import {Input, Button, Spin, Icon, Row, Col} from 'iview';
   import {SENTENCES} from '../../assets/sentences/index';
   const SearchBar = () => import('../common/searchbar/SearchBar.vue');
   const Introduction = () => import('../common/Introduction.vue');
@@ -68,7 +68,7 @@
       }
     },
     async mounted(){
-      let state: any = store.state;
+      let state = store.state;
       if (state.search.isSearch) {
         await this.search();
         store.commit('notSearch');
@@ -86,7 +86,7 @@
 
       async search() {
         store.commit('searchResult', []);
-        let state: any = store.state;
+        let state = store.state;
         store.commit('searchResult', await api.searchService.searchOne(state.search.kw));
         this.searchTuplesAndKind = state.search.searchTuplesAndKind;
         let tempList = state.search.searchTuplesAndKind;

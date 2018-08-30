@@ -38,11 +38,8 @@
   const MapQueryComponent = () => import('./map/MapQueryComponent.vue')
   const SearchPlace = () => import('./map/SearchPlace')
   import {SENTENCES} from '../../assets/sentences/index';
-  import { api } from '../../services/api/ApiProvider';
   import { Logger } from '../../services/Logger';
-  import { Message } from '../../services/Message';
   import { Select, Option, Button, DatePicker, Icon } from 'iview';
-  import store from '../../store/index';
   const TAG = 'DetectFixedSideMenu';
   export default {
     components: {
@@ -58,7 +55,7 @@
         mapPoorState: SENTENCES.SIDE_MENU.MAP_TYPE.POOR_STATE,
         mapPoorDetect: SENTENCES.SIDE_MENU.MAP_TYPE.POOR_DETECT,
         mapPoorService: SENTENCES.SIDE_MENU.MAP_TYPE.POOR_SERVICE,
-        messageService: Message,
+        // $Message: Message,
 
         dataTypeList:  [],
         mapTypeList: [],
@@ -110,7 +107,6 @@
           children: []
         }
       ];
-      this.messageService = new Message(this);
     },
     methods:{
       listenToMyBoy(year, place) {
@@ -125,7 +121,7 @@
       handlePlay() {
         Logger.info(TAG, this.startYear, this.endYear, this.dataType);
         if (!this.startYear || !this.endYear || !this.dataType) {
-          this.messageService.error('请确保填写了各项参数');
+          this.$Message.error('请确保填写了各项参数');
         } else {
           this.isPlaying = true;
           this.$emit('on-play', this.startYear.getFullYear(), this.endYear.getFullYear(), this.dataType);
