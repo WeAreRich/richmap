@@ -21,7 +21,7 @@ export class MapLocatePositionService {
 
   /**
    * 定位到某一点
-   * @param {mapboxgl.LngLatLike} pos
+   * @param {int[]} pos
    * @param {mapboxgl.Map} map
    * @param {number} zoom 缩放等级 默认7
    * @param {boolean} showMark 是否显示一个 标记

@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import BaseLayout from '../components/pages/BaseLayout.vue';
 import AdminHome from '../components/pages/AdminHome.vue';
+import {LoadingBar} from 'iview';
 
 Vue.use(Router);
 
@@ -44,6 +45,17 @@ const routes = [
 
 Vue.component('base-layout', BaseLayout);
 
-export default new Router({
+const router = new Router({
   routes
 });
+
+router.beforeEach((to, from, next) => {
+  LoadingBar.start();
+  next();
+});
+
+router.afterEach(function () {
+  LoadingBar.finish();
+});
+
+export default router;

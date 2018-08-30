@@ -3,15 +3,13 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-// import 'iview/dist/styles/iview.css'
-// import promise from 'es6-promise';
+import 'iview/dist/styles/iview.css'
 import "@babel/polyfill";
 
 import {Message, Spin} from 'iview';
 
 Vue.config.productionTip = false;
 
-// promise.polyfill();
 
 Vue.prototype.$Message = Message;
 Vue.prototype.$Spin = Spin;
@@ -22,4 +20,4 @@ new Vue({
   router,
   components: { App },
   template: '<App/>'
-})
+});
