@@ -22,7 +22,6 @@
 **/.idea/**/libraries
 **/.gradle
 **/.vscode
-**/build
 **/dist
 ## Plugin-specific files:
 
