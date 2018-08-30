@@ -32,7 +32,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import { Component, Emit } from 'vue-property-decorator';
-  import SearchPlace from './SearchPlace.vue';
+  import SearchPlace from  './SearchPlace.vue';
   import PlaceItem from '../../../types/place-item';
   import { Message } from '../../../services/Message/index';
   import SENTENCES from '../../../assets/sentences';

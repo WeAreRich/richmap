@@ -12,12 +12,15 @@ function resolve (dir) {
 }
 
 module.exports = {
-  entry: {
-    app: './src/main.ts'
-    // vendor: [
-    //   "lodash"
-    // ]
-  },
+  // entry: {
+  //   app: './src/main.ts'
+  //   // vendor: [
+  //   //   "lodash"
+  //   // ]
+  // },
+    entry: {
+        app: ["babel-polyfill", "./src/main.ts"]
+    },
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',

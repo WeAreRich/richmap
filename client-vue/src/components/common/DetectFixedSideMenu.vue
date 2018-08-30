@@ -35,12 +35,15 @@
     </div>
 </template>
 <script lang="ts">
+  declare var require: (filename, resolve) => any;
   import { Component, Vue } from 'vue-property-decorator';
   import SENTENCES from '../../assets/sentences/index';
   import { MapTypeOption } from '../../models/MapTypeOption';
   import { api } from '../../services/api/ApiProvider';
-  import MapQueryComponent from './map/MapQueryComponent.vue';
-  import SearchPlace from './map/SearchPlace';
+  // import MapQueryComponent from './map/MapQueryComponent.vue';
+  const MapQueryComponent = (r) => require(['./map/MapQueryComponent.vue'], r);
+  const SearchPlace = (r) => require(['./map/SearchPlace'], r);
+  // import SearchPlace from './map/SearchPlace';
   import { Logger } from '../../services/Logger';
   import { Message } from '../../services/Message';
   import { Select, Option, Button, DatePicker, Icon } from 'iview';

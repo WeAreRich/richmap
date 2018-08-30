@@ -45,13 +45,13 @@ const routes = [
       {
         path: 'search',
         component: resolve => require(['../components/pages/SearchPage.vue'], resolve)
-      },
+      }
     ]
   },
   {
     path: '/admin',
     component: AdminHome
-  },
+  }
 ];
 
 Vue.component('base-layout', BaseLayout);
