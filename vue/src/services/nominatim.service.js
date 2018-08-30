@@ -10,8 +10,7 @@ export default class Nomination {
    * @return {Promise<*>}
    */
   async search(keyword) {
-    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${decodeURIComponent(keyword)}`;
-    Logger.info(this._TAG, `start to fetch ${url}`);
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${decodeURIComponent(keyword)}&accept-language=zh`;
     try {
       let res = await http.get(url);
       Logger.info(this._TAG, '地名搜索服务成功', res);

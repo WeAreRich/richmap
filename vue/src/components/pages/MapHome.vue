@@ -70,6 +70,7 @@
     methods:{
       handleOnMapLoad(map) {
         Logger.info(this.TAG, 'map loaded', map);
+        this.$Message.success('地图加载完成');
         this.map = map;
         this.mapAnimationService = new MapSourceAnimationService(map);
       },
@@ -112,13 +113,16 @@
         const lon = item.lon;
         const lat = item.lat;
         if (lon < bounds[0][0] || lon > bounds[1][0] || lat < bounds[0][1] || lat > bounds[1][1]) {
-          this.messageService.error('选择的地点超出范围');
+          this.$Message.error('选择的地点超出范围');
         } else {
           MapLocatePositionService.locateToPosition([lon, lat], this.map);
         }
       },
 
       async handlePlayMap(startYear, endYear, name) {
+        if (!this.mapAnimationService) {
+          this.$Message.error('请等待地图加载完成');
+        }
         if (!this.mapSources[name]) {
           try {
             let res = await this.sourceApi.getByName(name);

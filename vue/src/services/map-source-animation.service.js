@@ -21,7 +21,7 @@ export class MapSourceAnimationService {
    * @return {Promise<string>}
    */
   addSource(mapBoxSource) {
-    return new Promise((resolve => {
+    return new Promise((resolve, reject) => {
       let source = {
         type: 'raster',
         url: mapBoxSource.url
@@ -33,7 +33,7 @@ export class MapSourceAnimationService {
       this.map.on('sourcedata', () => {
         resolve(id);
       });
-    }));
+    });
   }
 
   /**

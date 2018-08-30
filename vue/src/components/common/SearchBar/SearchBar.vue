@@ -15,7 +15,7 @@
                     <Col span="18" style="text-align: right">
                     <Input :placeholder="searchBar"
                            style="border-radius: 10px;border: 1px;width:80%;font-size: 24px;font-weight: bold"
-                           v-on:input="changeValue" search autocomplete
+                           v-on:input="changeValue" search
                            @keyup.enter.native="startSearch" title="search" size="large"/>
                     </Col>
                     <Col span="6" style="text-align: left;vertical-align: center;padding-left:10px;padding-top: 1px">

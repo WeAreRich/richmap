@@ -1,5 +1,6 @@
 import { Logger } from './Logger'
 import { REC_LAYER_ID } from '../constants/mapbox';
+import mapboxgl from 'mapbox-gl';
 
 export class MapLocatePositionService {
 
@@ -30,7 +31,7 @@ export class MapLocatePositionService {
     map.flyTo({
       center: pos,
       curve: 1,
-      // zoom: zoom
+      zoom: zoom
     });
     if (showMark) {
       if (this.marker) {
