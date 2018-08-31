@@ -32,6 +32,7 @@
   import {Sider, Layout, Icon, Menu, MenuItem } from 'iview'
   import { Logger } from '../../services/Logger';
   import { MapLocatePositionService } from '../../services/map-locate-position.service';
+  import mapboxgl from 'mapbox-gl';
   // import { MapSourceService } from '../../services/api/map-source/MapSourceService';
   import { api } from '../../services/api/ApiProvider';
   import { HUBEI_BOUNDS, TOP_LAYER_ID } from '../../constants/mapbox';
@@ -64,8 +65,14 @@
       window.onresize = () => {
         let state = store.state;
         that.isCollapsed = !state.layout.isPC;
-        console.log(that.isCollapsed);
+        // console.log(that.isCollapsed);
       };
+
+      if (!this.isGoodBrowser() || !mapboxgl.supported()) {
+        alert('当前浏览器支持效果较差，为保证浏览质量，请使用Chrome、Safari、IE11浏览器');
+      } else {
+        Logger.info(this.TAG, '浏览器支持');
+      }
     },
     methods:{
       handleOnMapLoad(map) {
@@ -142,6 +149,28 @@
 
       handleStopMap() {
         this.mapAnimationService.stop();
+      },
+
+      isGoodBrowser() {
+        const userAgent = navigator.userAgent;
+        // if (userAgent.match(/Chrome/i) == 'Chrome' || userAgent.match(/Safari/i) == 'Safari' || )
+        //Chrome
+        if(userAgent.match(/Chrome/i) == 'Chrome') {
+          return 'Chrome';
+        }
+        //Safari
+        else if(userAgent.match(/Safari/i) == 'Safari') {
+          return true;
+        }
+        //IE
+        if(!!window.ActiveXObject || "ActiveXObject" in window) {
+          var version = navigator.userAgent.match(/MSIE (\d+)/);
+          version = version && version[1];
+          console.log('version', version);
+          if (version) return false;
+          else return true;
+        }
+        return false;
       }
     }
   }

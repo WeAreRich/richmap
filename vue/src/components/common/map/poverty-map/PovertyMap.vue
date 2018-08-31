@@ -61,6 +61,7 @@
         secondCheck : false,
         thirdCheck : false,
 
+
         mapUrl : 'mapbox://styles/wenxiangdong/cjleq0gru5sag2slq2xqqtojn',
         query: "",
         searchItems: [],
