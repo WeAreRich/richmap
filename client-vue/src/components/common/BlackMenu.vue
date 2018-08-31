@@ -3,10 +3,15 @@
         <Menu mode="horizontal" theme="dark" active-name="0">
             <router-link :to="{path: '/'}">
                 <MenuItem name="0">
-                    <img class="layout-logo" src="../../assets/logo.jpg"/>
-                    <h3 class="layout-text">
-                        {{logoName}}
-                    </h3>
+                    <img class="layout-logo" src="../../assets/logo.png"/>
+                    <div class="layout-text">
+                        <h3 style="height: 30px;">
+                            {{logoName}}
+                        </h3>
+                        <h6 style="height: 15px;margin-top:-7px">
+                            China Poverty Online
+                        </h6>
+                    </div>
                 </MenuItem>
             </router-link>
             <div class="layout-nav" v-if="isPC">
@@ -146,5 +151,7 @@
     .layout-text {
         display: table;
         color: white;
+        margin-top: -10px;
+        padding-left: 10px;
     }
 </style>
