@@ -122,6 +122,7 @@
         if (lon < bounds[0][0] || lon > bounds[1][0] || lat < bounds[0][1] || lat > bounds[1][1]) {
           this.$Message.error('选择的地点超出范围');
         } else {
+          console.log(lon+" "+lat)
           MapLocatePositionService.locateToPosition([lon, lat], this.map);
         }
       },
