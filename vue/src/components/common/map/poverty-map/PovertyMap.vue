@@ -61,6 +61,7 @@
         secondCheck : false,
         thirdCheck : false,
 
+
         mapUrl : 'mapbox://styles/wenxiangdong/cjleq0gru5sag2slq2xqqtojn',
         query: "",
         searchItems: [],
@@ -139,13 +140,13 @@
       console.log("add first");
       this.map.addSource(this.FIRST_LEVEL_LAYER_ID, {
         type: 'vector',
-        url: 'mapbox://vsr2018.78vj6bhk'
+        url: 'mapbox://wenxiangdong.3xr9wmmn'
       });
       let layer = {
         id: this.FIRST_LEVEL_LAYER_ID,
         type: "line",
         source: this.FIRST_LEVEL_LAYER_ID,
-        'source-layer': 'first-6jawx0',
+        'source-layer': 'first-0jr0j4',
         paint: {
           'line-color': 'rgba(255,10,10,0.5)',
           'line-width': 3
@@ -166,17 +167,17 @@
     if (!this.secondLevelLayer) {
       this.map.addSource(this.SECOND_LEVEL_LAYER_ID, {
         type: 'vector',
-        url: 'mapbox://vsr2018.050px5x2'
+        url: 'mapbox://wenxiangdong.7ogr7tjr'
       });
       let layer = {
         id: this.SECOND_LEVEL_LAYER_ID,
         type: "line",
         source: this.SECOND_LEVEL_LAYER_ID,
         paint: {
-          'line-color': 'rgba(10,255,10,0.5)',
+          'line-color': 'rgba(106,0,95,0.8)',
           'line-width': 2
         },
-        'source-layer': 'second-dsvifq'
+        'source-layer': 'second-d1yuis'
       };
       this.secondLevelLayer = layer;
     }
@@ -189,7 +190,7 @@
     if (!this.thirdLevelLayer) {
       this.map.addSource(this.THIRD_LEVEL_LAYER_ID, {
         type: 'vector',
-        url: 'mapbox://vsr2018.5tz0fat5'
+        url: 'mapbox://wenxiangdong.b536r9ta'
       });
       let layer = {
         id: this.THIRD_LEVEL_LAYER_ID,
@@ -199,7 +200,7 @@
           'line-color': 'rgba(10,10,255,0.5)',
           'line-width': 2
         },
-        'source-layer': 'third-dppmjz'
+        'source-layer': 'third-1abq2c'
       };
       this.thirdLevelLayer = layer;
     }
