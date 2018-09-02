@@ -12,31 +12,31 @@
             <div class="layout-nav" v-if="isPC">
                 <router-link :to="{path: '/map'}">
                     <MenuItem name="1">
-                        <Icon type="md-map"></Icon>
+                        <Icon type="map"></Icon>
                         {{menuBar1}}
                     </MenuItem>
                 </router-link>
                 <router-link :to="{path: '/guide/rank'}">
                     <MenuItem name="2">
-                        <Icon type="md-stats"></Icon>
+                        <Icon type="stats"></Icon>
                         {{menuBar2}}
                     </MenuItem>
                 </router-link>
                 <router-link :to="{path: '/guide/detect'}">
                     <MenuItem name="3">
-                        <Icon type="md-flash"></Icon>
+                        <Icon type="flash"></Icon>
                         {{menuBar3}}
                     </MenuItem>
                 </router-link>
                 <router-link :to="{path: '/guide/help'}">
                     <MenuItem name="4">
-                        <Icon type="md-hand"></Icon>
+                        <Icon type="android-hand"></Icon>
                         {{menuBar4}}
                     </MenuItem>
                 </router-link>
                 <router-link :to="{path: '/guide/comparison'}">
                     <MenuItem name="5">
-                        <Icon type="md-git-network"></Icon>
+                        <Icon type="network"></Icon>
                         {{menuBar5}}
                     </MenuItem>
                 </router-link>
