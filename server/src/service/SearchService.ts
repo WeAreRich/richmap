@@ -64,7 +64,7 @@ export class SearchService {
     $('.sc_content').each(function(i, elem) {
         let item:SearchItem = new SearchItem();
         item.href = "http://xueshu.baidu.com"+($(this).children(".c_font").children('a').attr('href'));
-        item.title = i+($(this).children(".c_font").children('a').text());
+        item.title = (i+1)+"."+($(this).children(".c_font").children('a').text());
         item.author = ($(this).children(".sc_info").text().replace(/\s+/g,""));
         item.abstract_info = ($(this).children(".c_abstract").text().replace(/\s+/g,"")).split('来源')[0];
         result.push(item);
@@ -92,7 +92,7 @@ export class SearchService {
                     // console.log($(this).html())
                 }
                 let item: SearchItem = new SearchItem();
-                item.title = i+"."+($(this).children('.vrTitle').text());
+                item.title = (i+1)+"."+($(this).children('.vrTitle').text());
                 item.href = "http://www.sogo.com" + ($(this).children('.vrTitle').children('a').attr('href'));
                 item.abstract_info = $(this).children('.strBox').children('.str_info').text();
                 if (item.abstract_info === "") {
@@ -138,7 +138,7 @@ export class SearchService {
         let $ = this.cheerio.load(body);
         $('.AnswerItem').each(function(i, elem) {
             let item:SearchItem = new SearchItem();
-            item.title = i+($(this).children('.ContentItem-title').children('div').text());
+            item.title = (i+1)+"."+($(this).children('.ContentItem-title').children('div').text());
             item.href = "https://www.zhihu.com" + $(this).children('.ContentItem-title').children('div').children('a').attr('href');
             item.abstract_info = ($(this).children('.RichContent').children('.RichContent-inner').text());
             item.author = ($(this).children('.RichContent').children('.RichContent-inner').text().split("：")[0]);
@@ -172,7 +172,7 @@ export class SearchService {
                         if (i == 0)
                             $(this).children('font').each(function (i, elem) {
                                 if (i == 0) {
-                                    item.title =i+ $(this).text();
+                                    item.title =(i+1)+"."+ $(this).text();
                                     item.href = $(this).html().split('urlstr = \'')[1].split('\';')[0];
                                     console.log($(this).html().split('urlstr = \'')[1].split('\';')[0]);
                                 }
@@ -207,7 +207,7 @@ export class SearchService {
             $(this).children('ul').children('li').each(function (i, elem) {
                 if(i<5) {
                     let item: SearchItem = new SearchItem();
-                    item.title = ($(this).text());
+                    item.title = (i+1)+"."+($(this).text());
                     item.href = "http://www.youcheng.org/" + $(this).children('a').attr('href');
                     if (i == 0)
                         console.log($(this).html());
@@ -235,7 +235,7 @@ export class SearchService {
         $('.book_right1').each(function(i, elem) {
             let item:SearchItem = new SearchItem();
             $('h2').each(function(i1, elem){
-                item.title=($(this).text());
+                item.title=(i+1)+"."+($(this).text());
                 item.href="https://www.jianpincn.com/skwx_jp/"+($(this).children('a').attr('href'));
             });
 
@@ -268,7 +268,7 @@ export class SearchService {
                     let item: SearchItem = new SearchItem();
                     $(this).children('tbody').children('tr').each(function(i, elem) {
                         if(i==0) {
-                            item.title = $(this).text();
+                            item.title =(i+1)+"."+ $(this).text();
                             $(this).children('td').each(function(i, elem) {
                                 item.href = $(this).children('a').attr('href');
                             });
@@ -317,7 +317,7 @@ export class SearchService {
 
           let item:SearchItem = new SearchItem();
           item.href = ($(this).children(".c-title").children('a').attr('href'));
-          item.title = ($(this).children(".c-title").children('a').text());
+          item.title = (i+1)+"."+($(this).children(".c-title").children('a').text());
 
           item.abstract_info = ($(this).children(".c-summary").text()).split("查看更多")[0];
           result.push(item);
@@ -342,7 +342,7 @@ export class SearchService {
     $('.txt-box').each(function(i, elem) {
         let item:SearchItem = new SearchItem();
         item.href = $(this).children("h3").children('a').attr('href');
-        item.title = $(this).children("h3").children('a').text();
+        item.title =(i+1)+"."+ $(this).children("h3").children('a').text();
         item.abstract_info = $(this).children(".txt-info").text().replace(/\s+/g,"");
         // try{
         //     item.picture = $(this).parent().children(".img-box").children("a").children('img').attr('src').split('&url=')[1];
