@@ -135,7 +135,6 @@ export class MapSourceAnimationService {
       this.hideLayer(sources[index - 1].ID);
     }
     // 显示当前
-
     this.showLayer(sources[index].ID);
     // 递归
     this.timeId = setTimeout(() => {
