@@ -8,6 +8,7 @@
                 <h1 style="color: orange;font-size:45px;">
                     中国贫困在线
                 </h1>
+                <h2 style="color: orange;font-size:24px;">China Poverty Online</h2>
                 <h3 style="color: white;font-size:24px;padding: 30px">
                     —— 打造第一助贫服务平台 ——
                 </h3>

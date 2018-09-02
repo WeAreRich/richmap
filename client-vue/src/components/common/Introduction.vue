@@ -63,10 +63,10 @@
 
 <script lang="ts">
   import { Component, Emit, Inject, Model, Prop, Provide, Vue, Watch } from 'vue-property-decorator';
-  import {Button,Icon} from 'iview'
+  import { Button, Icon } from 'iview';
 
   @Component({
-    components:{Button,Icon}
+    components: {Button, Icon}
   })
   export default class Introduction extends Vue {
   }
