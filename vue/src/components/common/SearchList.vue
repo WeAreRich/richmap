@@ -30,7 +30,7 @@
                                 <div v-if="searchTuple.picture" style="display: inline-block">
                                     <img :src="searchTuple.picture" style="width: 80px;height: 80px;padding: 5px"/>
                                 </div>
-                                <div style="display: inline-block;min-height: 80px;float: top;padding: 5px;">
+                                <div style="display: inline-block;float: top;padding: 5px;">
                                     <a style="font-size: 18px;"
                                        :href="searchTuple.href">{{searchTuple.title}}</a>
                                     <div style="font-size: 14px;max-width: 1000px;">
@@ -51,30 +51,31 @@
 
 <script>
   import store from '../../store/index';
-  import { api } from '../../services/api/ApiProvider';
+  import {api} from '../../services/api/ApiProvider';
   import {Input, Button, Spin, Icon, Row, Col} from 'iview';
   import {SENTENCES} from '../../assets/sentences/index';
+
   const SearchBar = () => import('../common/searchbar/SearchBar.vue');
   const Introduction = () => import('../common/Introduction.vue');
   export default {
     components: {
       Input, Button, Spin, Icon, Row, Col
     },
-    data(){
-      return{
+    data() {
+      return {
         searchBar: SENTENCES.SEARCH.TITLE,
-        searchTuplesAndKind:[],
+        searchTuplesAndKind: [],
         kw: "",
       }
     },
-    async mounted(){
+    async mounted() {
       let state = store.state;
       if (state.search.isSearch) {
         await this.search();
         store.commit('notSearch');
       }
     },
-    methods:{
+    methods: {
       changeValue(value) {
         this.kw = value;
       },
@@ -91,9 +92,9 @@
         this.searchTuplesAndKind = state.search.searchTuplesAndKind;
         let tempList = state.search.searchTuplesAndKind;
         let otherResult = await api.searchService.search(state.search.kw);
-       otherResult.forEach((result) => tempList.push(result));
-       store.commit('searchResult', tempList);
-       this.searchTuplesAndKind = state.search.searchTuplesAndKind;
+        otherResult.forEach((result) => tempList.push(result));
+        store.commit('searchResult', tempList);
+        this.searchTuplesAndKind = state.search.searchTuplesAndKind;
       }
     }
   }
