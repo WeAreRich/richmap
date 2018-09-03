@@ -88,30 +88,35 @@
         // const map = this.map;
         if (!this.map) {
           this.messageService.error('请等待地图组件加载完成...');
+          return;
         }
-        // MapLocatePositionService.locateToPosition([place.lon, place.lat], this.map);
-        if (this.map.isSourceLoaded(this.SHOWING_SOURCE)) {
-          this.map.removeLayer(this.SHOWING_SOURCE);
-          this.map.removeSource(this.SHOWING_SOURCE);
-        }
-        try {
-          let res = await this.sourceApi.getByNameAndYear(name, year);
-          const item = res[0];
-          console.log('【MapHome】', item);
-          if (!item) throw new Error('no source result');
-          let source = {
-            type: 'raster',
-            url: item.url
-          };
-          this.map.addSource(this.SHOWING_SOURCE, source);
+        // // MapLocatePositionService.locateToPosition([place.lon, place.lat], this.map);
+        // if (this.map.isSourceLoaded(this.SHOWING_SOURCE)) {
+        //   this.map.removeLayer(this.SHOWING_SOURCE);
+        //   this.map.removeSource(this.SHOWING_SOURCE);
+        // }
+          const id = name + year;
+          if (!this.map.isSourceLoaded(id)) {
+              try {
+                  let res = await this.sourceApi.getByNameAndYear(name, year);
+                  const item = res[0];
+                  console.log('【MapHome】', item);
+                  if (!item) throw new Error('no source result');
+                  let source = {
+                      type: 'raster',
+                      url: item.url
+                  };
+                  this.map.addSource(id, source);
+              } catch (e) {
+                  Logger.error(this.TAG, '地图资源获取失败');
+                  this.$Message.error('地图资源获取失败');
+              }
+          }
           this.map.addLayer({
-            id: this.SHOWING_SOURCE,
-            type: 'raster',
-
-            source: this.SHOWING_SOURCE
+              id: id + Math.random(),
+              type: 'raster',
+              source: id
           }, TOP_LAYER_ID);
-        } catch (e) {
-        }
       },
 
 

@@ -41,10 +41,10 @@ const SENTENCES = {
     },
     CONTACT: {
       TITLE: '联系我们',
-      PHONE_CHENGDU: '028-84073638',
-      NAME_CHENGDU: '成都',
-      PHONE_NANJING: '025-89680960 428',
-      NAME_NANJING: '南京'
+      PHONE_CHENGDU: '联系人：',
+      NAME_CHENGDU: '陈杰杰        17721027774',
+      PHONE_NANJING: '邮箱：  ',
+      NAME_NANJING: 'povertyonline@163.com'
     }
   },
   ACCOUNT: {
