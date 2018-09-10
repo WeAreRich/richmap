@@ -41,9 +41,9 @@ const SENTENCES = {
     },
     CONTACT: {
       TITLE: '联系我们',
-      PHONE_CHENGDU: '联系人：',
-      NAME_CHENGDU: '陈杰杰        17721027774',
-      PHONE_NANJING: '邮箱：  ',
+      PHONE_CHENGDU: '联系人:  ',
+      NAME_CHENGDU: '陈杰杰      17721027774',
+      PHONE_NANJING: '邮    箱:  ',
       NAME_NANJING: 'povertyonline@163.com'
     }
   },
