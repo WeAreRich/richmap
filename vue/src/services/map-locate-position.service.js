@@ -28,6 +28,7 @@ export class MapLocatePositionService {
    */
   static locateToPosition(pos, map, zoom = 0, showMark = true) {
     zoom = map.getZoom();
+    Logger.info('map-location', 'zoom:' + zoom);
     map.flyTo({
       center: pos,
       curve: 1,
