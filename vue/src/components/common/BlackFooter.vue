@@ -17,6 +17,7 @@
             <Col span="8">
             <div>
                 <h3>{{footer2Title}}</h3>
+                <div class="center">
                 <div>
                     <h4 class="footer-line">{{footer2Content1}}</h4>
                     <h4 class="footer-line">{{footer2Content2}}</h4>
@@ -24,6 +25,7 @@
                 <div>
                     <h4 class="footer-line">{{footer2Content3}}</h4>
                     <h4 class="footer-line">{{footer2Content4}}</h4>
+                </div>
                 </div>
             </div>
             </Col>
@@ -53,7 +55,7 @@
         footer2Content1: SENTENCES.FOOTER.CONTACT.PHONE_CHENGDU,
         footer2Content2: SENTENCES.FOOTER.CONTACT.NAME_CHENGDU,
         footer2Content3: SENTENCES.FOOTER.CONTACT.PHONE_NANJING,
-        footer2Content4: SENTENCES.FOOTER.CONTACT.NAME_NANJING
+        footer2Content4: SENTENCES.FOOTER.CONTACT.NAME_NANJING,
       }
     }
   }
@@ -68,6 +70,8 @@
     }
 
     .footer-line {
+
+        white-space: pre-wrap;
         display: inline;
     }
 </style>
