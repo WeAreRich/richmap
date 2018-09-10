@@ -30,26 +30,46 @@
             <Col span="8">
             </Col>
         </Row>
+        <div style="margin-top: 10px">
+            <div style="display: inline-block;font-size: 15px;padding-top: 5px;">
+                <Icon type="link"/>
+                友情链接|
+            </div>
+            <div style="display: inline-block;">
+                <a href="https://cn.aliyun.com/">
+                    <img class="layout-logo" src="../../assets/aliyun_logo.gif"/>
+                    <p style="display: inline-block;padding-top: 5px;padding-left: 3px;color: white">阿里云</p>
+                </a>
+            </div>
+            <div style="display: inline-block;">
+                <a href="https://cn.aliyun.com/">
+                    <img class="layout-logo" src="../../assets/aliyun_logo.gif"/>
+                    <p style="display: inline-block;padding-top: 5px;padding-left: 3px;color: white">阿里云</p>
+                </a>
+            </div>
+        </div>
     </Footer>
 </template>
 
 <script>
-  import {Footer, Row, Col} from 'iview';
+  import {Footer, Row, Col, Icon} from 'iview';
+
   const SearchBar = () => import('../common/searchbar/SearchBar.vue')
   const Introduction = () => import('../common/Introduction.vue')
   import {SENTENCES} from "../../assets/sentences/index";
+
   export default {
     components: {
-      Footer, Row, Col
+      Footer, Row, Col, Icon
     },
-    data(){
-      return{
+    data() {
+      return {
         footer1Title: SENTENCES.FOOTER.UNIQUE_SERVICE.TITLE,
         footer1Content1: SENTENCES.FOOTER.UNIQUE_SERVICE.LEVEL_EVALUATE,
         footer1Content2: SENTENCES.FOOTER.UNIQUE_SERVICE.DATA_SUPPLY,
         footer1Content3: SENTENCES.FOOTER.UNIQUE_SERVICE.HELP_RECOMMEND,
         footer1Content4: SENTENCES.FOOTER.UNIQUE_SERVICE.PLAN_ESTABLISH,
-        footer2Title:  SENTENCES.FOOTER.CONTACT.TITLE,
+        footer2Title: SENTENCES.FOOTER.CONTACT.TITLE,
         footer2Content1: SENTENCES.FOOTER.CONTACT.PHONE_CHENGDU,
         footer2Content2: SENTENCES.FOOTER.CONTACT.NAME_CHENGDU,
         footer2Content3: SENTENCES.FOOTER.CONTACT.PHONE_NANJING,
@@ -69,5 +89,14 @@
 
     .footer-line {
         display: inline;
+    }
+
+    .layout-logo {
+        width: auto;
+        height: 30px;
+        background: #5b6270;
+        border-radius: 3px;
+        float: left;
+        margin: 2px;
     }
 </style>

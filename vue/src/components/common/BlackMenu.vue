@@ -3,7 +3,7 @@
         <Menu mode="horizontal" theme="dark" active-name="0">
             <router-link :to="{path: '/'}">
                 <MenuItem name="0">
-                    <img class="layout-logo" src="../../assets/logo.jpg"/>
+                    <img class="layout-logo" src="../../assets/logo.png"/>
                     <h3 class="layout-text">
                         {{logoName}}
                     </h3>
@@ -86,14 +86,15 @@
 </template>
 
 <script>
-  import { Header, Icon, Menu, MenuItem, Dropdown, DropdownMenu, DropdownItem } from 'iview';
+  import {Header, Icon, Menu, MenuItem, Dropdown, DropdownMenu, DropdownItem} from 'iview';
   import {SENTENCES} from '../../assets/sentences/index';
   import store from '../../store/index';
+
   export default {
     components: {
       Header, Icon, Menu, MenuItem, Dropdown, DropdownMenu, DropdownItem
     },
-    data(){
+    data() {
       return {
         menuBar1: SENTENCES.MENU.MAP,
         menuBar2: SENTENCES.MENU.RANK,
@@ -104,7 +105,7 @@
         isPC: true
       }
     },
-    mounted(){
+    mounted() {
       if (document.documentElement.clientWidth > 895) {
         store.commit('toPC');
       } else {
