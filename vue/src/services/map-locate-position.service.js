@@ -26,8 +26,8 @@ export class MapLocatePositionService {
    * @param {number} zoom 缩放等级 默认7
    * @param {boolean} showMark 是否显示一个 标记
    */
-  static locateToPosition(pos, map, zoom = 7, showMark = true) {
-    zoom = map.getZoom();
+  static locateToPosition(pos, map, showMark = true) {
+    const zoom = map.getZoom();
     Logger.info('map-location', 'zoom:' + zoom);
     map.flyTo({
       center: pos,
