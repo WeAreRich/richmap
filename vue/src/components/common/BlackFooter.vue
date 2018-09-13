@@ -1,7 +1,7 @@
 <template>
     <Footer class="layout-footer-center">
         <Row>
-            <Col span="8">
+            <Col span="6">
             <div>
                 <h3>{{footer1Title}}</h3>
                 <div>
@@ -14,42 +14,37 @@
                 </div>
             </div>
             </Col>
-            <Col span="8">
+            <Col span="6">
             <div>
                 <h3>{{footer2Title}}</h3>
                 <div class="center">
-                <div>
-                    <h4 class="footer-line">{{footer2Content1}}</h4>
-                    <h4 class="footer-line">{{footer2Content2}}</h4>
-                </div>
-                <div>
-                    <h4 class="footer-line">{{footer2Content3}}</h4>
-                    <h4 class="footer-line">{{footer2Content4}}</h4>
-                </div>
+                    <div>
+                        <h4 class="footer-line">{{footer2Content1}}</h4>
+                        <h4 class="footer-line">{{footer2Content2}}</h4>
+                    </div>
+                    <div>
+                        <h4 class="footer-line">{{footer2Content3}}</h4>
+                        <h4 class="footer-line">{{footer2Content4}}</h4>
+                    </div>
                 </div>
             </div>
             </Col>
-            <Col span="8">
+            <Col span="6">
+            <div>
+                <h3>友情链接</h3>
+                <div style="text-align: center;padding-top: 5px;">
+                    <a href="https://cn.aliyun.com/" style="display: inline-block;text-align: center;padding: 1px;">
+                        <img class="layout-logo" src="../../assets/aliyun_logo.gif"/>
+                    </a>
+                    <a href="http://www.shiwangme.com/" style="display: inline-block;text-align: center;padding: 1px;">
+                        <img class="layout-logo" src="../../assets/shiwangme_logo.png"/>
+                    </a>
+                </div>
+            </div>
+            </Col>
+            <Col span="6">
             </Col>
         </Row>
-        <div style="margin-top: 10px">
-            <div style="display: inline-block;font-size: 15px;padding-top: 5px;">
-                <Icon type="link"/>
-                友情链接|
-            </div>
-            <div style="display: inline-block;">
-                <a href="https://cn.aliyun.com/">
-                    <img class="layout-logo" src="../../assets/aliyun_logo.gif"/>
-                    <p style="display: inline-block;padding-top: 5px;padding-left: 3px;color: white">阿里云</p>
-                </a>
-            </div>
-            <div style="display: inline-block;">
-                <a href="https://cn.aliyun.com/">
-                    <img class="layout-logo" src="../../assets/aliyun_logo.gif"/>
-                    <p style="display: inline-block;padding-top: 5px;padding-left: 3px;color: white">阿里云</p>
-                </a>
-            </div>
-        </div>
     </Footer>
 </template>
 
@@ -96,11 +91,17 @@
     }
 
     .layout-logo {
-        width: auto;
+        width: 30px;
         height: 30px;
         background: #5b6270;
         border-radius: 3px;
-        float: left;
-        margin: 2px;
+        display: inline-block;
+    }
+
+    .layout-text {
+        color: white;
+        padding-top: 3px;
+        padding-left: 2px;
+        display: inline-block;
     }
 </style>
