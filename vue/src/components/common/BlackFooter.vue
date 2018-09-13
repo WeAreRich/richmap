@@ -31,13 +31,15 @@
             </Col>
             <Col span="6">
             <div>
-                <h3>友情链接</h3>
-                <div style="text-align: center;padding-top: 5px;">
-                    <a href="https://cn.aliyun.com/" style="display: inline-block;text-align: center;padding: 1px;">
-                        <img class="layout-logo" src="../../assets/aliyun_logo.gif"/>
+                <h3 style="position:relative;z-index: 999">友情链接</h3>
+                <div style="text-align: center">
+                    <a href="https://cn.aliyun.com/"
+                       class="layout-logo-container">
+                        <img class="layout-logo-aliyun" src="../../assets/aliyun_logo.png"/>
                     </a>
-                    <a href="http://www.shiwangme.com/" style="display: inline-block;text-align: center;padding: 1px;">
-                        <img class="layout-logo" src="../../assets/shiwangme_logo.png"/>
+                    <a href="http://www.shiwangme.com/" class="layout-logo-container">
+                        <img class="layout-logo-shiwangme" src="../../assets/shiwangme_logo.png"/>
+                        <p class="layout-text">视网么</p>
                     </a>
                 </div>
             </div>
@@ -85,23 +87,45 @@
     }
 
     .footer-line {
-
         white-space: pre-wrap;
         display: inline;
     }
 
-    .layout-logo {
-        width: 30px;
-        height: 30px;
+    .layout-logo-aliyun {
+        width: auto;
+        height: 50px;
         background: #5b6270;
         border-radius: 3px;
         display: inline-block;
+        margin-bottom: -10px;
+        margin-top: -16px;
+        z-index: 998;
+        position:relative;
+    }
+
+    .layout-logo-shiwangme {
+        width: auto;
+        height: 18px;
+        background: #5b6270;
+        border-radius: 3px;
+        display: inline-block;
+        z-index: 999;
+        position:relative;
     }
 
     .layout-text {
         color: white;
-        padding-top: 3px;
-        padding-left: 2px;
         display: inline-block;
+        text-align: center;
+        font-size: smaller;
+        padding-left: 4px;
+        z-index: 999;
+        position:relative;
+    }
+
+    .layout-logo-container {
+        display: flex;
+        text-align: center;
+        justify-content: center;
     }
 </style>
