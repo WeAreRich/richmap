@@ -77,6 +77,8 @@
   }
 </script>
 
-<style scoped>
-
+<style>
+.ivu-select-dropdown {
+    width: 300px !important;
+}
 </style>

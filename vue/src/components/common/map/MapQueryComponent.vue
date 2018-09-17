@@ -2,6 +2,7 @@
     <Form ref="paramsForm" :ruls="rules"
           style="padding:20px;background-color:whitesmoke;margin: 5px;-webkit-border-radius: 5px">
         <FormItem prop="selectedYear">
+            <Tooltip title="地图年份">
             <DatePicker
                     v-model="selectedYear"
                     type="year"
@@ -9,6 +10,7 @@
                     style="width: 100%;"
                     :placeholder="mapYear">
             </DatePicker>
+            </Tooltip>
         </FormItem>
         <FormItem prop="selectedPlace">
             <!--<search-place v-on:on-select-place="handleSelectPlace"/>-->
