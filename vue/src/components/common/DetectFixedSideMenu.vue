@@ -10,16 +10,20 @@
                         {{op.label}}
                     </Option>
                 </Select>
+                <Tooltip title="起始年份">
                 <DatePicker
                         type="year"
                         :placeholder="startDate"
                         v-model="startYear"
                         style="padding-left:20px;padding-right:20px;"></DatePicker>
+                </Tooltip>
+                <Tooltip title="终止年份">
                 <DatePicker
                         type="year"
                         :placeholder="endDate"
                         v-model="endYear"
                         style="padding-left:20px;padding-right:20px;"></DatePicker>
+                </Tooltip>
                 <div style="text-align: center;padding: 5px;">
                     <Button type="text" icon="play" size="large" @click="handlePlay" :disabled="isPlaying"></Button>
                     <Button type="text" icon="stop" size="large" @click="handleStop"

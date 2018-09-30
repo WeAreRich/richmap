@@ -4,6 +4,7 @@ export class SearchItem{
     public author: String;
     public abstract_info:String;
     public picture: String;
+    public time:String;
 }
 
 export class SearchResult{
@@ -320,6 +321,7 @@ export class SearchService {
           item.title = (i+1)+"."+($(this).children(".c-title").children('a').text());
 
           item.abstract_info = ($(this).children(".c-summary").text()).split("查看更多")[0];
+          item.time = ($(this).children(".c-summary").children(".c-author").text());
           result.push(item);
 
       });
@@ -344,6 +346,7 @@ export class SearchService {
         item.href = $(this).children("h3").children('a').attr('href');
         item.title =(i+1)+"."+ $(this).children("h3").children('a').text();
         item.abstract_info = $(this).children(".txt-info").text().replace(/\s+/g,"");
+        // item.time = $(this).children(".s-p").text();
         // try{
         //     item.picture = $(this).parent().children(".img-box").children("a").children('img').attr('src').split('&url=')[1];
         // }catch(err){
