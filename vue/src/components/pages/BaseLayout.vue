@@ -14,7 +14,8 @@
 
 <script>
   import {Layout} from 'iview'
-  const BlackMenu  = () => import("../common/BlackMenu.vue")
+
+  const BlackMenu = () => import("../common/BlackMenu.vue")
   const BlackFooter = () => import("../common/BlackFooter.vue")
   export default {
     components: {
@@ -32,39 +33,6 @@
         border-radius: 4px;
         overflow: hidden;
         min-height: 100vh;
-    }
-
-    .layout-header-bar {
-        background: #fff;
-        box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
-    }
-
-    .layout-logo {
-        width: auto;
-        height: 30px;
-        background: #5b6270;
-        border-radius: 3px;
-        float: left;
-        position: relative;
-        top: 13px;
-        left: 20px;
-        margin-right: 25px;
-    }
-
-    .layout-logo-left {
-        width: 90%;
-        height: 30px;
-        background: #5b6270;
-        border-radius: 3px;
-        margin: 15px auto;
-    }
-
-    .menu-icon {
-        transition: all .3s;
-    }
-
-    .rotate-icon {
-        transform: rotate(-90deg);
     }
 
     .menu-item span {

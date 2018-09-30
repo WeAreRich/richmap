@@ -35,10 +35,10 @@
                 <div style="text-align: center">
                     <a href="https://cn.aliyun.com/"
                        class="layout-logo-container">
-                        <img class="layout-logo-aliyun" src="../../assets/aliyun_logo.png"/>
+                        <img class="layout-logo-aliyun" src="../../assets/logos/aliyun_logo.png"/>
                     </a>
                     <a href="http://www.shiwangme.com/" class="layout-logo-container">
-                        <img class="layout-logo-shiwangme" src="../../assets/shiwangme_logo.png"/>
+                        <img class="layout-logo-shiwangme" src="../../assets/logos/shiwangme_logo.png"/>
                         <p class="layout-text">视网么</p>
                     </a>
                 </div>
@@ -47,14 +47,24 @@
             <Col span="6">
             </Col>
         </Row>
+        <div>
+            <hr style="background:#757575;margin-top: 10px;margin-bottom: 10px"/>
+        </div>
+        <div>
+            <router-link class="sub-layout-text" :to="{path: '/about'}">
+                <div>关于我们
+                </div>
+            </router-link>
+            <a class="sub-layout-text">法律声明及隐私权政策</a>
+            <a class="sub-layout-text">廉政举报</a>
+            <a class="sub-layout-text">联系我们</a>
+        </div>
     </Footer>
 </template>
 
 <script>
   import {Footer, Row, Col, Icon} from 'iview';
 
-  const SearchBar = () => import('../common/searchbar/SearchBar.vue')
-  const Introduction = () => import('../common/Introduction.vue')
   import {SENTENCES} from "../../assets/sentences/index";
 
   export default {
@@ -81,7 +91,7 @@
 
 <style scoped>
     .layout-footer-center {
-        background-color: #5b6270;
+        background-color: #2e323a;
         text-align: center;
         color: white;
     }
@@ -94,23 +104,21 @@
     .layout-logo-aliyun {
         width: auto;
         height: 50px;
-        background: #5b6270;
         border-radius: 3px;
         display: inline-block;
         margin-bottom: -10px;
         margin-top: -16px;
         z-index: 998;
-        position:relative;
+        position: relative;
     }
 
     .layout-logo-shiwangme {
         width: auto;
         height: 18px;
-        background: #5b6270;
         border-radius: 3px;
         display: inline-block;
         z-index: 999;
-        position:relative;
+        position: relative;
     }
 
     .layout-text {
@@ -120,7 +128,16 @@
         font-size: smaller;
         padding-left: 4px;
         z-index: 999;
-        position:relative;
+        position: relative;
+    }
+
+    .sub-layout-text {
+        color: #757575;
+        display: inline-block;
+        z-index: 999;
+        position: relative;
+        padding-left: 5px;
+        padding-right: 5px;
     }
 
     .layout-logo-container {

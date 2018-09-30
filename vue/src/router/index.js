@@ -34,6 +34,10 @@ const routes = [
       {
         path: 'search',
         component: resolve => require(['../components/pages/SearchPage.vue'], resolve)
+      },
+      {
+        path: 'about',
+        component: resolve => require(['../components/pages/AboutPage.vue'], resolve)
       }
     ]
   },

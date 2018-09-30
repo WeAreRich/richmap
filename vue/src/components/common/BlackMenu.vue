@@ -3,7 +3,7 @@
         <Menu mode="horizontal" theme="dark" active-name="0">
             <router-link :to="{path: '/'}">
                 <MenuItem name="0">
-                    <img class="layout-logo" src="../../assets/logo.png"/>
+                    <img class="layout-logo" src="../../assets/logos/logo.png"/>
                     <div class="layout-text">
                         <h3 style="height: 30px;">
                             {{logoName}}

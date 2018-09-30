@@ -10,7 +10,6 @@ import {Message, Spin} from 'iview';
 
 Vue.config.productionTip = false;
 
-
 Vue.prototype.$Message = Message;
 Vue.prototype.$Spin = Spin;
 
@@ -18,6 +17,6 @@ Vue.prototype.$Spin = Spin;
 new Vue({
   el: '#app',
   router,
-  components: { App },
+  components: {App},
   template: '<App/>'
 });
