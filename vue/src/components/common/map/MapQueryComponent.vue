@@ -35,7 +35,7 @@
   import SearchPlace from  './SearchPlace.vue';
   // import { Message } from '../../../services/Message/index';
   import {SENTENCES} from '../../../assets/sentences/index';
-  import { Form, FormItem, Button, DatePicker, Select, Option } from 'iview';
+  import { Form, FormItem, Button, DatePicker, Select, Option, Tooltip } from 'iview';
   export default {
     components: {
       SearchPlace,
@@ -44,7 +44,8 @@
       Button,
       DatePicker,
       Select,
-      Option
+      Option,
+        Tooltip
     },
     data(){
       return{
