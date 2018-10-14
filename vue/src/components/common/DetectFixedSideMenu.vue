@@ -1,8 +1,14 @@
 <template>
     <div class="layout-side">
         <div>
-            <map-query-component v-on:child-say="listenToMyBoy"></map-query-component>
             <div style="background-color:whitesmoke;margin: 5px;-webkit-border-radius: 5px">
+                <Select placeholder="查询类型" v-model="queryType">
+                    <Option :value="SINGLE_YEAR">单一年份查询</Option>
+                    <Option :value="RANGE_YEAR">年份变化查询</Option>
+                </Select>
+            </div>
+            <map-query-component  v-show="queryType === SINGLE_YEAR" v-on:child-say="listenToMyBoy"></map-query-component>
+            <div v-show="queryType === RANGE_YEAR" style="background-color:whitesmoke;margin: 5px;-webkit-border-radius: 5px">
                 <!--<Cascader :placeholder="dataType" size="large" :data="dataTypeList" v-model="dataTypeValue"-->
                 <!--style="padding:20px"></Cascader>-->
                 <Select placeholder="数据类型" size="large" v-model="dataType" style="padding: 10px 20px;">
@@ -30,6 +36,7 @@
                             :disabled="!isPlaying"></Button>
                 </div>
             </div>
+
             <div style="background-color:whitesmoke;margin: 5px;-webkit-border-radius: 5px">
                 <SearchPlace @on-select-place="handleSelectPlace"></SearchPlace>
             </div>
@@ -43,11 +50,11 @@
   const SearchPlace = () => import('./map/SearchPlace')
   import {SENTENCES} from '../../assets/sentences/index';
   import { Logger } from '../../services/Logger';
-  import { Select, Option, Button, DatePicker, Icon } from 'iview';
+  import { Select, Option, Button, DatePicker, Icon, Tooltip } from 'iview';
   const TAG = 'DetectFixedSideMenu';
   export default {
     components: {
-      SearchPlace, MapQueryComponent, Select, Option, Button, DatePicker, Icon
+      SearchPlace, MapQueryComponent, Select, Option, Button, DatePicker, Icon, Tooltip
     },
     data(){
       return {
@@ -83,7 +90,12 @@
           value: 'hubeiNightLight'
         }],
         dataTypeValue: [],
-        mapTypeValue: []
+        mapTypeValue: [],
+
+          // 查询方式 是单一年份还是 年份范围动态数据
+          SINGLE_YEAR: 1,
+          RANGE_YEAR: 2,
+          queryType: 0
       }
     },
     mounted(){
@@ -135,7 +147,14 @@
       handleStop() {
         this.$emit('on-stop');
         this.isPlaying = false;
-      }
+      },
+        handleChangeQueryType(type) {
+          if (this.isPlaying) {
+              this.$Message.warn('请等待播放完成');
+              return;
+          }
+          this.queryType = type;
+        }
 
     }
   }
