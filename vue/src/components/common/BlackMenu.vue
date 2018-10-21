@@ -3,7 +3,7 @@
         <Menu mode="horizontal" theme="dark" active-name="0">
             <router-link :to="{path: '/'}">
                 <MenuItem name="0">
-                    <img class="layout-logo" src="../../assets/logos/logo.png"/>
+                    <img class="layout-logo" src="../../assets/logos/shediao_logo.png"/>
                     <div class="layout-text">
                         <h3 style="height: 30px;">
                             {{logoName}}
@@ -135,7 +135,6 @@
     .layout-logo {
         width: auto;
         height: 30px;
-        background: #5b6270;
         border-radius: 3px;
         float: left;
         position: relative;

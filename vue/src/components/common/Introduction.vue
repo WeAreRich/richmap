@@ -73,6 +73,7 @@
 <style scoped>
     .float-box {
         box-shadow: 0px 0px 1px #000;
+        border-radius: 5px;
         margin: 5%;
         padding: 60px 90px;
         text-align: center;

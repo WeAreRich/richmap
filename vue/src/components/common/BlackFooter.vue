@@ -1,7 +1,7 @@
 <template>
     <Footer class="layout-footer-center">
         <Row>
-            <Col span="6">
+            <Col span="8">
             <div>
                 <h3>{{footer1Title}}</h3>
                 <div>
@@ -14,7 +14,7 @@
                 </div>
             </div>
             </Col>
-            <Col span="6">
+            <Col span="8">
             <div>
                 <h3>{{footer2Title}}</h3>
                 <div class="center">
@@ -29,22 +29,7 @@
                 </div>
             </div>
             </Col>
-            <Col span="6">
-            <div>
-                <h3 style="position:relative;z-index: 999">友情链接</h3>
-                <div style="text-align: center">
-                    <a href="https://cn.aliyun.com/"
-                       class="layout-logo-container">
-                        <img class="layout-logo-aliyun" src="../../assets/logos/aliyun_logo.png"/>
-                    </a>
-                    <a href="http://www.shiwangme.com/" class="layout-logo-container">
-                        <img class="layout-logo-shiwangme" src="../../assets/logos/shiwangme_logo.png"/>
-                        <p class="layout-text">视网么</p>
-                    </a>
-                </div>
-            </div>
-            </Col>
-            <Col span="6">
+            <Col span="8">
             </Col>
         </Row>
         <div>
@@ -57,7 +42,6 @@
             </router-link>
             <a class="sub-layout-text">法律声明及隐私权政策</a>
             <a class="sub-layout-text">廉政举报</a>
-            <a class="sub-layout-text">联系我们</a>
         </div>
     </Footer>
 </template>
