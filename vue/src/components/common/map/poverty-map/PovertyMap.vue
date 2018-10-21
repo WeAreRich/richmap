@@ -93,8 +93,8 @@
         this.map.addControl(new mapboxgl.ScaleControl());
         // 初始化完成
         this.map.on("load", () => {
-        this.$emit('on-map-load', this.map);
-        console.log(this.map.getStyle().layers);
+            this.$emit('on-map-load', this.map);
+            console.log(this.map.getStyle().layers);
         });
       },
 

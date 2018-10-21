@@ -14,6 +14,7 @@
                                     v-on:on-select-place="handleSelectPalce"
                                     v-on:on-play="handlePlayMap"
                                     v-on:on-stop="handleStopMap"
+                                    v-on:on-query-type-change="handleQueryTypeChange"
                             ></detect-fixed-side-menu>
                         </div>
                     </MenuItem>
@@ -53,7 +54,9 @@
         messageService: undefined,
         mapAnimationService: undefined,
         mapSources : {},
-        isCollapsed: true
+        isCollapsed: true,
+
+          sourceLayerIds: []  // 已经在单年份查询的时候查过的 地图
       }
     },
     mounted(){
@@ -90,11 +93,6 @@
           this.messageService.error('请等待地图组件加载完成...');
           return;
         }
-        // // MapLocatePositionService.locateToPosition([place.lon, place.lat], this.map);
-        // if (this.map.isSourceLoaded(this.SHOWING_SOURCE)) {
-        //   this.map.removeLayer(this.SHOWING_SOURCE);
-        //   this.map.removeSource(this.SHOWING_SOURCE);
-        // }
           const id = name + year;
           if (!this.map.isSourceLoaded(id)) {
               try {
@@ -112,8 +110,11 @@
                   this.$Message.error('地图资源获取失败');
               }
           }
+          const layerId = id + Math.random();
+          this.sourceLayerIds.push(layerId);
+          Logger.info(this.TAG, '加载图层', layerId);
           this.map.addLayer({
-              id: id + Math.random(),
+              id: layerId,
               type: 'raster',
               source: id
           }, TOP_LAYER_ID);
@@ -177,7 +178,14 @@
           else return true;
         }
         return false;
-      }
+      },
+        handleQueryTypeChange() {
+          Logger.info(this.TAG, 'handle query type');
+          this.mapAnimationService.stop();
+          for (let id of this.sourceLayerIds) {
+              this.map.removeLayer(id);
+          }
+        }
     }
   }
 </script>
