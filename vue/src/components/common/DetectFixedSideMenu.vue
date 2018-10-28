@@ -16,14 +16,14 @@
                         {{op.label}}
                     </Option>
                 </Select>
-                <Tooltip title="起始年份">
+                <Tooltip content="起始年份">
                 <DatePicker
                         type="year"
                         :placeholder="startDate"
                         v-model="startYear"
                         style="padding-left:20px;padding-right:20px;"></DatePicker>
                 </Tooltip>
-                <Tooltip title="终止年份">
+                <Tooltip content="终止年份">
                 <DatePicker
                         type="year"
                         :placeholder="endDate"
@@ -124,6 +124,12 @@
         }
       ];
     },
+      watch: {
+          queryType(newV) {
+              Logger.info(TAG, 'queryType change', newV);
+              this.$emit('on-query-type-change');
+          }
+      },
     methods:{
       listenToMyBoy(year, place) {
         console.log(year + ' ' + place);
